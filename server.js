@@ -49,7 +49,7 @@ client.on('message', (channel, tags, message, self) => {
 	
     if (command === 'join'){
 	//UserList(numOfPeopleInList++) = tags.username;
-	    UserList.push(0);
+	    UserList.push(5);
 	client.say(channel, command);
 	    numOfPeopleInList++;
 	    
@@ -61,7 +61,7 @@ client.on('message', (channel, tags, message, self) => {
 		
 		str = UserList(0);
             client.say(channel, 'The queue is NOT empty.');
-		client.say(channel, str);
+		//client.say(channel, str);
         }
     }
 });
