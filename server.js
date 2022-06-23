@@ -44,9 +44,10 @@ client.on('message', (channel, tags, message, self) => {
         client.say(channel, response);
     }
     
-	client.say(channel, command);
-    /*if (command = 'join'){
+	
+    if (command = join){
 	UserList(numOfPeopleInList++) = tags.username;
+	    client.say(channel, command);
 	    
     } elsif (command = 'queue'){
 	if (numOfPeopleInList = 0){
@@ -55,5 +56,5 @@ client.on('message', (channel, tags, message, self) => {
 	{
 		client.say(channel, 'The queue is NOT empty.');	
 	}
-    }*/
+    }
 });
