@@ -4,7 +4,7 @@ const tmi = require('tmi.js');
 
 const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?(.*)?/);
 const UserList = {};
-const numOfPeopleInList = 0;
+var numOfPeopleInList = 0;
 
 const commands = {
     queue : {
