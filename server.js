@@ -3,13 +3,15 @@ require('dotenv').config();
 const tmi = require('tmi.js');
 
 const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?(.*)?/);
+const UserList = {};
+const numOfPeopleInList = 0;
 
 const commands = {
     queue : {
-        response: 'The queue is empty. And this is a test'
+        response: 'The queue is empty.'
     },
     join : {
-        response: (user) => `User ${user} joined the queue!`
+        response: (user) => `${user} joined the queue!`
     }
 
 }
@@ -36,9 +38,21 @@ client.on('message', (channel, tags, message, self) => {
 
     const {response} = commands[command] || {};
 
-    if (typeof response === 'function') {
+    */if (typeof response === 'function') {
         client.say(channel, response(tags.username));
     } else if (typeof response === 'string') {
         client.say(channel, response);
+    }*/
+    
+    if (command = 'join'){
+	UserList(numOfPeopleInList++) = tags.username;
+	    
+    } elsif (command = 'queue'){
+	if (numOfPeopleInList = 0){
+		client.say(channel, 'The queue is empty.');		
+	}else
+	{
+		client.say(channel, 'The queue is NOT empty.');	
+	}
     }
 });
