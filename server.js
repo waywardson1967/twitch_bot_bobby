@@ -6,7 +6,7 @@ const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?(.*)?/);
 let UserList = [];
 var numOfPeopleInList = 0;
 
-const str;
+//const str;
 
 const commands = {
     queue : {
@@ -59,7 +59,7 @@ client.on('message', (channel, tags, message, self) => {
         }else
         {
 		
-		str = UserList.toString();
+	    const str = UserList.toString();
             client.say(channel, 'The queue is NOT empty.');
 		//client.say(channel, str);
         }
