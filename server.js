@@ -38,13 +38,13 @@ client.on('message', (channel, tags, message, self) => {
 
     const {response} = commands[command] || {};
 
-    /*if (typeof response === 'function') {
+    if (typeof response === 'function') {
         client.say(channel, response(tags.username));
     } else if (typeof response === 'string') {
         client.say(channel, response);
-    }*/
+    }
     
-    if (command = 'join'){
+    /*if (command = 'join'){
 	UserList(numOfPeopleInList++) = tags.username;
 	    
     } elsif (command = 'queue'){
@@ -54,5 +54,5 @@ client.on('message', (channel, tags, message, self) => {
 	{
 		client.say(channel, 'The queue is NOT empty.');	
 	}
-    }
+    }*/
 });
