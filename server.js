@@ -49,7 +49,7 @@ client.on('message', (channel, tags, message, self) => {
 	UserList(numOfPeopleInList++) = tags.username;
 	    client.say(channel, command);
 	    
-    } elsif (command = 'queue'){
+    } elsif (command = "queue"){
 	if (numOfPeopleInList = 0){
 		client.say(channel, 'The queue is empty.');		
 	}else
