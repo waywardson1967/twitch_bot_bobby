@@ -61,7 +61,7 @@ client.on('message', (channel, tags, message, self) => {
 		
 	    str = UserList.toString();
             client.say(channel, 'The queue is NOT empty.');
-		//client.say(channel, str);
+		client.say(channel, str);
         }
     }
 });
