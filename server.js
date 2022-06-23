@@ -48,6 +48,7 @@ client.on('message', (channel, tags, message, self) => {
     if (command === 'join'){
 	//UserList(numOfPeopleInList++) = tags.username;
 	client.say(channel, command);
+	    numOfPeopleInList++;
 	    
     } else if (command === 'queue'){
         if (numOfPeopleInList === 0){
