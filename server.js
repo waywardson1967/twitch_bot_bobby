@@ -7,6 +7,7 @@ let UserList = [];
 var numOfPeopleInList = 0;
 
 var str;
+const te = "testing this";
 
 const commands = {
     queue : {
@@ -62,6 +63,7 @@ client.on('message', (channel, tags, message, self) => {
 	    str = UserList.toString();
             client.say(channel, 'The queue is NOT empty.');
 		client.say(channel, str);
+		client.say(channel, te);
         }
     }
 });
