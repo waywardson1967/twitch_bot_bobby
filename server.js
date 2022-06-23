@@ -49,7 +49,7 @@ client.on('message', (channel, tags, message, self) => {
 	
     if (command === 'join'){
 	//UserList(numOfPeopleInList++) = tags.username;
-	    UserList.push(5);
+	    UserList.push("test");
 	client.say(channel, command);
 	    numOfPeopleInList++;
 	    
