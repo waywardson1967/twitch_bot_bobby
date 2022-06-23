@@ -56,7 +56,10 @@ client.on('message', (channel, tags, message, self) => {
             client.say(channel, 'The queue is empty.');		
         }else
         {
-            client.say(channel, 'The queue is NOT empty.');	
+		const str;
+		str = UserList(0);
+            client.say(channel, 'The queue is NOT empty.');
+		client.say(channel, str);
         }
     }
 });
