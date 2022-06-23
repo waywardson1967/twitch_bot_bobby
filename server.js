@@ -3,7 +3,7 @@ require('dotenv').config();
 const tmi = require('tmi.js');
 
 const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?(.*)?/);
-const UserList = [];
+let UserList = [];
 var numOfPeopleInList = 0;
 
 const commands = {
