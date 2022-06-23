@@ -44,6 +44,7 @@ client.on('message', (channel, tags, message, self) => {
         client.say(channel, response);
     }
     
+	client.say(channel, command);
     /*if (command = 'join'){
 	UserList(numOfPeopleInList++) = tags.username;
 	    
