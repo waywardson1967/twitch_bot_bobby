@@ -6,18 +6,8 @@ const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?(.*)?/);
 let UserList = [];
 var numOfPeopleInList = 0;
 
+let queueViewMsg = "The queue : ";
 var str;
-const te = "testing this";
-
-const commands = {
-    queue : {
-        response: 'The queue is empty.'
-    },
-    join : {
-        response: (user) => `${user} joined the queue!`
-    }
-
-}
 
 const client = new tmi.Client({
 	options: { debug: true },
@@ -37,16 +27,7 @@ client.on('message', (channel, tags, message, self) => {
     if (!isNotBot) return;
     
     const [raw, command, argument] = message.match(regexpCommand);
-    
-
-    const {response} = commands[command] || {};
-
-    if (typeof response === 'function') {
-        client.say(channel, response(tags.username));
-    } else if (typeof response === 'string') {
-        client.say(channel, response);
-    }
-    
+        
 	
     if (command === 'join'){
 	//UserList(numOfPeopleInList++) = tags.username;
@@ -59,11 +40,9 @@ client.on('message', (channel, tags, message, self) => {
             client.say(channel, 'The queue is empty.');		
         }else
         {
-		
-	    str = UserList.toString();
+	    str = queueViewMsg.concat(UserList.toString());
             client.say(channel, 'The queue is NOT empty.');
 		client.say(channel, str);
-		client.say(channel, te);
         }
     }
 });
