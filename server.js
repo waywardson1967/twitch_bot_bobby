@@ -6,7 +6,7 @@ const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?(.*)?/);
 let UserList = [];
 var numOfPeopleInList = 0;
 
-const str;
+var str;
 
 const commands = {
     queue : {
