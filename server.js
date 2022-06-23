@@ -3,7 +3,7 @@ require('dotenv').config();
 const tmi = require('tmi.js');
 
 const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?(.*)?/);
-const UserList = {};
+const UserList = [];
 var numOfPeopleInList = 0;
 
 const commands = {
@@ -47,7 +47,7 @@ client.on('message', (channel, tags, message, self) => {
 	
     if (command === 'join'){
 	//UserList(numOfPeopleInList++) = tags.username;
-	    UserList.push('0');
+	    UserList.push(0);
 	client.say(channel, command);
 	    numOfPeopleInList++;
 	    
