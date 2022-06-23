@@ -6,7 +6,7 @@ const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?(.*)?/);
 
 const commands = {
     queue : {
-        response: 'The queue is empty.'
+        response: 'The queue is empty. And this is a test'
     },
     join : {
         response: (user) => `User ${user} joined the queue!`
