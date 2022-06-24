@@ -40,7 +40,10 @@ client.on('message', (channel, tags, message, self) => {
         if (numOfPeopleInList === 0){
             client.say(channel, 'The queue is empty.');		
         }else
-        {
+        {	user = UserList[0].concat(", ");
+		for (let i = 1; i < UserList.length; i++){
+			user = user.concat(UserList[i], ", ");	
+		}
 		user = UserList[0];
 	    	str = queueViewMsg.concat(user.toString());
             	client.say(channel, 'The queue is NOT empty.');
