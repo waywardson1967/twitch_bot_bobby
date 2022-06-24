@@ -4,7 +4,6 @@ const tmi = require('tmi.js');
 
 const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?(.*)?/);
 let UserList = [];
-var numOfPeopleInList = 0;
 
 let queueViewMsg = "The queue : ";
 var str;
@@ -44,7 +43,7 @@ client.on('message', (channel, tags, message, self) => {
 	    numOfPeopleInList++;
 	    
     } else if (command === 'queue' || command === 'q' || command === 'list'){
-        if (numOfPeopleInList === 0){
+        if (UserList.length === 0){
             client.say(channel, 'The queue is empty.');		
         }else
         {	user = UserList[0];
