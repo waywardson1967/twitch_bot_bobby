@@ -9,6 +9,7 @@ var numOfPeopleInList = 0;
 let queueViewMsg = "The queue : ";
 var str;
 let user;
+let inQueue = 0;
 
 const client = new tmi.Client({
 	options: { debug: true },
@@ -32,10 +33,19 @@ client.on('message', (channel, tags, message, self) => {
 	
     if (command === 'join'){
 	    user = tags.username.toString();
-	    UserList.push(user.replace(/[^a-zA-Z0-9 ]/g, ''));
-	    client.say(channel, `${tags.username} joined the queue!`);
-	    numOfPeopleInList++;
-	    
+	    inQueue = 0;
+	    for (i = 0; i < UserList.length; i++){
+		if (UserList[i] = user.replace(/[^a-zA-Z0-9 ]/g, ''){
+		    inQueue = 1;
+		}
+	    }
+	    if (inQueue = 1) {
+		    client.say(channel, `${tags.username} is already in the queue!`);
+	    }else{
+	    	UserList.push(user.replace(/[^a-zA-Z0-9 ]/g, ''));
+	    	client.say(channel, `${tags.username} joined the queue!`);
+	    	numOfPeopleInList++;
+	    }
     } else if (command === 'queue'){
         if (numOfPeopleInList === 0){
             client.say(channel, 'The queue is empty.');		
