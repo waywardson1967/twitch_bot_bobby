@@ -35,9 +35,9 @@ client.on('message', (channel, tags, message, self) => {
 	    user = tags.username.toString();
 	    inQueue = 0;
 	    for (let i = 0; i < UserList.length; i++){
-		if (UserList[i] = user.replace(/[^a-zA-Z0-9 ]/g, ''){
-		    inQueue = 1;
-		}
+			if (UserList[i] = user.replace(/[^a-zA-Z0-9 ]/g, ''){
+		    		inQueue = 1;
+			}
 	    }
 	    if (inQueue = 1) {
 		    client.say(channel, `${tags.username} is already in the queue!`);
