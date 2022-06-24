@@ -40,7 +40,6 @@ client.on('message', (channel, tags, message, self) => {
 	    
 	    UserList.push(user.replace(/[^a-zA-Z0-9 ]/g, ''));
 	    client.say(channel, `${tags.username} joined the queue!`);
-	    numOfPeopleInList++;
 	    
     } else if (command === 'queue' || command === 'q' || command === 'list'){
         if (UserList.length === 0){
