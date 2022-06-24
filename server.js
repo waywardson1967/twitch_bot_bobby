@@ -31,9 +31,9 @@ client.on('message', (channel, tags, message, self) => {
         
 	
     if (command === 'join'){
-	user = tags.username;
+	    user = tags.username;
 	    UserList.push(user.toString());
-	client.say(channel, `${tags.username} joined the queue!`);
+	    client.say(channel, `${tags.username} joined the queue!`);
 	    numOfPeopleInList++;
 	    
     } else if (command === 'queue'){
@@ -42,8 +42,8 @@ client.on('message', (channel, tags, message, self) => {
         }else
         {
 		user = UserList[0];
-	    str = queueViewMsg.concat(user.toString());
-            client.say(channel, 'The queue is NOT empty.');
+	    	str = queueViewMsg.concat(user.toString());
+            	client.say(channel, 'The queue is NOT empty.');
 		client.say(channel, str);
         }
     }
