@@ -41,7 +41,7 @@ client.on('message', (channel, tags, message, self) => {
             client.say(channel, 'The queue is empty.');		
         }else
         {
-		user = UserList(0);
+		user = UserList[0];
 	    str = queueViewMsg.concat(user.toString());
             client.say(channel, 'The queue is NOT empty.');
 		client.say(channel, str);
