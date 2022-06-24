@@ -33,7 +33,7 @@ client.on('message', (channel, tags, message, self) => {
 	    user = tags.username.toString();
 	    for (let i = 0; i < UserList.length; i++){
 			if (UserList[i] === user.replace(/[^a-zA-Z0-9 ]/g, '')){
-		    		client.say(channel, `${tags.username} is already in the queue!`);
+		    	client.say(channel, `${tags.username} is already in the queue!`);
 				return;
 			}
 	    }
@@ -45,13 +45,13 @@ client.on('message', (channel, tags, message, self) => {
         if (UserList.length === 0){
             client.say(channel, 'The queue is empty.');		
         }else
-        {	user = UserList[0];
-		for (let i = 1; i < UserList.length; i++){
-			user = user.concat(", ", UserList[i]);	
-		}
-		//user = UserList[0];
+        {
+			user = UserList[0];
+			for (let i = 1; i < UserList.length; i++){
+				user = user.concat(", ", UserList[i]);	
+			}
 	    	str = queueViewMsg.concat(user.toString());
-		client.say(channel, str);
+			client.say(channel, str);
         }
     } else if (command === 'leave'){
 		user = tags.username.toString();
@@ -62,6 +62,6 @@ client.on('message', (channel, tags, message, self) => {
 				return;
 			}
 		}
-	    	client.say(channel, `${tags.username} - This dumbass thinks they are in the queue. LOL idiot.`);
+	    client.say(channel, `${tags.username} - This dumbass thinks they are in the queue. LOL idiot.`);
     }
 });
