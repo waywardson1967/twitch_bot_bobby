@@ -8,6 +8,7 @@ var numOfPeopleInList = 0;
 
 let queueViewMsg = "The queue : ";
 var str;
+let user;
 
 const client = new tmi.Client({
 	options: { debug: true },
@@ -40,7 +41,7 @@ client.on('message', (channel, tags, message, self) => {
             client.say(channel, 'The queue is empty.');		
         }else
         {
-		let user = UserList(0).toString();
+		user = UserList(0).toString();
 	    str = queueViewMsg.concat(user);
             client.say(channel, 'The queue is NOT empty.');
 		client.say(channel, str);
