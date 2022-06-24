@@ -34,7 +34,7 @@ client.on('message', (channel, tags, message, self) => {
     if (command === 'join'){
 	    user = tags.username.toString();
 	    inQueue = 0;
-	    for (i = 0; i < UserList.length; i++){
+	    for (let i = 0; i < UserList.length; i++){
 		if (UserList[i] = user.replace(/[^a-zA-Z0-9 ]/g, ''){
 		    inQueue = 1;
 		}
