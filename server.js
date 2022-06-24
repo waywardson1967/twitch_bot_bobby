@@ -34,7 +34,7 @@ client.on('message', (channel, tags, message, self) => {
 	    user = tags.username.toString();
 	    for (let i = 0; i < UserList.length; i++){
 			if (UserList[i] === user.replace(/[^a-zA-Z0-9 ]/g, '')){
-		    	client.say(channel, `${tags.username} is already in the queue!`);
+		    		client.say(channel, `${tags.username} is already in the queue!`);
 				return;
 			}
 	    }
@@ -55,5 +55,14 @@ client.on('message', (channel, tags, message, self) => {
 	    	str = queueViewMsg.concat(user.toString());
 		client.say(channel, str);
         }
+    } else if (command === 'leave'){
+		user = tags.username.toString();
+		for(let i = 0; i < UserList.length; i++){
+			if (UserList[i] === user.replace(/[^a-zA-Z0-9 ]/g, '')){
+				UserList.splice(i,i);
+				client.say(channel, `${tags.username} has been removed from the queue!`);
+				return;
+			}
+		}
     }
 });
