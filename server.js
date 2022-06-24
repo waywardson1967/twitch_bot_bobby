@@ -43,7 +43,7 @@ client.on('message', (channel, tags, message, self) => {
 	    client.say(channel, `${tags.username} joined the queue!`);
 	    numOfPeopleInList++;
 	    
-    } else if (command === 'queue'){
+    } else if (command === 'queue' || command === 'q' || command === 'list'){
         if (numOfPeopleInList === 0){
             client.say(channel, 'The queue is empty.');		
         }else
