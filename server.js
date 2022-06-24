@@ -59,7 +59,7 @@ client.on('message', (channel, tags, message, self) => {
 		user = tags.username.toString();
 		for(let i = 0; i < UserList.length; i++){
 			if (UserList[i] === user.replace(/[^a-zA-Z0-9 ]/g, '')){
-				UserList.splice(i,i);
+				UserList.splice(i,1);
 				client.say(channel, `${tags.username} has been removed from the queue!`);
 				return;
 			}
