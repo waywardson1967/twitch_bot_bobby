@@ -64,5 +64,6 @@ client.on('message', (channel, tags, message, self) => {
 				return;
 			}
 		}
+	    	client.say(channel, `${tags.username} - This dumbass thinks they are in the queue. LOL idiot.`);
     }
 });
