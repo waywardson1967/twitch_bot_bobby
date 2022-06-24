@@ -31,7 +31,7 @@ client.on('message', (channel, tags, message, self) => {
 	
     if (command === 'join'){
 	//UserList(numOfPeopleInList++) = tags.username;
-	    UserList.push(tags.username);
+	    UserList.push(tags.display-name);
 	client.say(channel, `${tags.username} joined the queue!`);
 	    numOfPeopleInList++;
 	    
