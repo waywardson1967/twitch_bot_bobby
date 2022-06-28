@@ -38,12 +38,6 @@ client.on('message', (channel, tags, message, self) => {
     
     const [raw, command, argument] = message.match(regexpCommand);
     
-	if (!tags.subscriber){
-		client.say(channel, `${tags.username} is not subbed!`);
-	}else
-	{
-		client.say(channel, `${tags.username} is subbed!`);
-	}
     if (command === 'join'){
 	    user = tags.username.toString();
 	    for (let i = 0; i < UserList.length; i++){
@@ -57,6 +51,18 @@ client.on('message', (channel, tags, message, self) => {
 	    if (firstInQueueFlag = 0){
 		player.points = 2;
 		    player.position = 1;
+		    firstInQueueFlag = 1;
+	    }else if (secondInQueueFlag = 0){
+		    player.points = 1;
+		    player.position = 2;
+		    secondInQueueFlag = 1;
+	    }else
+	    {
+		player.points = 0;
+		    player.position = 3;    
+	    }
+	    if (tags.subscriber){
+		player.points = player.points + 1;
 	    }
 	    
 	    UserList.push(player);
