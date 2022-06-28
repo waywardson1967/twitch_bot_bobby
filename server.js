@@ -48,11 +48,11 @@ client.on('message', (channel, tags, message, self) => {
 	    }
 	    player.username = tags.username.toString();
 	    
-	    if (firstInQueueFlag = 0){
+	    if (firstInQueueFlag === 0){
 			player.points = 2;
 		    player.position = 1;
 		    firstInQueueFlag = 1;
-	    }else if (secondInQueueFlag = 0){
+	    }else if (secondInQueueFlag === 0){
 		    player.points = 1;
 		    player.position = 2;
 		    secondInQueueFlag = 1;
