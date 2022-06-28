@@ -47,13 +47,19 @@ client.on('message', (channel, tags, message, self) => {
     if (command === 'join'){
 	    user = tags.username.toString();
 	    for (let i = 0; i < UserList.length; i++){
-			if (UserList[i] === user){
+			if (UserList[i].username === user){
 		    	client.say(channel, `${tags.username} is already in the queue!`);
 				return;
 			}
 	    }
+	    player.username = tags.username.toString();
 	    
-	    UserList.push(user);
+	    if (firstInQueueFlag = 0){
+		player.points = 2;
+		    player.position = 1;
+	    }
+	    
+	    UserList.push(player);
 	    client.say(channel, `${tags.username} joined the queue!`);
 	    
     } else if (command === 'queue' || command === 'q' || command === 'list'){
@@ -61,7 +67,7 @@ client.on('message', (channel, tags, message, self) => {
             client.say(channel, 'The queue is empty.');		
         }else
         {
-			user = UserList[0];
+			user = UserList[0].username;
 			for (let i = 1; i < UserList.length; i++){
 				user = user.concat(", ", UserList[i]);	
 			}
@@ -71,7 +77,7 @@ client.on('message', (channel, tags, message, self) => {
     } else if (command === 'leave'){
 		user = tags.username.toString();
 		for(let i = 0; i < UserList.length; i++){
-			if (UserList[i] === user.replace(/[^a-zA-Z0-9 ]/g, '')){
+			if (UserList[i].username === user.replace(/[^a-zA-Z0-9 ]/g, '')){
 				UserList.splice(i,1);
 				client.say(channel, `${tags.username} has been removed from the queue!`);
 				return;
