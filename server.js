@@ -94,7 +94,7 @@ client.on('message', (channel, tags, message, self) => {
 		user = tags.username.toString();
 		for(let i = 0; i < UserList.length; i++){
 			if (UserList[i].username === user){
-				client.say(channel, `${tags.username} your point allocation is : ${UserList[i].points}`);
+				//client.say(channel, `${tags.username} your point allocation is : ${UserList[i].points}`);
 				return;
 			}
 		}
