@@ -44,9 +44,6 @@ client.on('message', (channel, tags, message, self) => {
 	{
 		client.say(channel, `${tags.username} is subbed!`);
 	}
-	//te = tags['badges'];
-	//client.say(channel, "test 4");
-	//client.say(channel, te.toString());
     if (command === 'join'){
 	    user = tags.username.toString();
 	    for (let i = 0; i < UserList.length; i++){
@@ -56,7 +53,7 @@ client.on('message', (channel, tags, message, self) => {
 			}
 	    }
 	    
-	    UserList.push(user.replace(/[^a-zA-Z0-9 ]/g, ''));
+	    UserList.push(user);
 	    client.say(channel, `${tags.username} joined the queue!`);
 	    
     } else if (command === 'queue' || command === 'q' || command === 'list'){
