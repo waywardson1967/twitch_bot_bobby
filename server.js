@@ -49,7 +49,7 @@ client.on('message', (channel, tags, message, self) => {
 	    player.username = tags.username.toString();
 	    
 	    if (firstInQueueFlag = 0){
-		player.points = 2;
+			player.points = 2;
 		    player.position = 1;
 		    firstInQueueFlag = 1;
 	    }else if (secondInQueueFlag = 0){
@@ -62,7 +62,7 @@ client.on('message', (channel, tags, message, self) => {
 		    player.position = 3;    
 	    }
 	    if (tags.subscriber){
-		player.points = player.points + 1;
+			player.points = player.points + 1;
 	    }
 	    
 	    UserList.push(player);
@@ -83,12 +83,21 @@ client.on('message', (channel, tags, message, self) => {
     } else if (command === 'leave'){
 		user = tags.username.toString();
 		for(let i = 0; i < UserList.length; i++){
-			if (UserList[i].username === user.replace(/[^a-zA-Z0-9 ]/g, '')){
+			if (UserList[i].username === user){
 				UserList.splice(i,1);
 				client.say(channel, `${tags.username} has been removed from the queue!`);
 				return;
 			}
 		}
 	    client.say(channel, `${tags.username} - This dumbass thinks they are in the queue. LOL idiot.`);
-    }
+    } else if (command === 'points'){
+		user = tags.username.toString();
+		for(let i = 0; i < UserList.length; i++){
+			if (UserList[i].username === user){
+				client.say(channel, `${tags.username} your point allocation is : ${UserList[i].points}`);
+				return;
+			}
+		}
+		client.say(channel, `umm ${tags.username} you aren't in queue... awks...`);
+	}
 });
