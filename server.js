@@ -37,7 +37,7 @@ client.on('message', (channel, tags, message, self) => {
     
     const [raw, command, argument] = message.match(regexpCommand);
     
-	if (tags.subscriber = false){
+	if (!tags.subscriber){
 		client.say(channel, `${tags.username} is not subbed!`);
 	}else
 	{
