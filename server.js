@@ -3,11 +3,20 @@ require('dotenv').config();
 const tmi = require('tmi.js');
 
 const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?(.*)?/);
-let UserList = [];
+const UserList = [];
 
 let queueViewMsg = "The queue : ";
 var str;
 let user;
+
+let firstInQueueFlag = 0;
+let secondInQueueFlag = 0;
+
+const player = {
+	username : "waywardson__",
+	points : "0",
+	position : "1"
+};
 
 const client = new tmi.Client({
 	options: { debug: true },
