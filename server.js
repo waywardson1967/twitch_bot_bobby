@@ -44,7 +44,7 @@ client.on('message', (channel, tags, message, self) => {
 	client.say(channel, "got here 5");
 	
 	
-	modBadge = tags.badges.hasOwnProperty('subscriber');
+	modBadge = tags.badges.subscriber;
 	client.say(channel, modBadge.toString());
     
     if (command === 'join'){
