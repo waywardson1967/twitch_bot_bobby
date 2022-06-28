@@ -44,7 +44,7 @@ client.on('message', (channel, tags, message, self) => {
 	{
 		client.say(channel, `${tags.username} is subbed!`);
 	}
-	te = tags['dispaly-name'];
+	te = tags['display-name'];
 	client.say(channel, "test 3");
 	client.say(channel, te);
     if (command === 'join'){
