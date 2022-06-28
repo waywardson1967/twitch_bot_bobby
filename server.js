@@ -11,6 +11,7 @@ let user;
 
 let firstInQueueFlag = 0;
 let secondInQueueFlag = 0;
+let te = "This is a test";
 
 const player = {
 	username : "waywardson__",
@@ -43,7 +44,7 @@ client.on('message', (channel, tags, message, self) => {
 	{
 		client.say(channel, `${tags.username} is subbed!`);
 	}
-	//client.say(channel, `${tags.['display-name']} is here!`);
+	client.say(channel, "test 1");
     if (command === 'join'){
 	    user = tags.username.toString();
 	    for (let i = 0; i < UserList.length; i++){
