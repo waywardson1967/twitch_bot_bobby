@@ -13,6 +13,8 @@ let firstInQueueFlag = 0;
 let secondInQueueFlag = 0;
 let te;
 
+let arrayBadge;
+
 const player = {
 	username : "waywardson__",
 	points : "0",
@@ -37,8 +39,17 @@ client.on('message', (channel, tags, message, self) => {
     if (!isNotBot) return;
     
     const [raw, command, argument] = message.match(regexpCommand);
-	client.say(channel, "got here 4");
-	te = tags.badges[0];
+	client.say(channel, "got here 5");
+	arrayBadges = tags.badges.filter(function(obj){
+		if('moderator'in obj){
+			te = "is moderator";
+			return true;
+		}else{
+			return false;	
+		}
+	}).map(function(obj){return obj['moderator']; });
+	
+	//te = tags.badges[0];
 	client.say(channel, te.toString());
     
     if (command === 'join'){
