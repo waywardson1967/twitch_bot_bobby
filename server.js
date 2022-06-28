@@ -37,7 +37,7 @@ client.on('message', (channel, tags, message, self) => {
     if (!isNotBot) return;
     
     const [raw, command, argument] = message.match(regexpCommand);
-	client.say(channel, "got here 3");
+	client.say(channel, "got here 4");
 	te = tags.badges.vip;
 	client.say(channel, te.toString());
     
