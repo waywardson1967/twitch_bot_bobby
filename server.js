@@ -67,6 +67,9 @@ client.on('message', (channel, tags, message, self) => {
 	    if (tags.subscriber){
 			player.points = player.points + 1;
 	    }
+	    if (tags.badges.moderator === 1){
+			player.points = player.points + 1;
+	    }
 	    
 	    UserList.push(player);
 	    client.say(channel, `${tags.username} joined the queue!`);
