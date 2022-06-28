@@ -37,6 +37,9 @@ client.on('message', (channel, tags, message, self) => {
     if (!isNotBot) return;
     
     const [raw, command, argument] = message.match(regexpCommand);
+	
+	te = tags.badges[0];
+	client.say(channel, te);
     
     if (command === 'join'){
 	    user = tags.username.toString();
