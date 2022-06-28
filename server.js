@@ -67,7 +67,7 @@ client.on('message', (channel, tags, message, self) => {
 	    if (tags.subscriber){
 			player.points = player.points + 1;
 	    }
-	    if (tags.badges.moderator === 1){
+	    if (tags.badges.moderator === "1"){
 			player.points = player.points + 1;
 	    }
 	    
