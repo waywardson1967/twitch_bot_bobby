@@ -13,7 +13,9 @@ let firstInQueueFlag = 0;
 let secondInQueueFlag = 0;
 let te;
 
-let arrayBadge;
+let modBadge;
+let vipBadge;
+let subBadge;
 
 const player = {
 	username : "waywardson__",
@@ -40,17 +42,10 @@ client.on('message', (channel, tags, message, self) => {
     
     const [raw, command, argument] = message.match(regexpCommand);
 	client.say(channel, "got here 5");
-	arrayBadges = tags.badges.filter(function(obj){
-		if('moderator'in obj){
-			te = "is moderator";
-			return true;
-		}else{
-			return false;	
-		}
-	}).map(function(obj){return obj['moderator']; });
 	
-	//te = tags.badges[0];
-	client.say(channel, te.toString());
+	
+	modBadge = tags.badges.hasOwnProperty('moderator');
+	client.say(channel, modBadge.toString());
     
     if (command === 'join'){
 	    user = tags.username.toString();
