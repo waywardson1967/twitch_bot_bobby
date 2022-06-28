@@ -38,7 +38,7 @@ client.on('message', (channel, tags, message, self) => {
     
     const [raw, command, argument] = message.match(regexpCommand);
 	client.say(channel, "got here 4");
-	te = tags.badges.vip;
+	te = tags.badges[0];
 	client.say(channel, te.toString());
     
     if (command === 'join'){
