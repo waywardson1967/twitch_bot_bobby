@@ -70,10 +70,12 @@ client.on('message', (channel, tags, message, self) => {
 		player.points = 0;
 		    player.position = 3;    
 	    }
-	    if (tags.subscriber){
+	    if (tags.badges.hasOwnProperty('subscriber')){
 			player.points = player.points + 1;
 	    }
-	    if (tags.badges.moderator === "1"){
+	    if (tags.badges.hasOwnProperty('moderator')){
+			player.points = player.points + 1;
+	    }else if (tags.badges.hasOwnProperty('vip')){
 			player.points = player.points + 1;
 	    }
 	    
