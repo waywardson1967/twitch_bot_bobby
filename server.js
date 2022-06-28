@@ -36,7 +36,13 @@ client.on('message', (channel, tags, message, self) => {
     if (!isNotBot) return;
     
     const [raw, command, argument] = message.match(regexpCommand);
-        
+    
+	if (tags.subscriber = false){
+		client.say(channel, `${tags.username} is not subbed!`);
+	}else
+	{
+		client.say(channel, `${tags.username} is subbed!`);
+	}
 	
     if (command === 'join'){
 	    user = tags.username.toString();
