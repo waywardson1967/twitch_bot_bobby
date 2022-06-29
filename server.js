@@ -71,7 +71,7 @@ client.on('message', (channel, tags, message, self) => {
 		    player.position = 3;    
 	    }
 	    if (tags.badges.hasOwnProperty('subscriber')){
-		    if (tags.badges.subscriber = 1){
+		    /*if (tags.badges.subscriber = 1){
 		    	player.points = player.points + 1;
 		    } else if (tags.badges.subscriber = 3){
 		    	player.points = player.points + 1;
@@ -81,7 +81,7 @@ client.on('message', (channel, tags, message, self) => {
 		    	player.points = player.points + 1;
 		    } else if (tags.badges.subscriber = 12){
 		    	player.points = player.points + 1;
-		    }  
+		    }  */
 			
 	    }
 	    if (tags.badges.hasOwnProperty('moderator')){
