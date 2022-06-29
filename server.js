@@ -74,20 +74,20 @@ client.on('message', (channel, tags, message, self) => {
 		    if (tags.badges.subscriber.toString() === "1"){
 		    	player.points = player.points + 1;
 		    } else if (tags.badges.subscriber.toString() === "3"){
-		    	player.points = player.points + 1;
+		    	player.points = player.points + 2;
 		    } else if (tags.badges.subscriber.toString() === "6"){
-		    	player.points = player.points + 1;
+		    	player.points = player.points + 3;
 		    } else if (tags.badges.subscriber.toString() === "9"){
-		    	player.points = player.points + 1;
+		    	player.points = player.points + 4;
 		    } else if (tags.badges.subscriber.toString() === "12"){
-		    	player.points = player.points + 1;
+		    	player.points = player.points + 5;
 		    }  
 			
 	    }
 	    if (tags.badges.hasOwnProperty('moderator')){
-			player.points = player.points + 1;
+			player.points = player.points + 3;
 	    }else if (tags.badges.hasOwnProperty('vip')){
-			player.points = player.points + 1;
+			player.points = player.points + 2;
 	    }
 	    
 	    UserList.push(player);
