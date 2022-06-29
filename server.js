@@ -103,7 +103,7 @@ client.on('message', (channel, tags, message, self) => {
         {
 			user = UserList[0].username;
 			for (let i = 1; i < UserList.length; i++){
-				user = user.concat(", ", UserList[i]);	
+				user = user.concat(", ", UserList[i].username);	
 			}
 	    	str = queueViewMsg.concat(user.toString());
 			client.say(channel, str);
