@@ -40,12 +40,12 @@ client.on('message', (channel, tags, message, self) => {
 
     if (command === 'join'){
 	    user = tags.username.toString();
-	    for (let i = 0; i < UserList.length; i++){
+	    /*for (let i = 0; i < UserList.length; i++){
 			if (UserList[i].username === user){
 		    	client.say(channel, `${tags.username} is already in the queue!`);
 				return;
 			}
-	    }
+	    }*/
 	    player.username = tags.username.toString();
 	    
 	    if (firstInQueueFlag === 0){
