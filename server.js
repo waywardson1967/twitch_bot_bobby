@@ -36,7 +36,7 @@ client.on('message', (channel, tags, message, self) => {
     if (!isNotBot) return;
     client.say(channel, "This is a test");
     const [raw, command, argument] = message.match(regexpCommand);	
-    
+    client.say(channel, "This is a test");
     if (command === 'join'){
 	    user = tags.username.toString();
 	    for (let i = 0; i < UserList.length; i++){
