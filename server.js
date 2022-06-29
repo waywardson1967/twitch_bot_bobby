@@ -36,8 +36,7 @@ client.on('message', (channel, tags, message, self) => {
     const isNotBot = tags.username.toLowerCase() !== process.env.TWITCH_BOT_USERNAME;
     
     if (!isNotBot) return;
-	firstChar = message.charAt(0);
-	client.say(channel, firstChar);
+	if(message.charAt(0) != "!") return;
     client.say(channel, "This is a test");
     const [raw, command, argument] = message.match(regexpCommand);	
     client.say(channel, "This is a test");
