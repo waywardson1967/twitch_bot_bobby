@@ -11,11 +11,6 @@ let user;
 
 let firstInQueueFlag = 0;
 let secondInQueueFlag = 0;
-let te;
-
-let modBadge;
-let vipBadge;
-let subBadge;
 
 const player = {
 	username : "waywardson__",
@@ -40,12 +35,7 @@ client.on('message', (channel, tags, message, self) => {
     
     if (!isNotBot) return;
     
-    const [raw, command, argument] = message.match(regexpCommand);
-	client.say(channel, "got here 5");
-	
-	
-	modBadge = tags.badges.subscriber;
-	client.say(channel, modBadge.toString());
+    const [raw, command, argument] = message.match(regexpCommand);	
     
     if (command === 'join'){
 	    user = tags.username.toString();
