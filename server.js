@@ -83,6 +83,7 @@ client.on('message', (channel, tags, message, self) => {
 	    
 		if(UserList.length < 4){
 			UserList.push(player);
+			 client.say(channel, "push");
 		} else{
 			for (let i = 3; i < UserList.length; i++){
 				if (player.points > UserList[i].points){
