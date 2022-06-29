@@ -28,8 +28,7 @@ client.connect();
 client.on('message', (channel, tags, message, self) => {
 	const player = {
 	username : "waywardson__",
-	points : "0",
-	position : "1"
+	points : "0"
 	};
     const isNotBot = tags.username.toLowerCase() !== process.env.TWITCH_BOT_USERNAME;
     
@@ -50,16 +49,13 @@ client.on('message', (channel, tags, message, self) => {
 	    
 	    if (firstInQueueFlag === 0){
 			player.points = 2;
-		    player.position = 1;
 		    firstInQueueFlag = 1;
 	    }else if (secondInQueueFlag === 0){
 		    player.points = 1;
-		    player.position = 2;
 		    secondInQueueFlag = 1;
 	    }else
 	    {
 			player.points = 0;
-		    player.position = UserList.length + 1;    
 	    }
 	    if (tags.badges.hasOwnProperty('subscriber')){
 		    if (tags.badges.subscriber.toString() === "1"){
@@ -76,18 +72,16 @@ client.on('message', (channel, tags, message, self) => {
 			
 	    }
 	    if (tags.badges.hasOwnProperty('moderator')){
-			player.points = player.points + 10;
+			player.points = player.points + 3;
 	    }else if (tags.badges.hasOwnProperty('vip')){
 			player.points = player.points + 2;
 	    }
 	    
 		if(UserList.length < 4){
 			UserList.push(player);
-			 client.say(channel, "push");
 		} else{
 			for (let i = 3; i < UserList.length; i++){
 				if (player.points > UserList[i].points){
-					player.position = i;
 					UserList.slice(i, 0, player);
 				}	
 			}
@@ -150,7 +144,7 @@ client.on('message', (channel, tags, message, self) => {
 	} else if (command === 'position'){
 		for(let i = 0; i < UserList.length; i++){
 			if (UserList[i].username === user){
-				client.say(channel, `@${tags.username} your position in queue is : ${UserList[i].position}`);
+				client.say(channel, `@${tags.username} your position in queue is : ${i}`);
 				return;
 			}
 		}
