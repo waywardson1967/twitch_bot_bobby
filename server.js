@@ -124,7 +124,7 @@ client.on('message', (channel, tags, message, self) => {
 			}
 		}
 	    client.say(channel, `@${tags.username} - This dumbass thinks they are in the queue. LOL idiot.`);
-    } else if (command === 'points'){
+    } else if (command === 'point'){
 		user = tags.username.toString();
 		for(let i = 0; i < UserList.length; i++){
 			if (UserList[i].username === user){
