@@ -9,8 +9,8 @@ let queueViewMsg = "The queue : ";
 var str;
 let user;
 
-let firstInQueueFlag = 0;
-let secondInQueueFlag = 0;
+let firstInQueueFlag = 1;
+let secondInQueueFlag = 1;
 
 const player = {
 	username : "waywardson__",
@@ -59,7 +59,7 @@ client.on('message', (channel, tags, message, self) => {
 	    }else
 	    {
 			player.points = 0;
-		    player.position = UserList.length;    
+		    player.position = UserList.length + 1;    
 	    }
 	    if (tags.badges.hasOwnProperty('subscriber')){
 		    if (tags.badges.subscriber.toString() === "1"){
