@@ -34,7 +34,7 @@ client.on('message', (channel, tags, message, self) => {
     const isNotBot = tags.username.toLowerCase() !== process.env.TWITCH_BOT_USERNAME;
     
     if (!isNotBot) return;
-    
+    client.say(channel, "This is a test");
     const [raw, command, argument] = message.match(regexpCommand);	
     
     if (command === 'join'){
@@ -83,7 +83,7 @@ client.on('message', (channel, tags, message, self) => {
 	    UserList.push(player);
 	    client.say(channel, `${tags.username} joined the queue!`);
 	    
-    } else if (command === 'queue' || command === 'q' || command === 'list'){ //
+    } else if (command === 'queue' || command === 'q' || command === 'list'){
         if (UserList.length === 0){
             client.say(channel, 'The queue is empty.');		
         }else
