@@ -9,8 +9,8 @@ let queueViewMsg = "The queue : ";
 var str;
 let user;
 
-let firstInQueueFlag = 1;
-let secondInQueueFlag = 1;
+let firstInQueueFlag = 0;
+let secondInQueueFlag = 0;
 
 const player = {
 	username : "waywardson__",
