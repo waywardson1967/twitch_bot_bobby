@@ -12,11 +12,7 @@ let user;
 let firstInQueueFlag = 0;
 let secondInQueueFlag = 0;
 
-const player = {
-	username : "waywardson__",
-	points : "0",
-	position : "1"
-};
+
 
 const client = new tmi.Client({
 	options: { debug: true },
@@ -24,13 +20,17 @@ const client = new tmi.Client({
 		username: process.env.TWITCH_BOT_USERNAME,
 		password: process.env.TWITCH_OAUTH_TOKEN
 	},
-	channels: [ 'bobbysinger__' ]
+	channels: [ 'waywardson__' ]
 });
 
 client.connect();
 
 client.on('message', (channel, tags, message, self) => {
-
+	const player = {
+	username : "waywardson__",
+	points : "0",
+	position : "1"
+	};
     const isNotBot = tags.username.toLowerCase() !== process.env.TWITCH_BOT_USERNAME;
     
     if (!isNotBot) return;
