@@ -12,8 +12,6 @@ let user;
 let firstInQueueFlag = 0;
 let secondInQueueFlag = 0;
 
-let firstChar;
-
 const player = {
 	username : "waywardson__",
 	points : "0",
@@ -37,9 +35,9 @@ client.on('message', (channel, tags, message, self) => {
     
     if (!isNotBot) return;
 	if(message.charAt(0) != "!") return;
-    client.say(channel, "This is a test");
+
     const [raw, command, argument] = message.match(regexpCommand);	
-    client.say(channel, "This is a test");
+
     if (command === 'join'){
 	    user = tags.username.toString();
 	    for (let i = 0; i < UserList.length; i++){
@@ -60,7 +58,7 @@ client.on('message', (channel, tags, message, self) => {
 		    secondInQueueFlag = 1;
 	    }else
 	    {
-		player.points = 0;
+			player.points = 0;
 		    player.position = 3;    
 	    }
 	    if (tags.badges.hasOwnProperty('subscriber')){
@@ -117,5 +115,9 @@ client.on('message', (channel, tags, message, self) => {
 			}
 		}
 		client.say(channel, `umm ${tags.username} you aren't in queue... awks...`);
+	} else if (command === 'clear'){
+		while (UserList.length != 0){
+			UserList.pop();
+		}
 	}
 });
