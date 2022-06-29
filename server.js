@@ -144,7 +144,7 @@ client.on('message', (channel, tags, message, self) => {
 	} else if (command === 'position'){
 		for(let i = 0; i < UserList.length; i++){
 			if (UserList[i].username === user){
-				client.say(channel, `@${tags.username} your position in queue is : ${i}`);
+				client.say(channel, `@${tags.username} your position in queue is : ${i+1}`);
 				return;
 			}
 		}
