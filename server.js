@@ -134,13 +134,18 @@ client.on('message', (channel, tags, message, self) => {
 		}
 		
 		client.say(channel, `umm @${tags.username} you aren't in queue... awks...`);
-	} else if (command === 'clear'){
-		while (UserList.length != 0){
-			UserList.pop();
+	} else if (command === 'clear' ){
+		if (tags.badges.hasOwnProperty('moderator')) {
+			while (UserList.length != 0){
+				UserList.pop();
+			}
+			firstInQueueFlag = 0;
+			secondInQueueFlag = 0;
+			client.say(channel, "Yeah that's right. Fuck this queue.");
+		} else{
+			client.say(channel, "Get yo bitch ass outta here. You ain't a mod.");
 		}
-		firstInQueueFlag = 0;
-		secondInQueueFlag = 0;
-		client.say(channel, "Yeah that's right. Fuck this queue.");
+		
 	} else if (command === 'position'){
 		for(let i = 0; i < UserList.length; i++){
 			if (UserList[i].username === user){
