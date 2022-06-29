@@ -59,7 +59,7 @@ client.on('message', (channel, tags, message, self) => {
 	    }else
 	    {
 			player.points = 0;
-		    player.position = 3;    
+		    player.position = UserList.length;    
 	    }
 	    if (tags.badges.hasOwnProperty('subscriber')){
 		    if (tags.badges.subscriber.toString() === "1"){
@@ -81,7 +81,13 @@ client.on('message', (channel, tags, message, self) => {
 			player.points = player.points + 2;
 	    }
 	    
-	    UserList.push(player);
+		if(UserList.length < 4){
+			UserList.push(player);
+		} else{
+			UserList.push(player);
+		}
+
+	    
 	    client.say(channel, `${tags.username} joined the queue!`);
 	    
     } else if (command === 'queue' || command === 'q' || command === 'list'){
@@ -101,24 +107,35 @@ client.on('message', (channel, tags, message, self) => {
 		for(let i = 0; i < UserList.length; i++){
 			if (UserList[i].username === user){
 				UserList.splice(i,1);
-				client.say(channel, `${tags.username} has been removed from the queue!`);
+				client.say(channel, `${tags.username} has left the queue!`);
 				return;
 			}
 		}
-	    client.say(channel, `${tags.username} - This dumbass thinks they are in the queue. LOL idiot.`);
+	    client.say(channel, `@${tags.username} - This dumbass thinks they are in the queue. LOL idiot.`);
     } else if (command === 'points'){
 		user = tags.username.toString();
 		for(let i = 0; i < UserList.length; i++){
 			if (UserList[i].username === user){
-				client.say(channel, `${tags.username} your point allocation is : ${UserList[i].points}`);
+				client.say(channel, `@${tags.username} your point allocation is : ${UserList[i].points}`);
 				return;
 			}
 		}
-		client.say(channel, `umm ${tags.username} you aren't in queue... awks...`);
+		
+		client.say(channel, `umm @${tags.username} you aren't in queue... awks...`);
 	} else if (command === 'clear'){
 		while (UserList.length != 0){
 			UserList.pop();
 		}
+		firstInQueueFlag = 0;
+		secondInQueueFlag = 0;
 		client.say(channel, "Yeah that's right. Fuck this queue.");
+	} else if (command === 'position'){
+		for(let i = 0; i < UserList.length; i++){
+			if (UserList[i].username === user){
+				client.say(channel, `@${tags.username} your position in queue is : ${UserList[i].position}`);
+				return;
+			}
+		}
+		client.say(channel, `@{tags.username} Homie, you ain't in queue.`);
 	}
 });
