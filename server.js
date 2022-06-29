@@ -108,6 +108,12 @@ client.on('message', (channel, tags, message, self) => {
 			if (UserList[i].username === user){
 				UserList.splice(i,1);
 				client.say(channel, `${tags.username} has left the queue!`);
+				if (UserList.length = 0){
+					firstInQueueFlag = 0;
+					secondInQueueFlag = 0;
+				} else if (UserList.length = 1){
+					secondInQueueFlag = 0;
+				}
 				return;
 			}
 		}
@@ -136,6 +142,6 @@ client.on('message', (channel, tags, message, self) => {
 				return;
 			}
 		}
-		client.say(channel, `@{tags.username} Homie, you ain't in queue.`);
+		client.say(channel, `@${tags.username} Homie, you ain't in queue.`);
 	}
 });
