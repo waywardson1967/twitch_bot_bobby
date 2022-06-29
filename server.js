@@ -82,7 +82,7 @@ client.on('message', (channel, tags, message, self) => {
 		} else{
 			for (let i = 3; i < UserList.length; i++){
 				if (player.points > UserList[i].points){
-					UserList.slice(i, 0, player);
+					UserList.splice(i, 0, player);
 					return;
 				}	
 			}
