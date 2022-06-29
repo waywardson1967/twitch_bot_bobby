@@ -77,12 +77,13 @@ client.on('message', (channel, tags, message, self) => {
 			player.points = player.points + 2;
 	    }
 	    
-		if(UserList.length < 4){
+		if(UserList.length < 5){
 			UserList.push(player);
 		} else{
-			for (let i = 3; i < UserList.length; i++){
+			for (let i = 4; i < UserList.length; i++){
 				if (player.points > UserList[i].points){
 					UserList.splice(i, 0, player);
+					client.say(channel, `${tags.username} joined the queue!`);
 					return;
 				}	
 			}
