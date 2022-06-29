@@ -119,5 +119,6 @@ client.on('message', (channel, tags, message, self) => {
 		while (UserList.length != 0){
 			UserList.pop();
 		}
+		client.say(channel, "Yeah that's right. Fuck this queue.");
 	}
 });
