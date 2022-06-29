@@ -12,6 +12,8 @@ let user;
 let firstInQueueFlag = 0;
 let secondInQueueFlag = 0;
 
+let firstChar;
+
 const player = {
 	username : "waywardson__",
 	points : "0",
@@ -34,6 +36,8 @@ client.on('message', (channel, tags, message, self) => {
     const isNotBot = tags.username.toLowerCase() !== process.env.TWITCH_BOT_USERNAME;
     
     if (!isNotBot) return;
+	firstChar = message.charAt(0);
+	client.say(channel, firstChar);
     client.say(channel, "This is a test");
     const [raw, command, argument] = message.match(regexpCommand);	
     client.say(channel, "This is a test");
