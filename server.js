@@ -164,7 +164,10 @@ client.on('message', (channel, tags, message, self) => {
 		player.username = UserList[0].username;
 		player.points = UserList[0].points;
 
-		UserList.shift();
+		if (UserList.length() != 1){
+			UserList.shift();
+		}
+		
 
 		user = UserList[0].username;
 		for (let i = 1; i < numPlayersLive; i++){
