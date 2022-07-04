@@ -97,7 +97,7 @@ client.on('message', (channel, tags, message, self) => {
 				if (player.points > UserList[i].points){
 					UserList.splice(i, 0, player);
 					estPlayerTime = (i-numPlayersLive) * 20;
-					if (estPlayerTime < 60){
+					if (estPlayerTime< 60){
 						client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerTime} minutes until you're up!`);
 					} else if (estPlayerTime === 60){
 						client.say(channel, `${tags.username} joined the queue! You have about an hour until you're up!`);
@@ -113,7 +113,17 @@ client.on('message', (channel, tags, message, self) => {
 			}
 			UserList.push(player);
 			estPlayerTime = ((UserList.length)-numPlayersLive) * 20;
-			client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerTime} minutes until you're up!`);
+			if (estPlayerTime< 60){
+				client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerTime} minutes until you're up!`);
+			} else if (estPlayerTime === 60){
+				client.say(channel, `${tags.username} joined the queue! You have about an hour until you're up!`);
+			} else if (estPlayerTime > 60){
+				estPlayerHour = (estPlayerTime / 60).toFixed;
+				estPlayerMin = estPlayerTime - (estPlayerHour * 60);
+				client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerHour} hours and ${estPlayerMin} minutes until you're up!`);
+			}else{
+				client.say(channel, `${tags.username} joined the queue! You are in the days wait time FUCKIN RIP, you should probably just leave`);
+			}
 		}
 	    
     } else if (command === 'queue' || command === 'q' || command === 'list'){
