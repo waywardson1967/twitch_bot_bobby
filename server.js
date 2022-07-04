@@ -39,7 +39,7 @@ client.on('message', (channel, tags, message, self) => {
 	};
     const isNotBot = tags.username.toLowerCase() !== process.env.TWITCH_BOT_USERNAME;
     
-    //if (!isNotBot) return;
+    if (!isNotBot) return;
 	if(message.charAt(0) != "!") return;
 
     const [raw, command, argument] = message.match(regexpCommand);	
@@ -181,9 +181,9 @@ client.on('message', (channel, tags, message, self) => {
 				client.say(channel, "Nah, you good to keep playing.");
 				return;
 			}
-			UserList[0].points = UserList[0].points - 1;
-			UserList[1].points = UserList[1].points - 1;
-			UserList[2].points = UserList[2].points - 1;
+			for (let i = 0; i < numPlayersLive; i++){
+				UserList[i].points = UserList[i].points - 1;
+			}
 
 			player.username = UserList[0].username;
 			player.points = UserList[0].points;
@@ -197,17 +197,19 @@ client.on('message', (channel, tags, message, self) => {
 			str = livePlayer.concat(user.toString());
 			client.say(channel, str);
 
-			user = UserList[(numPlayersLive + 1)].username;
-			str = nextPlayer.concat(user.toString());
-			client.say(channel, str);
-
 			for (let i = 4; i < UserList.length; i++){
 				if (player.points > UserList[i].points){
 					UserList.splice(i, 0, player);
+					user = UserList[numPlayersLive].username;
+					str = nextPlayer.concat(user.toString());
+					client.say(channel, str);
 					return;
 				}	
 			}
 			UserList.push(player);
+			user = UserList[numPlayersLive].username;
+			str = nextPlayer.concat(user.toString());
+			client.say(channel, str);
 		}
 	} else if (command === 'customs'){
 		numPlayersLive = 4;
