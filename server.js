@@ -157,6 +157,10 @@ client.on('message', (channel, tags, message, self) => {
 		}
 		client.say(channel, `@${tags.username} Homie, you ain't in queue.`);
 	} else if (command === 'next'){
+		if (UserList.length < 4) {
+			client.say(channel, "Nah, there's only 3 peeps in queue, you good to keep going.");
+			return;
+		}
 		UserList[0].points = UserList[0].points - 1;
 		UserList[1].points = UserList[1].points - 1;
 		UserList[2].points = UserList[2].points - 1;
@@ -164,10 +168,7 @@ client.on('message', (channel, tags, message, self) => {
 		player.username = UserList[0].username;
 		player.points = UserList[0].points;
 
-		if (UserList.length() != 1){
-			UserList.shift();
-		}
-		
+		UserList.shift();		
 
 		user = UserList[0].username;
 		for (let i = 1; i < numPlayersLive; i++){
