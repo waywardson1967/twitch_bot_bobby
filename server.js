@@ -18,6 +18,8 @@ let secondInQueueFlag = 0;
 let numPlayersLive = 3;
 
 let estPlayerTime = 0;
+let estPlayerMin = 0;
+let estPlayerHour = 0;
 
 const client = new tmi.Client({
 	options: { debug: true },
@@ -188,8 +190,8 @@ client.on('message', (channel, tags, message, self) => {
 			client.say(channel, str);
 
 			user = UserList[(numPlayersLive + 1)].username;
-			str.nextPlayer.concat(user.toString());
-			client.say(channel, str);
+			nextPlayer.concat(user.toString());
+			client.say(channel, nextPlayer);
 
 			for (let i = 4; i < UserList.length; i++){
 				if (player.points > UserList[i].points){
