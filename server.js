@@ -158,6 +158,7 @@ client.on('message', (channel, tags, message, self) => {
 		
 	} else if (command === 'position'){
 		for(let i = 0; i < UserList.length; i++){
+			user = tags.username.toString();
 			if (UserList[i].username === user){
 				client.say(channel, `@${tags.username} your position in queue is : ${i+1}`);
 				return;
@@ -200,8 +201,10 @@ client.on('message', (channel, tags, message, self) => {
 		}
 	} else if (command === 'customs'){
 		numPlayersLive = 4;
+		client.say(channel, "Queue now in customs games mode");
 	} else if (command === 'normal'){
 		numPlayersLive = 3;
+		client.say(channel, "Queue now in live games mode");
 	} else if (command === 'est' || command === 'estimate' || command === 'time'){
 		for (let i = 0; i < UserList.length; i++){
 			if (player.username > UserList[i].username){
