@@ -6,13 +6,16 @@ const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?(.*)?/);//
 const UserList = [];
 
 let queueViewMsg = "The queue : ";
+let livePlayer = "Live Players : ";
+let nextPlayer = "You're up next! @";
+
 var str;
 let user;
 
 let firstInQueueFlag = 0;
 let secondInQueueFlag = 0;
 
-
+let numPlayersLive = 0;
 
 const client = new tmi.Client({
 	options: { debug: true },
@@ -87,6 +90,8 @@ client.on('message', (channel, tags, message, self) => {
 					return;
 				}	
 			}
+			UserList.push(player);
+			client.say(channel, `${tags.username} joined the queue!`);
 		}
 
 	    
@@ -137,7 +142,8 @@ client.on('message', (channel, tags, message, self) => {
 			}
 			firstInQueueFlag = 0;
 			secondInQueueFlag = 0;
-			client.say(channel, "Yeah that's right. Fuck this queue.");
+			numPlayersLive = 3;
+			client.say(channel, "Queue reset.");
 		} else{
 			client.say(channel, "Get yo bitch ass outta here. You ain't a mod.");
 		}
@@ -150,5 +156,38 @@ client.on('message', (channel, tags, message, self) => {
 			}
 		}
 		client.say(channel, `@${tags.username} Homie, you ain't in queue.`);
+	} else if (command === 'next'){
+		UserList[0].points = UserList[0].points - 1;
+		UserList[1].points = UserList[1].points - 1;
+		UserList[2].points = UserList[2].points - 1;
+
+		player.username = UserList[0].username;
+		player.points = UserList[0].points;
+
+		UserList.shift();
+
+		user = UserList[0].username;
+		for (let i = 1; i < numPlayersLive; i++){
+			user = user.concat(", ", UserList[i].username);	
+		}
+		str = livePlayer.concat(user.toString());
+		client.say(channel, str);
+
+		user = UserList[(numPlayersLive + 1)].username;
+		str.nextPlayer.concat(user.toString());
+		client.say(channel, str);
+
+		for (let i = 4; i < UserList.length; i++){
+			if (player.points > UserList[i].points){
+				UserList.splice(i, 0, player);
+				return;
+			}	
+		}
+		UserList.push(player);
+
+	} else if (command === 'customs'){
+		numPlayersLive = 4;
+	} else if (command === 'normal'){
+		numPlayersLive = 3;
 	}
 });
