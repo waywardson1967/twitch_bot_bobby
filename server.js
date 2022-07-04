@@ -100,7 +100,7 @@ client.on('message', (channel, tags, message, self) => {
 				}	
 			}*/
 			UserList.push(player);
-			estPlayerTimer = (UserList.length) * 20;
+			//estPlayerTimer = (UserList.length) * 20;
 			client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerTime.toString()} until you're up!`);
 		}
 	    
