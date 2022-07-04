@@ -89,6 +89,7 @@ client.on('message', (channel, tags, message, self) => {
 			UserList.push(player);
 			client.say(channel, `${tags.username} joined the queue and you're up next!`);
 		} else{
+			client.say(channel,"testing");
 			for (let i = 4; i < UserList.length; i++){
 				if (player.username === UserList[i].username){
 					UserList.splice(i, 0, player);
