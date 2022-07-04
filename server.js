@@ -98,7 +98,7 @@ client.on('message', (channel, tags, message, self) => {
 					estPlayerTime = (i-numPlayersLive) * 20;
 					if (estPlayerTime < 60){
 						client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerTime} minutes until you're up!`);
-					} else if (estPlayerTime < 24*60){
+					} else if (estPlayerTime < (24*60)){
 						estPlayerHour = (estPlayerTime / 60).toFixed;
 						estPlayerMin = estPlayerTime - (estPlayerHour * 60);
 						client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerHour} hour(s) and ${estPlayerMin} minutes until you're up!`);
