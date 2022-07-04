@@ -117,10 +117,23 @@ client.on('message', (channel, tags, message, self) => {
 				client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerTime} minutes until you're up!`);
 			} else if (estPlayerTime === 60){
 				client.say(channel, `${tags.username} joined the queue! You have about an hour until you're up!`);
-			} else if (estPlayerTime > 60){
+			} else if (estPlayerTime < 120){
 				estPlayerHour = ~~(estPlayerTime / 60);
 				estPlayerMin = estPlayerTime - (estPlayerHour * 60);
-				client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerHour} hours and ${estPlayerMin} minutes until you're up!`);
+				if (estPlayerMin === 0){
+					client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerHour} hour until you're up!`);
+				}else{
+					client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerHour} hour and ${estPlayerMin} minutes until you're up!`);
+				}
+			}
+			else if (estPlayerTime < (24*60)){
+				estPlayerHour = ~~(estPlayerTime / 60);
+				estPlayerMin = estPlayerTime - (estPlayerHour * 60);
+				if (estPlayerMin === 0){
+					client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerHour} hours until you're up!`);
+				}else{
+					client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerHour} hours and ${estPlayerMin} minutes until you're up!`);
+				}
 			}else{
 				client.say(channel, `${tags.username} joined the queue! You are in the days wait time FUCKIN RIP, you should probably just leave`);
 			}
