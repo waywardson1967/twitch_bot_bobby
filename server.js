@@ -91,8 +91,7 @@ client.on('message', (channel, tags, message, self) => {
 		} else{
 			
 			for (let i = 4; i < UserList.length; i++){
-				client.say(channel,"testing");
-				if (player.username === UserList[i].username){
+				if (player.points > UserList[i].points){
 					UserList.splice(i, 0, player);
 					estPlayerTimer = (i-3) * 20;
 					client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerTime} minutes until you're up!`);
@@ -152,7 +151,7 @@ client.on('message', (channel, tags, message, self) => {
 
 			client.say(channel, "Queue cleared.");
 		}else if (tags.badges.hasOwnProperty('broadcaster')) {
-			client.say(channel, "Get yo bitch ass outta here. You ain't a mod... Oh it's Kevin... Awks.. Okay Queue is cleared.");
+			client.say(channel, "Get yo bitch ass outta here. You ain't a mod... Oh it's Kevin... Awks.. Okay sorry queue is cleared.");
 		} else{
 			client.say(channel, "Get yo bitch ass outta here. You ain't a mod.");
 		}
@@ -166,38 +165,39 @@ client.on('message', (channel, tags, message, self) => {
 		}
 		client.say(channel, `@${tags.username} Homie, you ain't in queue.`);
 	} else if (command === 'next'){
-		if (UserList.length < 4) {
-			client.say(channel, "Nah, there's only 3 peeps in queue, you good to keep playing.");
-			return;
-		}
-		UserList[0].points = UserList[0].points - 1;
-		UserList[1].points = UserList[1].points - 1;
-		UserList[2].points = UserList[2].points - 1;
-
-		player.username = UserList[0].username;
-		player.points = UserList[0].points;
-
-		UserList.shift();		
-
-		user = UserList[0].username;
-		for (let i = 1; i < numPlayersLive; i++){
-			user = user.concat(", ", UserList[i].username);	
-		}
-		str = livePlayer.concat(user.toString());
-		client.say(channel, str);
-
-		user = UserList[(numPlayersLive + 1)].username;
-		str.nextPlayer.concat(user.toString());
-		client.say(channel, str);
-
-		for (let i = 4; i < UserList.length; i++){
-			if (player.points > UserList[i].points){
-				UserList.splice(i, 0, player);
+		if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
+			if (UserList.length < 4) {
+				client.say(channel, "Nah, there's only 3 peeps in queue, you good to keep playing.");
 				return;
-			}	
-		}
-		UserList.push(player);
+			}
+			UserList[0].points = UserList[0].points - 1;
+			UserList[1].points = UserList[1].points - 1;
+			UserList[2].points = UserList[2].points - 1;
 
+			player.username = UserList[0].username;
+			player.points = UserList[0].points;
+
+			UserList.shift();		
+
+			user = UserList[0].username;
+			for (let i = 1; i < numPlayersLive; i++){
+				user = user.concat(", ", UserList[i].username);	
+			}
+			str = livePlayer.concat(user.toString());
+			client.say(channel, str);
+
+			user = UserList[(numPlayersLive + 1)].username;
+			str.nextPlayer.concat(user.toString());
+			client.say(channel, str);
+
+			for (let i = 4; i < UserList.length; i++){
+				if (player.points > UserList[i].points){
+					UserList.splice(i, 0, player);
+					return;
+				}	
+			}
+			UserList.push(player);
+		}
 	} else if (command === 'customs'){
 		numPlayersLive = 4;
 	} else if (command === 'normal'){
