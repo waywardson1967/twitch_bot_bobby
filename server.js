@@ -63,11 +63,12 @@ client.on('message', (channel, tags, message, self) => {
 				player.username = LeftUserList[i].username;
 				player.points = LeftUserList[i].points;
 				JoinedMessage = " rejoined ";
+				LeftUserList.splice(i,1);
 				break;
 			}
 		}
 
-		if (AlreadyJoined = 0){
+		if (AlreadyJoined === 0){
 			JoinedMessage = " joined ";
 			player.username = tags.username.toString();
 	    
