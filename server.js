@@ -97,17 +97,23 @@ client.on('message', (channel, tags, message, self) => {
 		}
 
 	    if (UserList.length < 4){
+			UserList.push(player);
 			client.say(channel, `@${tags.username} joined the queue and you get to play right away! Yay!`);
-		}else if (UserList.length = 4) {
+		}else if (UserList.length < 5) {
+			UserList.push(player);
 			client.say(channel, `${tags.username} joined the queue and you're up next!`);
 		} else{
 			for (let i = 4; i < UserList.length; i++){
 				if (player.username === UserList[i].username){
+					UserList.splice(i, 0, player);
 					estPlayerTimer = i * 20;
 					client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerTime} until you're up!`);
 					return;
 				}	
 			}
+			UserList.push(player);
+			estPlayerTimer = (UserList.length) * 20;
+			client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerTime} until you're up!`);
 		}
 	    
     } else if (command === 'queue' || command === 'q' || command === 'list'){
@@ -171,7 +177,7 @@ client.on('message', (channel, tags, message, self) => {
 		client.say(channel, `@${tags.username} Homie, you ain't in queue.`);
 	} else if (command === 'next'){
 		if (UserList.length < 4) {
-			client.say(channel, "Nah, there's only 3 peeps in queue, you good to keep going.");
+			client.say(channel, "Nah, there's only 3 peeps in queue, you good to keep playing.");
 			return;
 		}
 		UserList[0].points = UserList[0].points - 1;
