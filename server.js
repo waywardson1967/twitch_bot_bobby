@@ -15,7 +15,9 @@ let user;
 let firstInQueueFlag = 0;
 let secondInQueueFlag = 0;
 
-let numPlayersLive = 0;
+let numPlayersLive = 3;
+
+let estPlayerTimer = 0;
 
 const client = new tmi.Client({
 	options: { debug: true },
@@ -94,8 +96,19 @@ client.on('message', (channel, tags, message, self) => {
 			client.say(channel, `${tags.username} joined the queue!`);
 		}
 
-	    
-	    client.say(channel, `${tags.username} joined the queue!`);
+	    if (UserList.length < 4){
+			client.say(channel, `@${tags.username} joined the queue and you get to play right away! Yay!`);
+		}else if (UserList.length = 4) {
+			client.say(channel, `${tags.username} joined the queue and you're up next!`);
+		} else{
+			for (let i = 4; i < UserList.length; i++){
+				if (player.username === UserList[i].username){
+					estPlayerTimer = i * 20;
+					client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerTime} until you're up!`);
+					return;
+				}	
+			}
+		}
 	    
     } else if (command === 'queue' || command === 'q' || command === 'list'){
         if (UserList.length === 0){
@@ -193,5 +206,19 @@ client.on('message', (channel, tags, message, self) => {
 		numPlayersLive = 4;
 	} else if (command === 'normal'){
 		numPlayersLive = 3;
+	} else if (command === 'est'){
+		if (UserList.length < 4){
+			client.say(channel, `@${tags.username} Umm you're current playing weirdo`);
+		}else if (UserList.length = 4) {
+			client.say(channel, `@${tags.username} You're up next! Yay!`);
+		} else{
+			for (let i = 4; i < UserList.length; i++){
+				if (player.username === UserList[i].username){
+					estPlayerTimer = i * 20;
+					client.say(channel, `@${tags.username} You have about ${estPlayerTime} until you're up!`);
+					return;
+				}	
+			}
+		}
 	}
 });
