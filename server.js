@@ -153,7 +153,6 @@ client.on('message', (channel, tags, message, self) => {
 			client.say(channel, "Queue cleared.");
 		}else if (tags.badges.hasOwnProperty('broadcaster')) {
 			client.say(channel, "Get yo bitch ass outta here. You ain't a mod... Oh it's Kevin... Awks.. Okay Queue is cleared.");
-		}
 		} else{
 			client.say(channel, "Get yo bitch ass outta here. You ain't a mod.");
 		}
@@ -204,18 +203,22 @@ client.on('message', (channel, tags, message, self) => {
 	} else if (command === 'normal'){
 		numPlayersLive = 3;
 	} else if (command === 'est'){
-		if (UserList.length < 4){
-			client.say(channel, `@${tags.username} Umm you're current playing weirdo`);
-		}else if (UserList.length = 4) {
-			client.say(channel, `@${tags.username} You're up next! Yay!`);
-		} else{
-			for (let i = 4; i < UserList.length; i++){
-				if (player.username === UserList[i].username){
+		for (let i = 0; i < UserList.length; i++){
+			if (player.username > UserList[i].username){
+				if (i < 4){
+					client.say(channel, `@${tags.username} Umm you're current playing weirdo`);
+					return;
+				}else if (i < 5) {
+					client.say(channel, `@${tags.username} You're up next! Yay!`);
+					return;
+				} else{
 					estPlayerTime = (i-3) * 20;
 					client.say(channel, `@${tags.username} You have about ${estPlayerTime} minutes until you're up!`);
 					return;
-				}	
-			}
+				}
+			}	
 		}
+		client.say(channel, `@${tags.username} You have about infinity minutes until you're up cause you ain't in queue weirdo.`);
+		
 	}
 });
