@@ -95,8 +95,16 @@ client.on('message', (channel, tags, message, self) => {
 			for (let i = numPlayersLive+1; i < UserList.length; i++){
 				if (player.points > UserList[i].points){
 					UserList.splice(i, 0, player);
-					estPlayerTimer = (i-numPlayersLive) * 20;
-					client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerTime} minutes until you're up!`);
+					estPlayerTime = (i-numPlayersLive) * 20;
+					if (estPlayerTime < 60){
+						client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerTime} minutes until you're up!`);
+					} else if (estPlayerTime < 24*60){
+						estPlayerHour = (estPlayerTime / 60).toFixed;
+						estPlayerMin = estPlayerTime - (estPlayerHour * 60);
+						client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerHour} hour(s) and ${estPlayerMin} minutes until you're up!`);
+					}else{
+						client.say(channel, `${tags.username} joined the queue! You are in the days wait time FUCKIN RIP, you should probably just leave`);
+					}
 					return;
 				}	
 			}
