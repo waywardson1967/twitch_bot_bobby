@@ -95,13 +95,13 @@ client.on('message', (channel, tags, message, self) => {
 				if (player.username === UserList[i].username){
 					UserList.splice(i, 0, player);
 					estPlayerTimer = (i-3) * 20;
-					client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerTime} until you're up!`);
+					client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerTime} minutes until you're up!`);
 					return;
 				}	
 			}
 			UserList.push(player);
 			estPlayerTime = ((UserList.length)-3) * 20;
-			client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerTime} until you're up!`);
+			client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerTime} minutes until you're up!`);
 		}
 	    
     } else if (command === 'queue' || command === 'q' || command === 'list'){
@@ -144,13 +144,16 @@ client.on('message', (channel, tags, message, self) => {
 		client.say(channel, `umm @${tags.username} you aren't in queue... awks...`);
 	} else if (command === 'clear' ){
 		if (tags.badges.hasOwnProperty('moderator')) {
-			while (UserList.length != 0){
-				UserList.pop();
-			}
+			UserList.length = 0;
+
 			firstInQueueFlag = 0;
 			secondInQueueFlag = 0;
 			numPlayersLive = 3;
-			client.say(channel, "Queue reset.");
+
+			client.say(channel, "Queue cleared.");
+		}else if (tags.badges.hasOwnProperty('broadcaster')) {
+			client.say(channel, "Get yo bitch ass outta here. You ain't a mod... Oh it's Kevin... Awks.. Okay Queue is cleared.");
+		}
 		} else{
 			client.say(channel, "Get yo bitch ass outta here. You ain't a mod.");
 		}
@@ -209,7 +212,7 @@ client.on('message', (channel, tags, message, self) => {
 			for (let i = 4; i < UserList.length; i++){
 				if (player.username === UserList[i].username){
 					estPlayerTime = (i-3) * 20;
-					client.say(channel, `@${tags.username} You have about ${estPlayerTime} until you're up!`);
+					client.say(channel, `@${tags.username} You have about ${estPlayerTime} minutes until you're up!`);
 					return;
 				}	
 			}
