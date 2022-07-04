@@ -81,13 +81,11 @@ client.on('message', (channel, tags, message, self) => {
 	    }else if (tags.badges.hasOwnProperty('vip')){
 			player.points = player.points + 2;
 	    }
-	    
-		
 
-	    if (UserList.length < 4){
+	    if (UserList.length < 3){
 			UserList.push(player);
 			client.say(channel, `@${tags.username} joined the queue and you get to play right away! Yay!`);
-		}else if (UserList.length < 5) {
+		}else if (UserList.length < 4) {
 			UserList.push(player);
 			client.say(channel, `${tags.username} joined the queue and you're up next!`);
 		} else{
