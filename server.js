@@ -90,7 +90,7 @@ client.on('message', (channel, tags, message, self) => {
 			client.say(channel, `${tags.username} joined the queue and you're up next!`);
 		} else{
 			
-			for (let i = 4; i < UserList.length; i++){
+			/*for (let i = 4; i < UserList.length; i++){
 				client.say(channel,"testing");
 				if (player.username === UserList[i].username){
 					UserList.splice(i, 0, player);
@@ -98,7 +98,7 @@ client.on('message', (channel, tags, message, self) => {
 					client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerTime} until you're up!`);
 					return;
 				}	
-			}
+			}*/
 			UserList.push(player);
 			estPlayerTimer = (UserList.length) * 20;
 			client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerTime} until you're up!`);
