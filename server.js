@@ -4,6 +4,7 @@ const tmi = require('tmi.js');
 
 const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?(.*)?/);//
 const UserList = [];
+const LeftUserList = [];
 
 let queueViewMsg = "The queue : ";
 let livePlayer = "Live Players : ";
@@ -98,10 +99,12 @@ client.on('message', (channel, tags, message, self) => {
 					estPlayerTime = (i-numPlayersLive) * 20;
 					if (estPlayerTime < 60){
 						client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerTime} minutes until you're up!`);
-					} else if (estPlayerTime < (24*60)){
+					} else if (estPlayerTime === 60){
+						client.say(channel, `${tags.username} joined the queue! You have about an hour until you're up!`);
+					} else if (estPlayerTime > 60){
 						estPlayerHour = (estPlayerTime / 60).toFixed;
 						estPlayerMin = estPlayerTime - (estPlayerHour * 60);
-						client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerHour} hour(s) and ${estPlayerMin} minutes until you're up!`);
+						client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerHour} hours and ${estPlayerMin} minutes until you're up!`);
 					}else{
 						client.say(channel, `${tags.username} joined the queue! You are in the days wait time FUCKIN RIP, you should probably just leave`);
 					}
