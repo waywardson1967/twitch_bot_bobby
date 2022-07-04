@@ -155,7 +155,16 @@ client.on('message', (channel, tags, message, self) => {
 			client.say(channel, "Get yo bitch ass outta here. You ain't a mod... Oh it's Kevin... Awks.. Okay Queue is cleared.");
 		} else{
 			client.say(channel, "Get yo bitch ass outta here. You ain't a mod.");
-		} 
+		}
+		
+	} else if (command === 'position'){
+		for(let i = 0; i < UserList.length; i++){
+			if (UserList[i].username === user){
+				client.say(channel, `@${tags.username} your position in queue is : ${i+1}`);
+				return;
+			}
+		}
+		client.say(channel, `@${tags.username} Homie, you ain't in queue.`);
 	} else if (command === 'next'){
 		if (UserList.length < 4) {
 			client.say(channel, "Nah, there's only 3 peeps in queue, you good to keep playing.");
@@ -193,7 +202,7 @@ client.on('message', (channel, tags, message, self) => {
 		numPlayersLive = 4;
 	} else if (command === 'normal'){
 		numPlayersLive = 3;
-	} else if (command === 'est' || command === 'estimate'){
+	} else if (command === 'est' || command === 'estimate' || command === 'time'){
 		for (let i = 0; i < UserList.length; i++){
 			if (player.username > UserList[i].username){
 				if (i < 4){
@@ -212,12 +221,4 @@ client.on('message', (channel, tags, message, self) => {
 		client.say(channel, `@${tags.username} You have about infinity minutes until you're up cause you ain't in queue weirdo.`);
 		
 	}
-	else if (command === 'position'){
-		for(let i = 0; i < UserList.length; i++){
-			if (UserList[i].username === user){
-				client.say(channel, `@${tags.username} your position in queue is : ${i+1}`);
-				return;
-			}
-		}
-		client.say(channel, `@${tags.username} Homie, you ain't in queue.`);
 });
