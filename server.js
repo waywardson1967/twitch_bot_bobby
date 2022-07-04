@@ -94,14 +94,13 @@ client.on('message', (channel, tags, message, self) => {
 				client.say(channel,"testing");
 				if (player.username === UserList[i].username){
 					UserList.splice(i, 0, player);
-					estPlayerTimer = (i-4) * 20;
+					estPlayerTimer = (i-3) * 20;
 					client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerTime} until you're up!`);
 					return;
 				}	
 			}
 			UserList.push(player);
-			client.say(channel,"testing");
-			estPlayerTime = ((UserList.length)-4) * 20;
+			estPlayerTime = ((UserList.length)-3) * 20;
 			client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerTime} until you're up!`);
 		}
 	    
@@ -209,7 +208,7 @@ client.on('message', (channel, tags, message, self) => {
 		} else{
 			for (let i = 4; i < UserList.length; i++){
 				if (player.username === UserList[i].username){
-					estPlayerTimer = i * 20;
+					estPlayerTime = (i-3) * 20;
 					client.say(channel, `@${tags.username} You have about ${estPlayerTime} until you're up!`);
 					return;
 				}	
