@@ -17,7 +17,7 @@ let secondInQueueFlag = 0;
 
 let numPlayersLive = 3;
 
-let estPlayerTimer = 0;
+let estPlayerTime = 0;
 
 const client = new tmi.Client({
 	options: { debug: true },
