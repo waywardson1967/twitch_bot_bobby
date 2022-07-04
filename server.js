@@ -198,8 +198,8 @@ client.on('message', (channel, tags, message, self) => {
 			client.say(channel, str);
 
 			user = UserList[(numPlayersLive + 1)].username;
-			nextPlayer.concat(user.toString());
-			client.say(channel, nextPlayer);
+			str = nextPlayer.concat(user.toString());
+			client.say(channel, str);
 
 			for (let i = 4; i < UserList.length; i++){
 				if (player.points > UserList[i].points){
