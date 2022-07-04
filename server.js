@@ -82,24 +82,24 @@ client.on('message', (channel, tags, message, self) => {
 			player.points = player.points + 2;
 	    }
 
-	    if (UserList.length < 3){
+	    if (UserList.length < numPlayersLive){
 			UserList.push(player);
 			client.say(channel, `@${tags.username} joined the queue and you get to play right away! Yay!`);
-		}else if (UserList.length < 4) {
+		}else if (UserList.length < numPlayersLive+1) {
 			UserList.push(player);
 			client.say(channel, `${tags.username} joined the queue and you're up next!`);
 		} else{
 			
-			for (let i = 4; i < UserList.length; i++){
+			for (let i = numPlayersLive+1; i < UserList.length; i++){
 				if (player.points > UserList[i].points){
 					UserList.splice(i, 0, player);
-					estPlayerTimer = (i-3) * 20;
+					estPlayerTimer = (i-numPlayersLive) * 20;
 					client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerTime} minutes until you're up!`);
 					return;
 				}	
 			}
 			UserList.push(player);
-			estPlayerTime = ((UserList.length)-3) * 20;
+			estPlayerTime = ((UserList.length)-numPlayersLive) * 20;
 			client.say(channel, `${tags.username} joined the queue! You have about ${estPlayerTime} minutes until you're up!`);
 		}
 	    
@@ -166,8 +166,8 @@ client.on('message', (channel, tags, message, self) => {
 		client.say(channel, `@${tags.username} Homie, you ain't in queue.`);
 	} else if (command === 'next'){
 		if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
-			if (UserList.length < 4) {
-				client.say(channel, "Nah, there's only 3 peeps in queue, you good to keep playing.");
+			if (UserList.length < numPlayersLive+1) {
+				client.say(channel, "Nah, you good to keep playing.");
 				return;
 			}
 			UserList[0].points = UserList[0].points - 1;
@@ -205,14 +205,14 @@ client.on('message', (channel, tags, message, self) => {
 	} else if (command === 'est' || command === 'estimate' || command === 'time'){
 		for (let i = 0; i < UserList.length; i++){
 			if (player.username > UserList[i].username){
-				if (i < 4){
+				if (i < numPlayersLive+1){
 					client.say(channel, `@${tags.username} Umm you're current playing weirdo`);
 					return;
-				}else if (i < 5) {
+				}else if (i < numPlayersLive+2) {
 					client.say(channel, `@${tags.username} You're up next! Yay!`);
 					return;
 				} else{
-					estPlayerTime = (i-3) * 20;
+					estPlayerTime = (i-numPlayersLive) * 20;
 					client.say(channel, `@${tags.username} You have about ${estPlayerTime} minutes until you're up!`);
 					return;
 				}
