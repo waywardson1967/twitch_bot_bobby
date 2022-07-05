@@ -205,7 +205,7 @@ client.on('message', (channel, tags, message, self) => {
 		}
 	    client.say(channel, `@${tags.username} - This dumbass thinks they are in the queue. LOL idiot.`);
     } else if (command === 'point'){
-		user = tags.username.toString();
+		/*user = tags.username.toString();
 		for(let i = 0; i < UserList.length; i++){
 			if (UserList[i].username === user){
 				client.say(channel, `@${tags.username} your point allocation is : ${UserList[i].points}`);
@@ -213,7 +213,12 @@ client.on('message', (channel, tags, message, self) => {
 			}
 		}
 		
-		client.say(channel, `umm @${tags.username} you aren't in queue... awks...`);
+		client.say(channel, `umm @${tags.username} you aren't in queue... awks...`);*/
+
+		for(let i = 0; i < UserList.length; i++){
+			client.say(channel, `@${tags.username} your point allocation is : ${UserList[i].points}`);
+		}
+
 	} else if (command === 'clear' ){
 		if (tags.badges.hasOwnProperty('moderator')) {
 			UserList.length = 0;
@@ -229,7 +234,7 @@ client.on('message', (channel, tags, message, self) => {
 			client.say(channel, "Get yo bitch ass outta here. You ain't a mod.");
 		}
 		
-	} else if (command === 'position'){
+	} else if (command === 'position' || command === 'pos'){
 		for(let i = 0; i < UserList.length; i++){
 			user = tags.username.toString();
 			if (UserList[i].username === user){
@@ -245,7 +250,10 @@ client.on('message', (channel, tags, message, self) => {
 				return;
 			}
 			for (let i = 0; i < numPlayersLive; i++){
-				UserList[i].points = UserList[i].points - 1;
+				if (UserList[i].points > 0){
+					UserList[i].points = UserList[i].points - 1;
+				}
+				
 			}
 
 			player.username = UserList[0].username;
@@ -275,11 +283,15 @@ client.on('message', (channel, tags, message, self) => {
 			client.say(channel, str);
 		}
 	} else if (command === 'customs'){
-		numPlayersLive = 4;
-		client.say(channel, "Queue now in customs games mode");
+		if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
+			numPlayersLive = 4;
+			client.say(channel, "Queue now in customs games mode");
+		}
 	} else if (command === 'normal'){
-		numPlayersLive = 3;
-		client.say(channel, "Queue now in live games mode");
+		if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
+			numPlayersLive = 3;
+			client.say(channel, "Queue now in live games mode");
+		}
 	} else if (command === 'est' || command === 'estimate' || command === 'time'){
 		for (let i = 0; i < UserList.length; i++){
 			if (player.username > UserList[i].username){
