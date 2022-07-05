@@ -3,7 +3,6 @@ require('dotenv').config();
 const tmi = require('tmi.js');
 
 const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?(.*)?/);//
-const usernameCheck = "^[A-Za-z][A-Za-z0-9_]$";
 
 const UserList = [];
 const LeftUserList = [];
@@ -68,13 +67,11 @@ client.on('message', (channel, tags, message, self) => {
 					client.say(channel, "Silly mod, you need to say WHO you want to add.");
 					return;
 				}
-				argumentWords = argument.split(/[,. ]+/);
+				//argumentWords = argument.split(/^[,. ]+/);
+				argumentWords = argument.split(/w+/);
 				
 				if (argumentWords.length > 1){
 					client.say(channel, "Silly mod, that's not a valid name.");
-					return;
-				}else if (!argumentWords.matches(usernameCheck)){
-					client.say(channel, "Silly mod, you used an invalid character in the username.");
 					return;
 				}
 				user = argument.toString();
