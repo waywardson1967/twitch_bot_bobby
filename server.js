@@ -67,7 +67,7 @@ client.on('message', (channel, tags, message, self) => {
 					return;
 				}
 				client.say(channel, "Silly mod");
-				argumentWords = argument.split(/[, ]+/);
+				argumentWords = argument.split("[\\s,]+");
 				client.say(channel, "Silly mod");
 				for (let i = 0; i < argumentWords.length; i++){
 					client.say(channel, argumentWords[i].toString());
