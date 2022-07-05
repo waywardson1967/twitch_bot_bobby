@@ -467,7 +467,7 @@ client.on('message', (channel, tags, message, self) => {
 				
 				UserList.splice(i,1);
 
-				for (let i = numPlayersLive; i < UserList.length; i++){
+				for (let i = numPlayersLive+1; i < UserList.length; i++){
 					if (player.points > UserList[i].points){
 						UserList.splice(i, 0, player);
 						client.say(channel, `${user}'s point allocation has been increased. Have fun moving up the queue!`);
