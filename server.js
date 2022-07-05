@@ -512,7 +512,7 @@ client.on('message', (channel, tags, message, self) => {
 	}else if (command === 'remove'){
 		if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
 			if (argument == null){
-				client.say(channel, "Silly mod, you need to say WHO you want to add.");
+				client.say(channel, "Silly mod, you need to say WHO you want to remove.");
 				return;
 			}
 			argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
@@ -575,19 +575,25 @@ client.on('message', (channel, tags, message, self) => {
 				player.username = user;
 				player.points = UserList[i].points + NewPoints;
 				
-				UserList.splice(i,1);
+				if (i < numPlayersLive+1){
+					client.say(channel, `${user}'s point allocation has been increased.`);
+					return;
+				}else{
+					UserList.splice(i,1);
 
-				for (let i = numPlayersLive+1; i < UserList.length; i++){
-					if (player.points > UserList[i].points){
-						UserList.splice(i, 0, player);
-						client.say(channel, `${user}'s point allocation has been increased. Have fun moving up the queue!`);
-						return;
-					}	
+					for (let i = numPlayersLive+1; i < UserList.length; i++){
+						if (player.points > UserList[i].points){
+							UserList.splice(i, 0, player);
+							client.say(channel, `${user}'s point allocation has been increased. Have fun jumping around in the queue!`);
+							return;
+						}	
+					}
+					UserList.push(player);
+					client.say(channel, `${user}'s point allocation has been increased. Have fun moving up the queue! oh... awks you're last.. well that didn't help...`);
+					
+					return;
 				}
-				UserList.push(player);
-				client.say(channel, `${user}'s point allocation has been increased. Have fun moving up the queue! oh... awks you're last.. well that didn't help`);
 				
-				return;
 			}
 		}
 		client.say(channel, "But that person ain't even in queue doh man.");
