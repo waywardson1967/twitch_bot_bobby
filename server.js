@@ -299,10 +299,6 @@ client.on('message', (channel, tags, message, self) => {
 				
 			}
 
-			for (let i = 0; i < LeftUserList.length; i++){
-				client.say(channel, LeftUserList[i].username);
-			}
-
 			firstInQueueFlag = 0;
 			secondInQueueFlag = 0;
 
