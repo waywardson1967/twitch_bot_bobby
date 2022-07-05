@@ -53,12 +53,12 @@ client.on('message', (channel, tags, message, self) => {
 
     if (command === 'join' || command ==='add'){
 	    
-	    /*for (let i = 0; i < UserList.length; i++){
+	    for (let i = 0; i < UserList.length; i++){
 			if (UserList[i].username === user){
 		    	client.say(channel, `${tags.username} is already in the queue!`);
 				return;
 			}
-	    }*/
+	    }
 		
 		AlreadyJoined = 0;
 		if (command === 'add'){
