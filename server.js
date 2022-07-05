@@ -52,14 +52,7 @@ client.on('message', (channel, tags, message, self) => {
     const [raw, command, argument] = message.match(regexpCommand);	
 
     if (command === 'join' || command ==='add'){
-	    
-	    for (let i = 0; i < UserList.length; i++){
-			if (UserList[i].username === user){
-		    	client.say(channel, `${tags.username} is already in the queue!`);
-				return;
-			}
-	    }
-		
+
 		AlreadyJoined = 0;
 		if (command === 'add'){
 			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
@@ -95,6 +88,13 @@ client.on('message', (channel, tags, message, self) => {
 			user = tags.username.toString();
 			JoinedMessage = " joined ";
 		}
+
+		for (let i = 0; i < UserList.length; i++){
+			if (UserList[i].username === user){
+		    	client.say(channel, `${user} is already in the queue!`);
+				return;
+			}
+	    }
 
 		for (let i = 0; i < LeftUserList.length; i++){
 			if (LeftUserList[i].username === user){
