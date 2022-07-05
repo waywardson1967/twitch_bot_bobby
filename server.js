@@ -25,6 +25,8 @@ let estPlayerHour = 0;
 
 let JoinedMessage = " joined ";
 
+const argumentWords = [];
+
 const client = new tmi.Client({
 	options: { debug: true },
 	identity: {
@@ -62,6 +64,11 @@ client.on('message', (channel, tags, message, self) => {
 			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
 				if (argument == null){
 					client.say(channel, "Silly mod, you need to say WHO you want to add.");
+					return;
+				}
+				argumentWords = argument.split(/[, ]+/);
+				if (argumentWords.length > 1){
+					client.say(channel, "Silly mod, that's not a valid name.");
 					return;
 				}
 				user = argument.toString();
