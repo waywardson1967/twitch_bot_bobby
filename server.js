@@ -25,7 +25,7 @@ let estPlayerHour = 0;
 
 let JoinedMessage = " joined ";
 
-const argumentWords = [];
+let argumentWords = [];
 
 const client = new tmi.Client({
 	options: { debug: true },
@@ -67,7 +67,7 @@ client.on('message', (channel, tags, message, self) => {
 					return;
 				}
 				client.say(channel, "Silly mod");
-				argumentWords = argument.split("[\\s,]+");
+				argumentWords = argument.split(/[, ]+/);
 				client.say(channel, "Silly mod");
 				for (let i = 0; i < argumentWords.length; i++){
 					client.say(channel, argumentWords[i].toString());
