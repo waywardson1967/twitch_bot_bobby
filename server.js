@@ -354,6 +354,52 @@ client.on('message', (channel, tags, message, self) => {
 			str = nextPlayer.concat(user.toString());
 			client.say(channel, str);
 		}
+	} else if (command === 'bump') {
+		if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
+			if (argument == null){
+				client.say(channel, "Silly mod, you need to say WHO you want to bump.");
+				return;
+			}
+			argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
+			if (argumentWords.length != 1){
+				client.say(channel, "Silly mod, that's not a valid entry.");
+				return;
+			}
+
+			user = argumentWords[0].toString();
+
+			for (let i = 0; i < UserList.length; i++){
+				if (UserList[i].username === user){
+					player.username = user;
+
+					if (UserList[i].points > 0){
+						player.points = UserList[i].points - 1;
+					}else{
+						player.points = UserList[i].points;
+					}
+					UserList.splice(i,1);
+
+					for (let i = numPlayersLive+1; i < UserList.length; i++){
+						if (player.points > UserList[i].points){
+							UserList.splice(i, 0, player);
+							user = UserList[numPlayersLive].username;
+							str = nextPlayer.concat(user.toString());
+							client.say(channel, str);
+							return;
+						}	
+					}
+					UserList.push(player)
+					user = UserList[numPlayersLive].username;
+					str = nextPlayer.concat(user.toString());
+					client.say(channel, str);
+					return;
+				}	
+			}
+			client.say(channel, "Can't bump someone who ain't in queue, idjit.");
+		}else{
+			client.say(channel, "You ain't got the RIGHTS to do that.");
+			return;
+		}
 	} else if (command === 'customs'){
 		if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
 			numPlayersLive = 4;
