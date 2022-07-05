@@ -295,14 +295,26 @@ client.on('message', (channel, tags, message, self) => {
 			client.say(channel, "Get yo bitch ass outta here. You ain't a mod.");
 		}	
 	} else if (command === 'position' || command === 'pos'){
-		for(let i = 0; i < UserList.length; i++){
+		if (argument == null){
 			user = tags.username.toString();
-			if (UserList[i].username === user){
-				client.say(channel, `@${tags.username} your position in queue is : ${i+1}`);
-				return;
+			for(let i = 0; i < UserList.length; i++){
+				if (UserList[i].username === user){
+					client.say(channel, `@${tags.username} your position in queue is : ${i+1}`);
+					return;
+				}
 			}
+			client.say(channel, `@${tags.username} Homie, you ain't in queue.`);	
+		}else{
+			user = argument.toString();
+			for(let i = 0; i < UserList.length; i++){
+				if (UserList[i].username === user){
+					client.say(channel, `@${tags.username} your position in queue is : ${i+1}`);
+					return;
+				}
+			}
+			client.say(channel, `${user} isn't in queue.`);
 		}
-		client.say(channel, `@${tags.username} Homie, you ain't in queue.`);
+		
 	} else if (command === 'next'){
 		if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
 			if (UserList.length < numPlayersLive+1) {
