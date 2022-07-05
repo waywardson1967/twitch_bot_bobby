@@ -455,7 +455,7 @@ client.on('message', (channel, tags, message, self) => {
 				return;
 			}
 
-			user = argument.toString();
+			user = argumentWords.toString();
 		}else{
 			return;
 		}
