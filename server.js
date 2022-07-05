@@ -49,16 +49,6 @@ client.on('message', (channel, tags, message, self) => {
     const [raw, command, argument] = message.match(regexpCommand);	
 
     if (command === 'join' || command ==='add'){
-		AlreadyJoined = 0;
-		if (command === 'add'){
-			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
-				user = argument.toString();
-			}else{
-				return;
-			}
-		} else{
-			user = tags.username.toString();
-		}
 	    
 	    /*for (let i = 0; i < UserList.length; i++){
 			if (UserList[i].username === user){
@@ -66,6 +56,20 @@ client.on('message', (channel, tags, message, self) => {
 				return;
 			}
 	    }*/
+
+		AlreadyJoined = 0;
+		if (command === 'add'){
+			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
+				user = argument.toString();
+				JoinedMessage = " was added to ";
+			}else{
+				return;
+			}
+		} else{
+			user = tags.username.toString();
+			JoinedMessage = " joined ";
+		}
+
 		for (let i = 0; i < LeftUserList.length; i++){
 			if (LeftUserList[i].username === user){
 				AlreadyJoined = 1;
@@ -78,7 +82,6 @@ client.on('message', (channel, tags, message, self) => {
 		}
 
 		if (AlreadyJoined === 0){
-			JoinedMessage = " joined ";
 			player.username = user;
 	    
 			if (firstInQueueFlag === 0){
@@ -115,10 +118,10 @@ client.on('message', (channel, tags, message, self) => {
 
 	    if (UserList.length < numPlayersLive){
 			UserList.push(player);
-			client.say(channel, `@${tags.username} ${JoinedMessage} the queue and you get to play right away! Yay!`);
+			client.say(channel, `@${user} ${JoinedMessage} the queue and you get to play right away! Yay!`);
 		}else if (UserList.length < numPlayersLive+1) {
 			UserList.push(player);
-			client.say(channel, `${tags.username} ${JoinedMessage} the queue and you're up next!`);
+			client.say(channel, `${user} ${JoinedMessage} the queue and you're up next!`);
 		} else{
 			
 			for (let i = numPlayersLive+1; i < UserList.length; i++){
@@ -126,28 +129,28 @@ client.on('message', (channel, tags, message, self) => {
 					UserList.splice(i, 0, player);
 					estPlayerTime = (i-numPlayersLive) * 20;
 					if (estPlayerTime< 60){
-						client.say(channel, `${tags.username} ${JoinedMessage} the queue! You have about ${estPlayerTime} minutes until you're up!`);
+						client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerTime} minutes until you're up!`);
 					} else if (estPlayerTime === 60){
-						client.say(channel, `${tags.username} ${JoinedMessage} the queue! You have about an hour until you're up!`);
+						client.say(channel, `${user} ${JoinedMessage} the queue! You have about an hour until you're up!`);
 					} else if (estPlayerTime < 120){
 						estPlayerHour = ~~(estPlayerTime / 60);
 						estPlayerMin = estPlayerTime - (estPlayerHour * 60);
 						if (estPlayerMin === 0){
-							client.say(channel, `${tags.username} ${JoinedMessage} the queue! You have about ${estPlayerHour} hour until you're up!`);
+							client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerHour} hour until you're up!`);
 						}else{
-							client.say(channel, `${tags.username} ${JoinedMessage} the queue! You have about ${estPlayerHour} hour and ${estPlayerMin} minutes until you're up!`);
+							client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerHour} hour and ${estPlayerMin} minutes until you're up!`);
 						}
 					}
 					else if (estPlayerTime < (24*60)){
 						estPlayerHour = ~~(estPlayerTime / 60);
 						estPlayerMin = estPlayerTime - (estPlayerHour * 60);
 						if (estPlayerMin === 0){
-							client.say(channel, `${tags.username} ${JoinedMessage} the queue! You have about ${estPlayerHour} hours until you're up!`);
+							client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerHour} hours until you're up!`);
 						}else{
-							client.say(channel, `${tags.username} ${JoinedMessage} the queue! You have about ${estPlayerHour} hours and ${estPlayerMin} minutes until you're up!`);
+							client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerHour} hours and ${estPlayerMin} minutes until you're up!`);
 						}
 					}else{
-						client.say(channel, `${tags.username} ${JoinedMessage} the queue! You are in the days wait time FUCKIN RIP, you should probably just leave`);
+						client.say(channel, `${user} ${JoinedMessage} the queue! You are in the days wait time FUCKIN RIP, you should probably just leave`);
 					}
 					return;
 				}	
@@ -155,28 +158,28 @@ client.on('message', (channel, tags, message, self) => {
 			UserList.push(player);
 			estPlayerTime = ((UserList.length)-numPlayersLive) * 20;
 			if (estPlayerTime< 60){
-				client.say(channel, `${tags.username} ${JoinedMessage} the queue! You have about ${estPlayerTime} minutes until you're up!`);
+				client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerTime} minutes until you're up!`);
 			} else if (estPlayerTime === 60){
-				client.say(channel, `${tags.username} ${JoinedMessage} the queue! You have about an hour until you're up!`);
+				client.say(channel, `${user} ${JoinedMessage} the queue! You have about an hour until you're up!`);
 			} else if (estPlayerTime < 120){
 				estPlayerHour = ~~(estPlayerTime / 60);
 				estPlayerMin = estPlayerTime - (estPlayerHour * 60);
 				if (estPlayerMin === 0){
-					client.say(channel, `${tags.username} ${JoinedMessage} the queue! You have about ${estPlayerHour} hour until you're up!`);
+					client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerHour} hour until you're up!`);
 				}else{
-					client.say(channel, `${tags.username} ${JoinedMessage} the queue! You have about ${estPlayerHour} hour and ${estPlayerMin} minutes until you're up!`);
+					client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerHour} hour and ${estPlayerMin} minutes until you're up!`);
 				}
 			}
 			else if (estPlayerTime < (24*60)){
 				estPlayerHour = ~~(estPlayerTime / 60);
 				estPlayerMin = estPlayerTime - (estPlayerHour * 60);
 				if (estPlayerMin === 0){
-					client.say(channel, `${tags.username} ${JoinedMessage} the queue! You have about ${estPlayerHour} hours until you're up!`);
+					client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerHour} hours until you're up!`);
 				}else{
-					client.say(channel, `${tags.username} ${JoinedMessage} the queue! You have about ${estPlayerHour} hours and ${estPlayerMin} minutes until you're up!`);
+					client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerHour} hours and ${estPlayerMin} minutes until you're up!`);
 				}
 			}else{
-				client.say(channel, `${tags.username} ${JoinedMessage} the queue! You are in the days wait time FUCKIN RIP, you should probably just leave`);
+				client.say(channel, `${user} ${JoinedMessage} the queue! You are in the days wait time FUCKIN RIP, you should probably just leave`);
 			}
 		}
 	    
