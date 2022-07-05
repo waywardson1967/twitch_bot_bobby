@@ -277,19 +277,22 @@ client.on('message', (channel, tags, message, self) => {
 
 			client.say(channel, "Queue and points has been reset.");
 		}else if (tags.badges.hasOwnProperty('broadcaster')) {
-			client.say(channel, "Get yo bitch ass outta here. You ain't a mod... Oh it's Kevin... Awks.. Okay sorry queue is cleared.");
+			client.say(channel, "Get yo bitch ass outta here. You ain't a mod... Oh it's Kevin... Awks.. Okay sorry queue is reset.");
 		} else{
 			client.say(channel, "Get yo bitch ass outta here. You ain't a mod.");
 		}
 	} else if (command === 'clear' ){
 		if (tags.badges.hasOwnProperty('moderator')) {
 			let len = UserList.length;
+			let leftLen = LeftUserList.length;
 			for (let i = 0; i < len; i++){
-				player.username = UserList[0].username;
-				player.points = UserList[0].points;
+				LeftUserList.push(player);
+
+				LeftUserList[leftLen+i].username = UserList[0].username;
+				LeftUserList[leftLen+i].points = UserList[0].points;
 
 				UserList.shift();
-				LeftUserList.push(player);
+				
 			}
 
 			firstInQueueFlag = 0;
