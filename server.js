@@ -283,7 +283,14 @@ client.on('message', (channel, tags, message, self) => {
 		}
 	} else if (command === 'clear' ){
 		if (tags.badges.hasOwnProperty('moderator')) {
-			UserList.length = 0;
+			let len = UserList.length;
+			for (let i = 0; i < len; i++){
+				player.username = UserList[0].username;
+				player.points = UserList[0].points;
+
+				UserList.shift();
+				LeftUserList.push(player);
+			}
 
 			firstInQueueFlag = 0;
 			secondInQueueFlag = 0;
@@ -450,7 +457,51 @@ client.on('message', (channel, tags, message, self) => {
 			}	
 		}
 		client.say(channel, `@${tags.username} You have about infinity minutes until you're up cause you ain't in queue weirdo.`);
-		
+	} else if (command === 'move') {
+		if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
+			if (argument == null){
+				client.say(channel, "Silly mod, you need to say WHO you want to move and where. !move user position#");
+				return;
+			}
+			argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
+			if (argumentWords.length != 2){
+				client.say(channel, "Silly mod, that's not a valid entry. !move user position#");
+				return;
+			}
+
+			user = argumentWords[0].toString();
+			let position = parseInt(argumentWords[1]);
+
+			if (isNaN(position)){
+				client.say(channel, "No I need a NUUUUMBER for the position idjit.");
+				return;
+			}
+
+			for (let i = 0; i < UserList.length; i++){
+				if (UserList[i].username === user){
+					player.username = user;
+
+					player.points = UserList[i].points;
+
+					UserList.splice(i,1);
+
+					if (position > UserList.length){
+						UserList.push(player)
+					}else{
+						UserList.splice(position-1,0, player);
+					}
+					
+					user = UserList[numPlayersLive].username;
+					str = nextPlayer.concat(user.toString());
+					client.say(channel, str);
+					return;
+				}	
+			}
+			client.say(channel, "Can't bump someone who ain't in queue, idjit.");
+		}else{
+			client.say(channel, "You ain't got the RIGHTS to do that.");
+			return;
+		}	
 	}else if (command === 'remove'){
 		if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
 			if (argument == null){
