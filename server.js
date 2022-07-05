@@ -228,7 +228,7 @@ client.on('message', (channel, tags, message, self) => {
 		client.say(channel, `umm @${tags.username} you aren't in queue... awks...`);*/
 
 		for(let i = 0; i < UserList.length; i++){
-			client.say(channel, `@${tags.username} your point allocation is : ${UserList[i].points}`);
+			client.say(channel, `@${UserList[i].username} your point allocation is : ${UserList[i].points}`);
 		}
 
 	} else if (command === 'clear' ){
