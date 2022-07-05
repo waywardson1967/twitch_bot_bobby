@@ -73,10 +73,10 @@ client.on('message', (channel, tags, message, self) => {
 			player.username = tags.username.toString();
 	    
 			if (firstInQueueFlag === 0){
-				player.points = 2;
+				player.points = 3;
 				firstInQueueFlag = 1;
 			}else if (secondInQueueFlag === 0){
-				player.points = 1;
+				player.points = 2;
 				secondInQueueFlag = 1;
 			}else
 			{
@@ -268,7 +268,7 @@ client.on('message', (channel, tags, message, self) => {
 			str = livePlayer.concat(user.toString());
 			client.say(channel, str);
 
-			for (let i = 4; i < UserList.length; i++){
+			for (let i = numPlayersLive; i < UserList.length; i++){
 				if (player.points > UserList[i].points){
 					UserList.splice(i, 0, player);
 					user = UserList[numPlayersLive].username;
