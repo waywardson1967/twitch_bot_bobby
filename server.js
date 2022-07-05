@@ -463,7 +463,7 @@ client.on('message', (channel, tags, message, self) => {
 		for(let i = 0; i < UserList.length; i++){
 			if (UserList[i].username === user){
 				player.username = user;
-				player.points = UserList[i].points + parseInt(argument[1]);
+				player.points = UserList[i].points + parseInt(argumentWords[1]);
 				
 				UserList.splice(i,1);
 
