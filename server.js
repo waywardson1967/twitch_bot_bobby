@@ -362,16 +362,32 @@ client.on('message', (channel, tags, message, self) => {
 		client.say(channel, `@${tags.username} You have about infinity minutes until you're up cause you ain't in queue weirdo.`);
 		
 	}else if (command === 'remove'){
-		user = argument.toString();
+		if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
+			if (argument == null){
+				client.say(channel, "Silly mod, you need to say WHO you want to add.");
+				return;
+			}
+			argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
+			
+			if (argumentWords.length > 1){
+				client.say(channel, "Silly mod, that's not a valid name.");
+				return;
+			}
+
+			user = argument.toString();
+		}else{
+			return;
+		}
+
 		for(let i = 0; i < UserList.length; i++){
 			if (UserList[i].username === user){
-				player.username = UserList[i].username;
-				player.points = UserList[i].points;
+				player.username = user;
+				player.points = 0;
 
 				LeftUserList.push(player);
 
 				UserList.splice(i,1);
-				client.say(channel, `${tags.username} has left the queue!`);
+				client.say(channel, `${user} has been removed the queue!`);
 				if (UserList.length === 0){
 					firstInQueueFlag = 0;
 					secondInQueueFlag = 0;
@@ -381,5 +397,6 @@ client.on('message', (channel, tags, message, self) => {
 				return;
 			}
 		}
+		client.say(channel, "But that person ain't even in queue doh man.");
 	}
 });
