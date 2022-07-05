@@ -48,9 +48,18 @@ client.on('message', (channel, tags, message, self) => {
 
     const [raw, command, argument] = message.match(regexpCommand);	
 
-    if (command === 'join'){
+    if (command === 'join' || command ==='add'){
 		AlreadyJoined = 0;
-	    user = tags.username.toString();
+		if (command === 'add'){
+			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
+				user = argument.toString();
+			}else{
+				return;
+			}
+		} else{
+			user = tags.username.toString();
+		}
+	    
 	    /*for (let i = 0; i < UserList.length; i++){
 			if (UserList[i].username === user){
 		    	client.say(channel, `${tags.username} is already in the queue!`);
@@ -70,7 +79,7 @@ client.on('message', (channel, tags, message, self) => {
 
 		if (AlreadyJoined === 0){
 			JoinedMessage = " joined ";
-			player.username = tags.username.toString();
+			player.username = user;
 	    
 			if (firstInQueueFlag === 0){
 				player.points = 3;
@@ -333,7 +342,5 @@ client.on('message', (channel, tags, message, self) => {
 		}
 		client.say(channel, `@${tags.username} You have about infinity minutes until you're up cause you ain't in queue weirdo.`);
 		
-	}else if (command === 't'){
-		client.say(channel, `@${tags.username} said ${argument}`);
 	}
 });
