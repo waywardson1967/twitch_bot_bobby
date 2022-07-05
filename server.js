@@ -293,6 +293,9 @@ client.on('message', (channel, tags, message, self) => {
 				LeftUserList[newlen].username = UserList[0].username;
 				LeftUserList[newlen].points = UserList[0].points;
 
+				client.say(channel, LeftUserList[newlen].username)
+				
+
 				UserList.shift();
 				
 			}
