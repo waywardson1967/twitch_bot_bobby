@@ -288,8 +288,8 @@ client.on('message', (channel, tags, message, self) => {
 			for (let i = 0; i < len; i++){
 				LeftUserList.push(player);
 
-				LeftUserList[leftLen+i].username = UserList[0].username;
-				LeftUserList[leftLen+i].points = UserList[0].points;
+				LeftUserList[(leftLen+i)].username = UserList[0].username;
+				LeftUserList[(leftLen+i)].points = UserList[0].points;
 
 				UserList.shift();
 				
