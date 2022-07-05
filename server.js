@@ -60,12 +60,11 @@ client.on('message', (channel, tags, message, self) => {
 		AlreadyJoined = 0;
 		if (command === 'add'){
 			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
-				client.say(channel,`the argument is ${argument}`);
-				user = argument.toString();
-				if (argument === undefined){
+				if (argument == null){
 					client.say(channel, "Silly mod, you need to say WHO you want to add.");
 					return;
 				}
+				user = argument.toString();
 				JoinedMessage = " was added to ";
 			}else{
 				return;
