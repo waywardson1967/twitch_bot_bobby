@@ -67,13 +67,13 @@ client.on('message', (channel, tags, message, self) => {
 					client.say(channel, "Silly mod, you need to say WHO you want to add.");
 					return;
 				}
-				//argumentWords = argument.split(/^[,. ]+/);
-				argumentWords = argument.split(/w+/);
+				argumentWords = argument.split(/[,. ]+/);
 				
 				if (argumentWords.length > 1){
 					client.say(channel, "Silly mod, that's not a valid name.");
 					return;
 				}
+
 				user = argument.toString();
 				JoinedMessage = " was added to ";
 			}else{
