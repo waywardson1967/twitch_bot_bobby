@@ -308,7 +308,7 @@ client.on('message', (channel, tags, message, self) => {
 			user = argument.toString();
 			for(let i = 0; i < UserList.length; i++){
 				if (UserList[i].username === user){
-					client.say(channel, `@${tags.username} your position in queue is : ${i+1}`);
+					client.say(channel, `@${user} your position in queue is : ${i+1}`);
 					return;
 				}
 			}
