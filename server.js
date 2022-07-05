@@ -66,7 +66,7 @@ client.on('message', (channel, tags, message, self) => {
 					client.say(channel, "Silly mod, you need to say WHO you want to add.");
 					return;
 				}
-				argumentWords = argument.split(/[,. ]+/);
+				argumentWords = argument.split("[^\\p{L}0-9']+");
 				for (let i = 0; i < argumentWords.length; i++){
 					client.say(channel, argumentWords[i].toString());
 				}
