@@ -442,5 +442,44 @@ client.on('message', (channel, tags, message, self) => {
 			}
 		}
 		client.say(channel, "But that person ain't even in queue doh man.");
+	} else if (command === 'addpoints'){
+		if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
+			if (argument == null){
+				client.say(channel, "Silly mod, you need to say WHO you want to give point allocations to.");
+				return;
+			}
+			argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
+			
+			if (argumentWords.length > 2){
+				client.say(channel, "Silly mod, that's not a valid entry.");
+				return;
+			}
+
+			user = argument.toString();
+		}else{
+			return;
+		}
+
+		for(let i = 0; i < UserList.length; i++){
+			if (UserList[i].username === user){
+				player.username = user;
+				player.points = UserList[i].points + parseInt(argument[1]);
+				
+				UserList.splice(i,1);
+
+				for (let i = numPlayersLive; i < UserList.length; i++){
+					if (player.points > UserList[i].points){
+						UserList.splice(i, 0, player);
+						client.say(channel, `${user}'s point allocation has been increased. Have fun moving up the queue!`);
+						return;
+					}	
+				}
+				UserList.push(player);
+				client.say(channel, `${user}'s point allocation has been increased. Have fun moving up the queue! oh... awks you're last.. well that didn't help`);
+				
+				return;
+			}
+		}
+		client.say(channel, "But that person ain't even in queue doh man.");
 	}
 });
