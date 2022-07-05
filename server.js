@@ -75,6 +75,9 @@ client.on('message', (channel, tags, message, self) => {
 				}
 
 				user = argument.toString();
+				player.username = user;
+				player.points = 0;
+				AlreadyJoined = 1;
 				JoinedMessage = " was added to ";
 			}else{
 				return;
@@ -247,21 +250,34 @@ client.on('message', (channel, tags, message, self) => {
 			client.say(channel, `@${UserList[i].username} your point allocation is : ${UserList[i].points}`);
 		}
 
+	} else if (command === 'reset' ){
+		if (tags.badges.hasOwnProperty('moderator')) {
+			UserList.length = 0;
+			LeftUserList.length = 0;
+
+			firstInQueueFlag = 0;
+			secondInQueueFlag = 0;
+			numPlayersLive = 3;
+
+			client.say(channel, "Queue and points has been reset.");
+		}else if (tags.badges.hasOwnProperty('broadcaster')) {
+			client.say(channel, "Get yo bitch ass outta here. You ain't a mod... Oh it's Kevin... Awks.. Okay sorry queue is cleared.");
+		} else{
+			client.say(channel, "Get yo bitch ass outta here. You ain't a mod.");
+		}
 	} else if (command === 'clear' ){
 		if (tags.badges.hasOwnProperty('moderator')) {
 			UserList.length = 0;
 
 			firstInQueueFlag = 0;
 			secondInQueueFlag = 0;
-			numPlayersLive = 3;
 
 			client.say(channel, "Queue cleared.");
 		}else if (tags.badges.hasOwnProperty('broadcaster')) {
 			client.say(channel, "Get yo bitch ass outta here. You ain't a mod... Oh it's Kevin... Awks.. Okay sorry queue is cleared.");
 		} else{
 			client.say(channel, "Get yo bitch ass outta here. You ain't a mod.");
-		}
-		
+		}	
 	} else if (command === 'position' || command === 'pos'){
 		for(let i = 0; i < UserList.length; i++){
 			user = tags.username.toString();
