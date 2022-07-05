@@ -286,12 +286,14 @@ client.on('message', (channel, tags, message, self) => {
 			let len = UserList.length;
 			let leftLen = LeftUserList.length;
 			for (let i = 0; i < len; i++){
-				LeftUserList.push(player);
-			}
-			for (let i = 0; i < len; i++){
-				
-				LeftUserList[leftLen].username = UserList[0].username;
-				LeftUserList[leftLen++].points = UserList[0].points;
+				const byePlayer = {
+					username : "waywardson__",
+					points : "0"
+					};
+				byePlayer.username = UserList[0].username;
+				byePlayer.points = UserList[0].points;
+
+				LeftUserList.push(byePlayer);
 
 				UserList.shift();
 				
