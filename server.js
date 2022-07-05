@@ -59,7 +59,7 @@ client.on('message', (channel, tags, message, self) => {
 				return;
 			}
 	    }*/
-
+		
 		AlreadyJoined = 0;
 		if (command === 'add'){
 			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
@@ -67,6 +67,7 @@ client.on('message', (channel, tags, message, self) => {
 					client.say(channel, "Silly mod, you need to say WHO you want to add.");
 					return;
 				}
+				client.say(channel, argument);
 				//argumentWords = argument.split(/[,. ]+/);
 				argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
 				
