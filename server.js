@@ -61,6 +61,10 @@ client.on('message', (channel, tags, message, self) => {
 		if (command === 'add'){
 			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
 				user = argument.toString();
+				if (user === ""){
+					client.say(channel, "Silly mod, you need to say WHO you want to add.");
+					return;
+				}
 				JoinedMessage = " was added to ";
 			}else{
 				return;
@@ -347,5 +351,25 @@ client.on('message', (channel, tags, message, self) => {
 		}
 		client.say(channel, `@${tags.username} You have about infinity minutes until you're up cause you ain't in queue weirdo.`);
 		
+	}else if (command === 'remove'){
+		user = argument.toString();
+		for(let i = 0; i < UserList.length; i++){
+			if (UserList[i].username === user){
+				player.username = UserList[i].username;
+				player.points = UserList[i].points;
+
+				LeftUserList.push(player);
+
+				UserList.splice(i,1);
+				client.say(channel, `${tags.username} has left the queue!`);
+				if (UserList.length === 0){
+					firstInQueueFlag = 0;
+					secondInQueueFlag = 0;
+				} else if (UserList.length === 1){
+					secondInQueueFlag = 0;
+				}
+				return;
+			}
+		}
 	}
 });
