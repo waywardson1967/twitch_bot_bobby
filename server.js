@@ -76,7 +76,16 @@ client.on('message', (channel, tags, message, self) => {
 
 				user = argument.toString();
 				player.username = user;
-				player.points = 0;
+				if (firstInQueueFlag === 0){
+					player.points = 3;
+					firstInQueueFlag = 1;
+				}else if (secondInQueueFlag === 0){
+					player.points = 2;
+					secondInQueueFlag = 1;
+				}else
+				{
+					player.points = 0;
+				}
 				AlreadyJoined = 1;
 				JoinedMessage = " was added to ";
 			}else{
@@ -92,6 +101,13 @@ client.on('message', (channel, tags, message, self) => {
 				AlreadyJoined = 1;
 				player.username = LeftUserList[i].username;
 				player.points = LeftUserList[i].points;
+				if (firstInQueueFlag === 0){
+					player.points = player.points + 3;
+					firstInQueueFlag = 1;
+				}else if (secondInQueueFlag === 0){
+					player.points = player.points + 2;
+					secondInQueueFlag = 1;
+				}
 				JoinedMessage = " rejoined ";
 				LeftUserList.splice(i,1);
 				break;
