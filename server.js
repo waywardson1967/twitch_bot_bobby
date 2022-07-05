@@ -67,6 +67,9 @@ client.on('message', (channel, tags, message, self) => {
 					return;
 				}
 				argumentWords = argument.split(/[, ]+/);
+				for (let i = 0; i < argumentWords.length; i++){
+					client.say(channel, argumentWords[i].toString());
+				}
 				if (argumentWords.length > 1){
 					client.say(channel, "Silly mod, that's not a valid name.");
 					return;
