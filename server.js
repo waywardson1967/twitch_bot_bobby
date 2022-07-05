@@ -61,7 +61,7 @@ client.on('message', (channel, tags, message, self) => {
 		if (command === 'add'){
 			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
 				user = argument.toString();
-				if (user === ""){
+				if (argument === ""){
 					client.say(channel, "Silly mod, you need to say WHO you want to add.");
 					return;
 				}
