@@ -333,5 +333,7 @@ client.on('message', (channel, tags, message, self) => {
 		}
 		client.say(channel, `@${tags.username} You have about infinity minutes until you're up cause you ain't in queue weirdo.`);
 		
+	}else if (command === 't'){
+		client.say(channel, `@${tags.username} said ${argument}`);
 	}
 });
