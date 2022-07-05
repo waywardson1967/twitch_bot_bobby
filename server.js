@@ -443,15 +443,21 @@ client.on('message', (channel, tags, message, self) => {
 		}
 		client.say(channel, "But that person ain't even in queue doh man.");
 	} else if (command === 'addpoints'){
+		let NewPoints = 0;
 		if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
 			if (argument == null){
-				client.say(channel, "Silly mod, you need to say WHO you want to give point allocations to.");
+				client.say(channel, "Silly mod, you need to say WHO you want to give point allocations to and how much smh.");
 				return;
 			}
 			argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
-			
-			if (argumentWords.length > 2){
+			if (argumentWords.length != 2){
 				client.say(channel, "Silly mod, that's not a valid entry.");
+				return;
+			}
+			NewPoints = parseInt(argumentWords[1]);
+			
+			if (isNaN(NewPoints)){
+				client.say(channel, "No I need a NUUUUMBER to add idjit.");
 				return;
 			}
 
@@ -463,7 +469,7 @@ client.on('message', (channel, tags, message, self) => {
 		for(let i = 0; i < UserList.length; i++){
 			if (UserList[i].username === user){
 				player.username = user;
-				player.points = UserList[i].points + parseInt(argumentWords[1]);
+				player.points = UserList[i].points + NewPoints;
 				
 				UserList.splice(i,1);
 
