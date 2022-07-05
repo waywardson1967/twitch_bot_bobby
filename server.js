@@ -577,6 +577,7 @@ client.on('message', (channel, tags, message, self) => {
 				
 				if (i < numPlayersLive+1){
 					client.say(channel, `${user}'s point allocation has been increased.`);
+					UserList[i].points = UserList[i].points + NewPoints;
 					return;
 				}else{
 					UserList.splice(i,1);
