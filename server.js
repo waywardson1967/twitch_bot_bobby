@@ -48,7 +48,7 @@ client.on('message', (channel, tags, message, self) => {
     
     if (!isNotBot) return;
 	if(message.charAt(0) != "!") return;
-	if(message.charAt(1) = " ") return;
+	if(message.charAt(1) == " ") return;
 
     const [raw, command, argument] = message.match(regexpCommand);	
 
