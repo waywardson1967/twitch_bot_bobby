@@ -34,7 +34,7 @@ const client = new tmi.Client({
 		username: process.env.TWITCH_BOT_USERNAME,
 		password: process.env.TWITCH_OAUTH_TOKEN
 	},
-	channels: [ 'bobbysinger__' ]
+	channels: [ 'Waywardson__' ]
 });
 
 client.connect();
