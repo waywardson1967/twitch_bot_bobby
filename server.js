@@ -28,13 +28,15 @@ let JoinedMessage = " joined ";
 
 let argumentWords = [];
 
+let channelToBeOn = 'bobbysinger__';
+
 const client = new tmi.Client({
 	options: { debug: true },
 	identity: {
 		username: process.env.TWITCH_BOT_USERNAME,
 		password: process.env.TWITCH_OAUTH_TOKEN
 	},
-	channels: [ 'bobbysinger__' ]
+	channels: [ channelToBeOn ]
 });
 
 client.connect();
@@ -426,8 +428,15 @@ client.on('message', (channel, tags, message, self) => {
 			client.say(channel, "Queue now in live games mode");
 		}
 	} else if (command === 'est' || command === 'estimate' || command === 'time' || command === 'eta'){
+		if (argument == null){
+			user = tags.username.toString();
+		}else{
+			argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
+			user = argumentWords[0].toString();
+		}
+
 		for (let i = 0; i < UserList.length; i++){
-			if (player.username === UserList[i].username){
+			if (user === UserList[i].username){
 				if (i < numPlayersLive+1){
 					client.say(channel, `@${tags.username} Umm you're currently playing weirdo`);
 					return;
@@ -599,5 +608,7 @@ client.on('message', (channel, tags, message, self) => {
 			}
 		}
 		client.say(channel, "But that person ain't even in queue doh man.");
+	} else if (command === 'off'){
+
 	}
 });
