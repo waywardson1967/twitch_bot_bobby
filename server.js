@@ -608,7 +608,13 @@ client.on('message', (channel, tags, message, self) => {
 			}
 		}
 		client.say(channel, "But that person ain't even in queue doh man.");
-	} else if (command === 'off'){
-
+	} else if (command === 'offQ'){
+		if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
+			channelToBeOn = 'bobbysinger__';
+		}
+	} else if (command === 'onQ'){
+		if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
+			channelToBeOn = 'waywardson__';
+		}
 	}
 });
