@@ -34,7 +34,7 @@ const client = new tmi.Client({
 		username: process.env.TWITCH_BOT_USERNAME,
 		password: process.env.TWITCH_OAUTH_TOKEN
 	},
-	channels: [ 'Waywardson__' ]
+	channels: [ 'bobbysinger__' ]
 });
 
 client.connect();
@@ -70,16 +70,16 @@ client.on('message', (channel, tags, message, self) => {
 
 				user = argument.toString();
 				player.username = user;
-				if (firstInQueueFlag === 0){
+				/*if (firstInQueueFlag === 0){
 					player.points = 3;
 					firstInQueueFlag = 1;
 				}else if (secondInQueueFlag === 0){
 					player.points = 2;
 					secondInQueueFlag = 1;
 				}else
-				{
+				{*/
 					player.points = 0;
-				}
+				//}
 				AlreadyJoined = 1;
 				JoinedMessage = " was added to ";
 			}else{
@@ -102,13 +102,13 @@ client.on('message', (channel, tags, message, self) => {
 				AlreadyJoined = 1;
 				player.username = LeftUserList[i].username;
 				player.points = LeftUserList[i].points;
-				if (firstInQueueFlag === 0){
+				/*if (firstInQueueFlag === 0){
 					player.points = player.points + 3;
 					firstInQueueFlag = 1;
 				}else if (secondInQueueFlag === 0){
 					player.points = player.points + 2;
 					secondInQueueFlag = 1;
-				}
+				}*/
 				JoinedMessage = " rejoined ";
 				LeftUserList.splice(i,1);
 				break;
@@ -118,16 +118,16 @@ client.on('message', (channel, tags, message, self) => {
 		if (AlreadyJoined === 0){
 			player.username = user;
 	    
-			if (firstInQueueFlag === 0){
+			/*if (firstInQueueFlag === 0){
 				player.points = 3;
 				firstInQueueFlag = 1;
 			}else if (secondInQueueFlag === 0){
 				player.points = 2;
 				secondInQueueFlag = 1;
 			}else
-			{
+			{*/
 				player.points = 0;
-			}
+			//}
 			if (command === 'join'){
 				if (tags.badges.hasOwnProperty('subscriber')){
 					if (tags.badges.subscriber.toString() === "1"){
@@ -242,18 +242,18 @@ client.on('message', (channel, tags, message, self) => {
 
 				UserList.splice(i,1);
 				client.say(channel, `${tags.username} has left the queue!`);
-				if (UserList.length === 0){
+				/*if (UserList.length === 0){
 					firstInQueueFlag = 0;
 					secondInQueueFlag = 0;
 				} else if (UserList.length === 1){
 					secondInQueueFlag = 0;
-				}
+				}*/
 				return;
 			}
 		}
 	    client.say(channel, `@${tags.username} - This dumbass thinks they are in the queue. LOL idiot.`);
     } else if (command === 'point'){
-		/*user = tags.username.toString();
+		user = tags.username.toString();
 		for(let i = 0; i < UserList.length; i++){
 			if (UserList[i].username === user){
 				client.say(channel, `@${tags.username} your point allocation is : ${UserList[i].points}`);
@@ -261,11 +261,11 @@ client.on('message', (channel, tags, message, self) => {
 			}
 		}
 		
-		client.say(channel, `umm @${tags.username} you aren't in queue... awks...`);*/
+		client.say(channel, `umm @${tags.username} you aren't in queue... awks...`);
 
-		for(let i = 0; i < UserList.length; i++){
+		/*for(let i = 0; i < UserList.length; i++){
 			client.say(channel, `@${UserList[i].username} your point allocation is : ${UserList[i].points}`);
-		}
+		}*/
 
 	} else if (command === 'reset' ){
 		if (tags.badges.hasOwnProperty('moderator')) {
@@ -336,15 +336,15 @@ client.on('message', (channel, tags, message, self) => {
 				client.say(channel, "Nah, you good to keep playing.");
 				return;
 			}
-			for (let i = 0; i < numPlayersLive; i++){
-				if (UserList[i].points > 0){
-					UserList[i].points = UserList[i].points - 1;
-				}
-				
-			}
 
 			player.username = UserList[0].username;
-			player.points = UserList[0].points;
+			if (firstInQueueFlag === 0){
+				player.points = 1;
+				firstInQueueFlag = 1;
+			}else{
+				player.points = 0;
+			}
+			
 
 			UserList.shift();		
 
@@ -425,11 +425,11 @@ client.on('message', (channel, tags, message, self) => {
 			numPlayersLive = 3;
 			client.say(channel, "Queue now in live games mode");
 		}
-	} else if (command === 'est' || command === 'estimate' || command === 'time'){
+	} else if (command === 'est' || command === 'estimate' || command === 'time' || command === 'eta'){
 		for (let i = 0; i < UserList.length; i++){
-			if (player.username > UserList[i].username){
+			if (player.username === UserList[i].username){
 				if (i < numPlayersLive+1){
-					client.say(channel, `@${tags.username} Umm you're current playing weirdo`);
+					client.say(channel, `@${tags.username} Umm you're currently playing weirdo`);
 					return;
 				}else if (i < numPlayersLive+2) {
 					client.say(channel, `@${tags.username} You're up next! Yay!`);
@@ -505,7 +505,7 @@ client.on('message', (channel, tags, message, self) => {
 					return;
 				}	
 			}
-			client.say(channel, "Can't bump someone who ain't in queue, idjit.");
+			client.say(channel, "Can't move someone who ain't in queue, idjit.");
 		}else{
 			client.say(channel, "You ain't got the RIGHTS to do that.");
 			return;
@@ -537,12 +537,12 @@ client.on('message', (channel, tags, message, self) => {
 
 				UserList.splice(i,1);
 				client.say(channel, `${user} has been removed the queue!`);
-				if (UserList.length === 0){
+				/*if (UserList.length === 0){
 					firstInQueueFlag = 0;
 					secondInQueueFlag = 0;
 				} else if (UserList.length === 1){
 					secondInQueueFlag = 0;
-				}
+				}*/
 				return;
 			}
 		}
