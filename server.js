@@ -64,7 +64,7 @@ client.on('message', (channel, tags, message, self) => {
 
 	if (qState = 0) return;
 
-    if (command === 'join' || command ==='add'){
+    if (command === 'join' || command ==='add' || command === 'Join'){
 
 		AlreadyJoined = 0;
 		if (command === 'add'){
