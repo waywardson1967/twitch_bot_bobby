@@ -28,7 +28,7 @@ let JoinedMessage = " joined ";
 
 let argumentWords = [];
 
-let channelToBeOn = 'waywardson__';
+let qState = 1;
 
 const client = new tmi.Client({
 	options: { debug: true },
@@ -36,7 +36,7 @@ const client = new tmi.Client({
 		username: process.env.TWITCH_BOT_USERNAME,
 		password: process.env.TWITCH_OAUTH_TOKEN
 	},
-	channels: [ channelToBeOn ]
+	channels: [ 'waywardson__' ]
 });
 
 client.connect();
@@ -53,6 +53,14 @@ client.on('message', (channel, tags, message, self) => {
 	if(message.charAt(1) == " ") return;
 
     const [raw, command, argument] = message.match(regexpCommand);	
+
+	if (command === 'offQ'){
+		qState = 0;
+	} else if (command === 'onQ'){
+		qState = 1;
+	}
+
+	if (qState = 0) return;
 
     if (command === 'join' || command ==='add'){
 
@@ -608,13 +616,5 @@ client.on('message', (channel, tags, message, self) => {
 			}
 		}
 		client.say(channel, "But that person ain't even in queue doh man.");
-	} else if (command === 'offQ'){
-		if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
-			channelToBeOn = 'bobbysinger__';
-		}
-	} else if (command === 'onQ'){
-		if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
-			channelToBeOn = 'waywardson__';
-		}
-	}
+	} 
 });
