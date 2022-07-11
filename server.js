@@ -55,6 +55,7 @@ client.on('message', (channel, tags, message, self) => {
     const [raw, command, argument] = message.match(regexpCommand);	
 	client.say(channel, command);
 	client.say (channel, message);
+	client.say(channel, message.toString());
 
 	if (command === 'offQ'){
 		qState = 0;
