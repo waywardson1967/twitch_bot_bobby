@@ -79,7 +79,7 @@ client.on('message', (channel, tags, message, self) => {
 				}
 
 				user = argument.toString();
-				player.username = user.toLowerCase();
+				player.username = user;
 				/*if (firstInQueueFlag === 0){
 					player.points = 3;
 					firstInQueueFlag = 1;
@@ -96,7 +96,7 @@ client.on('message', (channel, tags, message, self) => {
 				return;
 			}
 		} else{
-			user = tags.username.toString();
+			user = tags['display-name'].toString();
 			JoinedMessage = " joined ";
 		}
 
@@ -173,7 +173,7 @@ client.on('message', (channel, tags, message, self) => {
 			for (let i = numPlayersLive+1; i < UserList.length; i++){
 				if (player.points > UserList[i].points){
 					UserList.splice(i, 0, player);
-					estPlayerTime = (i-numPlayersLive) * 20;
+					estPlayerTime = (i+1-numPlayersLive) * 20;
 					if (estPlayerTime< 60){
 						client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerTime} minutes until you're up!`);
 					} else if (estPlayerTime === 60){
@@ -203,7 +203,7 @@ client.on('message', (channel, tags, message, self) => {
 			}
 			UserList.push(player);
 			estPlayerTime = ((UserList.length)-numPlayersLive) * 20;
-			if (estPlayerTime< 60){
+			if (estPlayerTime < 60){
 				client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerTime} minutes until you're up!`);
 			} else if (estPlayerTime === 60){
 				client.say(channel, `${user} ${JoinedMessage} the queue! You have about an hour until you're up!`);
@@ -242,7 +242,7 @@ client.on('message', (channel, tags, message, self) => {
 			client.say(channel, str);
         }
     } else if (command === 'leave'){
-		user = tags.username.toString();
+		user = tags['display-name'].toString();
 		for(let i = 0; i < UserList.length; i++){
 			if (UserList[i].username === user){
 				player.username = UserList[i].username;
@@ -251,7 +251,7 @@ client.on('message', (channel, tags, message, self) => {
 				LeftUserList.push(player);
 
 				UserList.splice(i,1);
-				client.say(channel, `${tags.username} has left the queue!`);
+				client.say(channel, `${tags['display-name']} has left the queue!`);
 				/*if (UserList.length === 0){
 					firstInQueueFlag = 0;
 					secondInQueueFlag = 0;
@@ -261,17 +261,17 @@ client.on('message', (channel, tags, message, self) => {
 				return;
 			}
 		}
-	    client.say(channel, `@${tags.username} - This dumbass thinks they are in the queue. LOL idiot.`);
+	    client.say(channel, `@${tags['display-name']} - This dumbass thinks they are in the queue. LOL idiot.`);
     } else if (command === 'point'){
-		user = tags.username.toString();
+		user = tags['display-name'].toString();
 		for(let i = 0; i < UserList.length; i++){
 			if (UserList[i].username === user){
-				client.say(channel, `@${tags.username} your point allocation is : ${UserList[i].points}`);
+				client.say(channel, `@${tags['display-name']} your point allocation is : ${UserList[i].points}`);
 				return;
 			}
 		}
 		
-		client.say(channel, `umm @${tags.username} you aren't in queue... awks...`);
+		client.say(channel, `umm @${tags['display-name']} you aren't in queue... awks...`);
 
 		/*for(let i = 0; i < UserList.length; i++){
 			client.say(channel, `@${UserList[i].username} your point allocation is : ${UserList[i].points}`);
@@ -317,16 +317,16 @@ client.on('message', (channel, tags, message, self) => {
 		}	
 	} else if (command === 'position' || command === 'pos'){
 		if (argument == null){
-			user = tags.username.toString();
+			user = tags['display-name'].toString();
 			for(let i = 0; i < UserList.length; i++){
 				if (UserList[i].username === user){
-					client.say(channel, `@${tags.username} your position in queue is : ${i+1}`);
+					client.say(channel, `@${tags['display-name']} your position in queue is : ${i+1}`);
 					return;
 				}
 			}
-			client.say(channel, `@${tags.username} Homie, you ain't in queue.`);	
+			client.say(channel, `@${tags['display-name']} Homie, you ain't in queue.`);	
 		}else{
-			user = argument.toString().toLowerCase();
+			user = argument.toString();
 			for(let i = 0; i < UserList.length; i++){
 				if (UserList[i].username === user){
 					client.say(channel, `@${user} your position in queue is : ${i+1}`);
@@ -387,7 +387,7 @@ client.on('message', (channel, tags, message, self) => {
 				return;
 			}
 
-			user = argumentWords[0].toString().toLowerCase();
+			user = argumentWords[0].toString();
 
 			for (let i = 0; i < UserList.length; i++){
 				if (UserList[i].username === user){
@@ -398,18 +398,24 @@ client.on('message', (channel, tags, message, self) => {
 					}else{
 						player.points = UserList[i].points;
 					}
+
 					UserList.splice(i,1);
 
-					for (let i = numPlayersLive+1; i < UserList.length; i++){
-						if (player.points > UserList[i].points){
-							UserList.splice(i, 0, player);
-							user = UserList[numPlayersLive].username;
-							str = nextPlayer.concat(user.toString());
-							client.say(channel, str);
-							return;
-						}	
+					if (i < numPlayersLive){
+						
+						player.points = 0;
+						
+						UserList.push(player);
+
+					}else{
+						if (UserList.length > i+1){
+							UserList.splice(i+1, 0, player);
+						}else{
+							UserList.push(player);
+						}
 					}
-					UserList.push(player)
+
+					
 					user = UserList[numPlayersLive].username;
 					str = nextPlayer.concat(user.toString());
 					client.say(channel, str);
@@ -418,8 +424,52 @@ client.on('message', (channel, tags, message, self) => {
 			}
 			client.say(channel, "Can't bump someone who ain't in queue, idjit.");
 		}else{
-			client.say(channel, "You ain't got the RIGHTS to do that.");
-			return;
+			if (argument == null){
+				client.say(channel, "If you want to bump yourself down one spot please @ yourself after the command ex: !bump @Waywardson__");
+				return;
+			}
+			argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
+
+			user = argumentWords[0].toString();
+
+			if (tags['display-name'] === user){
+				for (let i = 0; i < UserList.length; i++){
+					if (UserList[i].username === user){
+						player.username = user;
+	
+						if (UserList[i].points > 0){
+							player.points = UserList[i].points - 1;
+						}else{
+							player.points = UserList[i].points;
+						}
+	
+						UserList.splice(i,1);
+	
+						if (i < numPlayersLive){
+							
+							player.points = 0;
+							
+							UserList.push(player);
+	
+						}else{
+							if (UserList.length > i+1){
+								UserList.splice(i+1, 0, player);
+							}else{
+								UserList.push(player);
+							}
+						}
+	
+						
+						user = UserList[numPlayersLive].username;
+						str = nextPlayer.concat(user.toString());
+						client.say(channel, str);
+						return;
+					}	
+				}
+				client.say(channel, "But you ain't even in queue...");
+			}else{
+				client.say(channel, "You can't bump others silly.");
+			}
 		}
 	} else if (command === 'customs'){
 		if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
@@ -433,51 +483,51 @@ client.on('message', (channel, tags, message, self) => {
 		}
 	} else if (command === 'est' || command === 'estimate' || command === 'time' || command === 'eta'){
 		if (argument == null){
-			user = tags.username.toString();
+			user = tags['display-name'].toString();
 		}else{
 			argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
-			user = argumentWords[0].toString().toLowerCase();
+			user = argumentWords[0].toString();
 		}
 
 		for (let i = 0; i < UserList.length; i++){
 			if (user === UserList[i].username){
-				if (i < numPlayersLive+1){
-					client.say(channel, `@${tags.username} Umm you're currently playing weirdo`);
+				if (i < numPlayersLive){
+					client.say(channel, `@${user} Umm you're currently playing weirdo`);
 					return;
-				}else if (i < numPlayersLive+2) {
-					client.say(channel, `@${tags.username} You're up next! Yay!`);
+				}else if (i < numPlayersLive) {
+					client.say(channel, `@${user} You're up next! Yay!`);
 					return;
 				} else{
-					estPlayerTime = (i-numPlayersLive) * 20;
+					estPlayerTime = (i+1-numPlayersLive) * 20;
 					if (estPlayerTime< 60){
-						client.say(channel, `${tags.username} ${JoinedMessage} the queue! You have about ${estPlayerTime} minutes until you're up!`);
+						client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerTime} minutes until you're up!`);
 					} else if (estPlayerTime === 60){
-						client.say(channel, `${tags.username} ${JoinedMessage} the queue! You have about an hour until you're up!`);
+						client.say(channel, `${user} ${JoinedMessage} the queue! You have about an hour until you're up!`);
 					} else if (estPlayerTime < 120){
 						estPlayerHour = ~~(estPlayerTime / 60);
 						estPlayerMin = estPlayerTime - (estPlayerHour * 60);
 						if (estPlayerMin === 0){
-							client.say(channel, `${tags.username} ${JoinedMessage} the queue! You have about ${estPlayerHour} hour until you're up!`);
+							client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerHour} hour until you're up!`);
 						}else{
-							client.say(channel, `${tags.username} ${JoinedMessage} the queue! You have about ${estPlayerHour} hour and ${estPlayerMin} minutes until you're up!`);
+							client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerHour} hour and ${estPlayerMin} minutes until you're up!`);
 						}
 					}
 					else if (estPlayerTime < (24*60)){
 						estPlayerHour = ~~(estPlayerTime / 60);
 						estPlayerMin = estPlayerTime - (estPlayerHour * 60);
 						if (estPlayerMin === 0){
-							client.say(channel, `${tags.username} ${JoinedMessage} the queue! You have about ${estPlayerHour} hours until you're up!`);
+							client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerHour} hours until you're up!`);
 						}else{
-							client.say(channel, `${tags.username} ${JoinedMessage} the queue! You have about ${estPlayerHour} hours and ${estPlayerMin} minutes until you're up!`);
+							client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerHour} hours and ${estPlayerMin} minutes until you're up!`);
 						}
 					}else{
-						client.say(channel, `${tags.username} ${JoinedMessage} the queue! You are in the days wait time FUCKIN RIP, you should probably just leave`);
+						client.say(channel, `${user} ${JoinedMessage} the queue! You are in the days wait time FUCKIN RIP, you should probably just leave`);
 					}
 					return;
 				}
 			}	
 		}
-		client.say(channel, `@${tags.username} You have about infinity minutes until you're up cause you ain't in queue weirdo.`);
+		client.say(channel, `@${user} You have about infinity minutes until you're up cause you ain't in queue weirdo.`);
 	} else if (command === 'move') {
 		if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
 			if (argument == null){
@@ -490,7 +540,7 @@ client.on('message', (channel, tags, message, self) => {
 				return;
 			}
 
-			user = argumentWords[0].toString().toLowerCase();
+			user = argumentWords[0].toString();
 			let position = parseInt(argumentWords[1]);
 
 			if (isNaN(position)){
@@ -536,7 +586,7 @@ client.on('message', (channel, tags, message, self) => {
 				return;
 			}
 
-			user = argument.toString().toLowerCase();
+			user = argument.toString();
 		}else{
 			return;
 		}
@@ -579,7 +629,7 @@ client.on('message', (channel, tags, message, self) => {
 				return;
 			}
 
-			user = argumentWords[0].toString().toLowerCase();
+			user = argumentWords[0].toString();
 		}else{
 			return;
 		}
