@@ -79,7 +79,7 @@ client.on('message', (channel, tags, message, self) => {
 				}
 
 				user = argument.toString();
-				player.username = user;
+				player.username = user.toLowerCase();
 				/*if (firstInQueueFlag === 0){
 					player.points = 3;
 					firstInQueueFlag = 1;
@@ -326,7 +326,7 @@ client.on('message', (channel, tags, message, self) => {
 			}
 			client.say(channel, `@${tags.username} Homie, you ain't in queue.`);	
 		}else{
-			user = argument.toString();
+			user = argument.toString().toLowerCase();
 			for(let i = 0; i < UserList.length; i++){
 				if (UserList[i].username === user){
 					client.say(channel, `@${user} your position in queue is : ${i+1}`);
@@ -387,7 +387,7 @@ client.on('message', (channel, tags, message, self) => {
 				return;
 			}
 
-			user = argumentWords[0].toString();
+			user = argumentWords[0].toString().toLowerCase();
 
 			for (let i = 0; i < UserList.length; i++){
 				if (UserList[i].username === user){
@@ -436,7 +436,7 @@ client.on('message', (channel, tags, message, self) => {
 			user = tags.username.toString();
 		}else{
 			argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
-			user = argumentWords[0].toString();
+			user = argumentWords[0].toString().toLowerCase();
 		}
 
 		for (let i = 0; i < UserList.length; i++){
@@ -490,7 +490,7 @@ client.on('message', (channel, tags, message, self) => {
 				return;
 			}
 
-			user = argumentWords[0].toString();
+			user = argumentWords[0].toString().toLowerCase();
 			let position = parseInt(argumentWords[1]);
 
 			if (isNaN(position)){
@@ -536,7 +536,7 @@ client.on('message', (channel, tags, message, self) => {
 				return;
 			}
 
-			user = argument.toString();
+			user = argument.toString().toLowerCase();
 		}else{
 			return;
 		}
@@ -579,7 +579,7 @@ client.on('message', (channel, tags, message, self) => {
 				return;
 			}
 
-			user = argumentWords[0].toString();
+			user = argumentWords[0].toString().toLowerCase();
 		}else{
 			return;
 		}
