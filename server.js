@@ -28,7 +28,7 @@ let JoinedMessage = " joined ";
 
 let argumentWords = [];
 
-let channelToBeOn = 'bobbysinger__';
+let channelToBeOn = 'waywardson__';
 
 const client = new tmi.Client({
 	options: { debug: true },
