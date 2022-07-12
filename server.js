@@ -12,6 +12,8 @@ let queueViewMsg = "The queue : ";
 let livePlayer = "Live Players : ";
 let nextPlayer = "You're up next! @";
 
+let nextPlayerUsername = "Waywardson__";
+
 var str;
 let user;
 
@@ -50,6 +52,7 @@ client.on('message', (channel, tags, message, self) => {
     
     if (!isNotBot) return;
 	if(message.charAt(0) != "!") return;
+	if (message.length == 1) return;
 	if(message.charAt(1) == " ") return;
 
     const [raw, command, argument] = message.match(regexpCommand);	
@@ -388,6 +391,9 @@ client.on('message', (channel, tags, message, self) => {
 			}
 
 			user = argumentWords[0].toString();
+			if (UserList.length > numPlayersLive){
+				nextPlayerUsername = UserList[numPlayersLive].username;
+			}
 
 			for (let i = 0; i < UserList.length; i++){
 				if (UserList[i].username === user){
@@ -417,6 +423,11 @@ client.on('message', (channel, tags, message, self) => {
 
 					
 					user = UserList[numPlayersLive].username;
+
+					if (nextPlayerUsername === user || UserList.length < numPlayersLive+1){
+						return;
+					}
+
 					str = nextPlayer.concat(user.toString());
 					client.say(channel, str);
 					return;
@@ -425,12 +436,15 @@ client.on('message', (channel, tags, message, self) => {
 			client.say(channel, "Can't bump someone who ain't in queue, idjit.");
 		}else{
 			if (argument == null){
-				client.say(channel, "If you want to bump yourself down one spot please @ yourself after the command ex: !bump @Waywardson__");
+				client.say(channel, `If you want to bump yourself down one spot please @ yourself after the command ex: !bump @${tags['display-name']}`);
 				return;
 			}
 			argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
 
 			user = argumentWords[0].toString();
+			if (UserList.length > numPlayersLive){
+				nextPlayerUsername = UserList[numPlayersLive].username;
+			}
 
 			if (tags['display-name'] === user){
 				for (let i = 0; i < UserList.length; i++){
@@ -461,6 +475,11 @@ client.on('message', (channel, tags, message, self) => {
 	
 						
 						user = UserList[numPlayersLive].username;
+
+						if (nextPlayerUsername === user || UserList.length < numPlayersLive+1){
+							return;
+						}
+
 						str = nextPlayer.concat(user.toString());
 						client.say(channel, str);
 						return;
@@ -541,6 +560,10 @@ client.on('message', (channel, tags, message, self) => {
 			}
 
 			user = argumentWords[0].toString();
+			if (UserList.length > numPlayersLive){
+				nextPlayerUsername = UserList[numPlayersLive].username;
+			}
+
 			let position = parseInt(argumentWords[1]);
 
 			if (isNaN(position)){
@@ -561,8 +584,13 @@ client.on('message', (channel, tags, message, self) => {
 					}else{
 						UserList.splice(position-1,0, player);
 					}
-					
+
 					user = UserList[numPlayersLive].username;
+
+					if (nextPlayerUsername === user || UserList.length < numPlayersLive+1){
+						return;
+					}
+					
 					str = nextPlayer.concat(user.toString());
 					client.say(channel, str);
 					return;
