@@ -54,7 +54,12 @@ client.on('message', (channel, tags, message, self) => {
 	if(message.charAt(0) != "!") return;
 	if (message.length == 1) return;
 	if(message.charAt(1) == " ") return;
-
+	if((/[a-zA-Z]/).test(message.charAt(1))){
+		//DO NOTHING
+	}
+	else {
+		return;
+	}
     const [raw, command, argument] = message.match(regexpCommand);	
 
 	if (command === 'offQ'){
