@@ -65,7 +65,7 @@ client.on('message', (channel, tags, message, self) => {
 
 	if (qState = 0) return;
 
-    if (command === 'join' || command ==='add' || command === 'Join'){
+    if (command === 'join' || command ==='add'){
 
 		AlreadyJoined = 0;
 		if (command === 'add'){
@@ -341,6 +341,7 @@ client.on('message', (channel, tags, message, self) => {
 		
 	} else if (command === 'next'){
 		if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
+			
 			if (UserList.length < numPlayersLive+1) {
 				client.say(channel, "Nah, you good to keep playing.");
 				return;
@@ -397,6 +398,12 @@ client.on('message', (channel, tags, message, self) => {
 
 			for (let i = 0; i < UserList.length; i++){
 				if (UserList[i].username === user){
+
+					if (i < numPlayersLive-1){
+						client.say(channel, "you no bump this person");
+						return;
+					}
+
 					player.username = user;
 
 					if (UserList[i].points > 0){
@@ -407,18 +414,10 @@ client.on('message', (channel, tags, message, self) => {
 
 					UserList.splice(i,1);
 
-					if (i < numPlayersLive){
-						
-						player.points = 0;
-						
-						UserList.push(player);
-
+					if (UserList.length > i+1){
+						UserList.splice(i+1, 0, player);
 					}else{
-						if (UserList.length > i+1){
-							UserList.splice(i+1, 0, player);
-						}else{
-							UserList.push(player);
-						}
+						UserList.push(player);
 					}
 
 					
@@ -449,6 +448,11 @@ client.on('message', (channel, tags, message, self) => {
 			if (tags['display-name'] === user){
 				for (let i = 0; i < UserList.length; i++){
 					if (UserList[i].username === user){
+						if (i < numPlayersLive-1){
+							client.say(channel, "you no bump this person");
+							return;
+						}
+	
 						player.username = user;
 	
 						if (UserList[i].points > 0){
@@ -459,18 +463,10 @@ client.on('message', (channel, tags, message, self) => {
 	
 						UserList.splice(i,1);
 	
-						if (i < numPlayersLive){
-							
-							player.points = 0;
-							
-							UserList.push(player);
-	
+						if (UserList.length > i+1){
+							UserList.splice(i+1, 0, player);
 						}else{
-							if (UserList.length > i+1){
-								UserList.splice(i+1, 0, player);
-							}else{
-								UserList.push(player);
-							}
+							UserList.push(player);
 						}
 	
 						
