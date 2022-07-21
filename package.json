@@ -11,6 +11,11 @@
   "license": "MIT",
   "dependencies": {
     "dotenv": "^16.0.1",
+    "node": "^18.5.0",
+    "pg": "^8.7.3",
     "tmi.js": "^1.8.5"
+  },
+  "devDependencies": {
+    "prisma": "^4.1.0"
   }
 }
