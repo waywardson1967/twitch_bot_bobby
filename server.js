@@ -106,12 +106,11 @@ client.on('message', (channel, tags, message, self) => {
 			}
 		} else{
 			user = tags['display-name'].toString();
-			if (user === ""){
+			if (!user || user.length === 0){
 				
 				client.say(channel, "no display name for you");
-			}else {
-				user = tags.username;
-				if (user === ""){
+				user = tags.username.toString();
+				if (!user || user.length === 0){
 					client.say(channel, "wtf u also dont have a username how can this be");
 					return;
 				}else{
