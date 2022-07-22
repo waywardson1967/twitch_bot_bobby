@@ -12,7 +12,7 @@ let queueViewMsg = "The queue : ";
 let livePlayer = "Live Players : ";
 let nextPlayer = "You're up next! @";
 
-let nextPlayerUsername = "Waywardson__";
+let nextPlayerUsername = "Waywardson__";//
 
 var str;
 let user;
