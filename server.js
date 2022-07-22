@@ -106,20 +106,6 @@ client.on('message', (channel, tags, message, self) => {
 			}
 		} else{
 			user = tags['display-name'].toString();
-			if (!user || user.length === 0){
-				
-				client.say(channel, "no display name for you");
-				user = tags.username.toString();
-				if (!user || user.length === 0){
-					client.say(channel, "wtf u also dont have a username how can this be");
-					return;
-				}else{
-					client.say(channel, "i will use ur username instead");
-				}
-				
-			} else {
-				client.say(channel, user);
-			}
 			
 			JoinedMessage = " joined ";
 		}
@@ -163,25 +149,30 @@ client.on('message', (channel, tags, message, self) => {
 				player.points = 0;
 			//}
 			if (command === 'join'){
-				if (tags.badges.hasOwnProperty('subscriber')){
-					if (tags.badges.subscriber.toString() === "1"){
-						player.points = player.points + 1;
-					} else if (tags.badges.subscriber.toString() === "3"){
-						player.points = player.points + 2;
-					} else if (tags.badges.subscriber.toString() === "6"){
+				if (tags.hasOwnProperty('badges')){
+					if (tags.badges.hasOwnProperty('subscriber')){
+						if (tags.badges.subscriber.toString() === "1"){
+							player.points = player.points + 1;
+						} else if (tags.badges.subscriber.toString() === "3"){
+							player.points = player.points + 2;
+						} else if (tags.badges.subscriber.toString() === "6"){
+							player.points = player.points + 3;
+						} else if (tags.badges.subscriber.toString() === "9"){
+							player.points = player.points + 4;
+						} else if (tags.badges.subscriber.toString() === "12"){
+							player.points = player.points + 5;
+						}  
+						
+					}
+					if (tags.badges.hasOwnProperty('moderator')){
 						player.points = player.points + 3;
-					} else if (tags.badges.subscriber.toString() === "9"){
-						player.points = player.points + 4;
-					} else if (tags.badges.subscriber.toString() === "12"){
-						player.points = player.points + 5;
-					}  
-					
+					}else if (tags.badges.hasOwnProperty('vip')){
+						player.points = player.points + 2;
+					}
+				} else {
+					player.points = 0;
 				}
-				if (tags.badges.hasOwnProperty('moderator')){
-					player.points = player.points + 3;
-				}else if (tags.badges.hasOwnProperty('vip')){
-					player.points = player.points + 2;
-				}
+				
 			}
 		}
 	    
