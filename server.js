@@ -135,11 +135,12 @@ client.on('message', (channel, tags, message, self) => {
 			}
 		}
 		client.say(channel, "got here 1");
-		//client.say(channel, AlreadyJoined);
+		client.say(channel, AlreadyJoined);
+		client.say(channel, "got here 1.25");
 		if (AlreadyJoined == 0){
-			client.say(channel, "got here 1.5");
+			//client.say(channel, "got here 1.5");
 			player.username = user;
-			client.say(channel, "got here 1.75");
+			//client.say(channel, "got here 1.75");
 			/*if (firstInQueueFlag === 0){
 				player.points = 3;
 				firstInQueueFlag = 1;
@@ -150,9 +151,9 @@ client.on('message', (channel, tags, message, self) => {
 			{*/
 			player.points = 0;
 			//}
-			client.say(channel, "got here 2");
+			//client.say(channel, "got here 2");
 			if (command === 'join'){
-				client.say(channel, "got here 3");
+				//client.say(channel, "got here 3");
 				if (tags.hasOwnProperty('badges')){
 					if (tags.badges.hasOwnProperty('subscriber')){
 						if (tags.badges.subscriber.toString() === "1"){
@@ -180,7 +181,7 @@ client.on('message', (channel, tags, message, self) => {
 			}
 		}
 	    
-		client.say(channel, "got here 4");
+		//client.say(channel, "got here 4");
 	    if (UserList.length < numPlayersLive){
 			UserList.push(player);
 			client.say(channel, `@${user} ${JoinedMessage} the queue and you get to play right away! Yay!`);
