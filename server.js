@@ -117,6 +117,8 @@ client.on('message', (channel, tags, message, self) => {
 					client.say(channel, "i will use ur username instead");
 				}
 				
+			} else {
+				client.say(channel, user);
 			}
 			
 			JoinedMessage = " joined ";
