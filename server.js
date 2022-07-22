@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const tmi = require('tmi.js');
 
-const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?(.*)?/); // the // is what javascript uses to tell you its a comment. 
+const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?(.*)?/); 
 
 const UserList = [];
 const LeftUserList = [];
