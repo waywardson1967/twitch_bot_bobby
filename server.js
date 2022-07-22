@@ -135,7 +135,8 @@ client.on('message', (channel, tags, message, self) => {
 			}
 		}
 		client.say(channel, "got here 1");
-		if (AlreadyJoined === 0){
+		//client.say(channel, AlreadyJoined);
+		if (AlreadyJoined == 0){
 			client.say(channel, "got here 1.5");
 			player.username = user;
 			client.say(channel, "got here 1.75");
