@@ -135,7 +135,8 @@ client.on('message', (channel, tags, message, self) => {
 			}
 		}
 		client.say(channel, "got here 1");
-		client.say(channel, AlreadyJoined);
+		let testing = AlreadyJoined.toString();
+		client.say(channel, testing);
 		client.say(channel, "got here 1.25");
 		if (AlreadyJoined == 0){
 			//client.say(channel, "got here 1.5");
