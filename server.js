@@ -136,8 +136,9 @@ client.on('message', (channel, tags, message, self) => {
 		}
 		client.say(channel, "got here 1");
 		if (AlreadyJoined === 0){
+			client.say(channel, "got here 1.5");
 			player.username = user;
-	    
+			client.say(channel, "got here 1.75");
 			/*if (firstInQueueFlag === 0){
 				player.points = 3;
 				firstInQueueFlag = 1;
@@ -146,7 +147,7 @@ client.on('message', (channel, tags, message, self) => {
 				secondInQueueFlag = 1;
 			}else
 			{*/
-				player.points = 0;
+			player.points = 0;
 			//}
 			client.say(channel, "got here 2");
 			if (command === 'join'){
