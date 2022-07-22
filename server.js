@@ -105,12 +105,19 @@ client.on('message', (channel, tags, message, self) => {
 				return;
 			}
 		} else{
-			if (tags.hasOwnProperty('display-name')){
-				user = tags['display-name'].toString();
-				client.say(channel, "you have a display name yay");
+			user = tags['display-name'].toString();
+			if (user === ""){
+				
+				client.say(channel, "no display name for you");
 			}else {
 				user = tags.username;
-				client.say(channel, "no display name for you");
+				if (user === ""){
+					client.say(channel, "wtf u also dont have a username how can this be");
+					return;
+				}else{
+					client.say(channel, "i will use ur username instead");
+				}
+				
 			}
 			
 			JoinedMessage = " joined ";
