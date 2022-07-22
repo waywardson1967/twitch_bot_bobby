@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const tmi = require('tmi.js');
+const { takeCoverage } = require('v8');
 
 const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?(.*)?/); //
 
@@ -104,7 +105,14 @@ client.on('message', (channel, tags, message, self) => {
 				return;
 			}
 		} else{
-			user = tags['display-name'].toString();
+			if (tags.hasOwnProperty('display-name')){
+				user = tags['display-name'].toString();
+				client.say(channel, "you have a display name yay");
+			}else {
+				user = tags.username;
+				client.say(channel, "no display name for you");
+			}
+			
 			JoinedMessage = " joined ";
 		}
 
