@@ -134,7 +134,7 @@ client.on('message', (channel, tags, message, self) => {
 				break;
 			}
 		}
-
+		client.say(channel, "got here 1");
 		if (AlreadyJoined === 0){
 			player.username = user;
 	    
@@ -148,7 +148,9 @@ client.on('message', (channel, tags, message, self) => {
 			{*/
 				player.points = 0;
 			//}
+			client.say(channel, "got here 2");
 			if (command === 'join'){
+				client.say(channel, "got here 3");
 				if (tags.hasOwnProperty('badges')){
 					if (tags.badges.hasOwnProperty('subscriber')){
 						if (tags.badges.subscriber.toString() === "1"){
@@ -176,7 +178,7 @@ client.on('message', (channel, tags, message, self) => {
 			}
 		}
 	    
-
+		client.say(channel, "got here 4");
 	    if (UserList.length < numPlayersLive){
 			UserList.push(player);
 			client.say(channel, `@${user} ${JoinedMessage} the queue and you get to play right away! Yay!`);
