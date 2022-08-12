@@ -134,10 +134,10 @@ client.on('message', (channel, tags, message, self) => {
 				break;
 			}
 		}
-		client.say(channel, "got here 1");
+		//client.say(channel, "got here 1");
 		let testing = AlreadyJoined.toString();
-		client.say(channel, testing);
-		client.say(channel, "got here 1.25");
+		//client.say(channel, testing);
+		//client.say(channel, "got here 1.25");
 		if (AlreadyJoined == 0){
 			//client.say(channel, "got here 1.5");
 			player.username = user;
