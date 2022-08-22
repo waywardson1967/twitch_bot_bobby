@@ -62,8 +62,12 @@ client.on('message', (channel, tags, message, self) => {
 		client.say(channel, "This should hopefully crash the system technically.");
 		//return;
 	}
+	try{
     const [raw, command, argument] = message.match(regexpCommand);	
-
+	}catch(err){
+			client.say(channel, "this is bad ting";
+				   return;
+	}
 	if (command === 'offQ'){
 		qState = 0;
 	} else if (command === 'onQ'){
