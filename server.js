@@ -63,10 +63,10 @@ client.on('message', (channel, tags, message, self) => {
 		//return;
 	}
 	try{
-    const [raw, command, argument] = message.match(regexpCommand);	
+    		const [raw, command, argument] = message.match(regexpCommand);	
 	}catch(err){
-			client.say(channel, "this is bad ting";
-				   return;
+		client.say(channel, "this is bad ting";
+		return;
 	}
 	if (command === 'offQ'){
 		qState = 0;
