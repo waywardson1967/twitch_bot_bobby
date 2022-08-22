@@ -1,3 +1,5 @@
+
+
 require('dotenv').config();
 
 const tmi = require('tmi.js');
@@ -65,10 +67,7 @@ client.on('message', (channel, tags, message, self) => {
 	}
 	try{
     		const [raw, command, argument] = message.match(regexpCommand);	
-	}catch(err){
-		client.say(channel, "this is bad ting";
-		return;
-	}
+	
 	if (command === 'offQ'){
 		qState = 0;
 	} else if (command === 'onQ'){
@@ -711,6 +710,10 @@ client.on('message', (channel, tags, message, self) => {
 		}
 		client.say(channel, "But that person ain't even in queue doh man.");
 	} 
+}catch(err){
+	client.say(channel, "this is bad ting");
+	return;
+}
 });
 
 client.on('uncaughtException', err => {
@@ -718,4 +721,3 @@ client.on('uncaughtException', err => {
   console.error('There was an uncaught error', err);
   //process.exit(1); // mandatory (as per the Node.js docs)
 });
-
