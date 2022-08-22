@@ -39,7 +39,7 @@ const client = new tmi.Client({
 		username: process.env.TWITCH_BOT_USERNAME,
 		password: process.env.TWITCH_OAUTH_TOKEN
 	},
-	channels: [ 'waywardson__' ]
+	channels: [ 'bobbysinger__' ]
 });
 
 client.connect();
@@ -706,3 +706,9 @@ client.on('message', (channel, tags, message, self) => {
 		client.say(channel, "But that person ain't even in queue doh man.");
 	} 
 });
+
+process.on('uncaughtException', err => {
+  console.error('There was an uncaught error', err);
+  //process.exit(1); // mandatory (as per the Node.js docs)
+});
+
