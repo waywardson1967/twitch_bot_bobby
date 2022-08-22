@@ -709,6 +709,7 @@ client.on('message', (channel, tags, message, self) => {
 });
 
 client.on('uncaughtException', err => {
+	client.say(channel,"we got here bitches");
   console.error('There was an uncaught error', err);
   //process.exit(1); // mandatory (as per the Node.js docs)
 });
