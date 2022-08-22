@@ -57,6 +57,7 @@ client.on('message', (channel, tags, message, self) => {
 	if(message.charAt(1) == " ") return;
 	if((/[a-zA-Z]/).test(message.charAt(1))){
 		//DO NOTHING
+		client.say(channel, "This make bobby hap.");
 	}
 	else {
 		client.say(channel, "This should hopefully crash the system technically.");
