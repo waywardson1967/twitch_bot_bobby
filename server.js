@@ -59,7 +59,8 @@ client.on('message', (channel, tags, message, self) => {
 		//DO NOTHING
 	}
 	else {
-		return;
+		client.say(channel, "This should hopefully crash the system technically.");
+		//return;
 	}
     const [raw, command, argument] = message.match(regexpCommand);	
 
