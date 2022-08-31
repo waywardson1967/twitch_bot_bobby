@@ -175,7 +175,11 @@ client.on('message', (channel, tags, message, self) => {
 						errorNum = 60;
 					}
 
-					if (tags.hasOwnProperty('badges')){
+					if (tags.badges === null){
+						errorNum = 8;
+						player.points = 0;
+					}
+					else {
 						//errorNum = 7;
 						if (tags.badges.hasOwnProperty('subscriber')){
 							if (tags.badges.subscriber.toString() === "1"){
@@ -197,9 +201,6 @@ client.on('message', (channel, tags, message, self) => {
 						}else if (tags.badges.hasOwnProperty('vip')){
 							player.points = player.points + 2;
 						}
-					} else {
-						errorNum = 8;
-						player.points = 0;
 					}
 					errorNum = 9;
 				}
