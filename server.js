@@ -1,6 +1,6 @@
 
 
-require('dotenv').config(); 
+require('dotenv').config();
 
 const tmi = require('tmi.js');
 const { takeCoverage } = require('v8');
@@ -35,6 +35,8 @@ let argumentWords = [];
 
 let qState = 1;
 
+let firstChatter = 0;
+
 const client = new tmi.Client({
 	options: { debug: true },
 	identity: {
@@ -66,7 +68,16 @@ client.on('message', (channel, tags, message, self) => {
 	}
 	try{
 		const [raw, command, argument] = message.match(regexpCommand);	
-	
+		
+		if (command === 'first'){
+			if (firstChatter === 0){
+				firstChatter = 1;
+				client.say(channel, "Well, well, well, if it isn't the first Idjit in stream");
+			} else {
+				client.say(channel, "GITGUD if you ain't first, you're last");
+			}
+		}
+
 		if (command === 'offQ'){
 			qState = 0;
 		} else if (command === 'onQ'){
@@ -310,6 +321,8 @@ client.on('message', (channel, tags, message, self) => {
 				firstInQueueFlag = 0;
 				secondInQueueFlag = 0;
 				numPlayersLive = 3;
+
+				firstChatter = 0;
 
 				client.say(channel, "Queue and points has been reset.");
 			} else{
@@ -711,6 +724,7 @@ client.on('message', (channel, tags, message, self) => {
 		} 
 	}catch(err){
 		client.say(channel, "Nope, I didn't like that. Perhaps the mods can help you?");
+		console.log(err.toString());
 		return;
 	}
 });
