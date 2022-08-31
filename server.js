@@ -185,6 +185,7 @@ client.on('message', (channel, tags, message, self) => {
 							}  
 							
 						}
+						errorNum = 20;
 						if (tags.badges.hasOwnProperty('moderator')){
 							player.points = player.points + 3;
 						}else if (tags.badges.hasOwnProperty('vip')){
