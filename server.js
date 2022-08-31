@@ -45,7 +45,7 @@ const client = new tmi.Client({
 		username: process.env.TWITCH_BOT_USERNAME,
 		password: process.env.TWITCH_OAUTH_TOKEN
 	},
-	channels: [ 'bobbysinger__' ]
+	channels: [ 'waywardson__' ]
 });
 
 client.connect();
@@ -727,7 +727,7 @@ client.on('message', (channel, tags, message, self) => {
 	}catch(err){
 		client.say(channel, "Nope, I didn't like that. Perhaps the mods can help you?");
 		console.log(err.toString());
-		console.log(errNum.toString());
+		console.log(errorNum.toString());
 		return;
 	}
 });
