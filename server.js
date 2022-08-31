@@ -37,13 +37,15 @@ let qState = 1;
 
 let firstChatter = 0;
 
+let errorNum = 0;
+
 const client = new tmi.Client({
 	options: { debug: true },
 	identity: {
 		username: process.env.TWITCH_BOT_USERNAME,
 		password: process.env.TWITCH_OAUTH_TOKEN
 	},
-	channels: [ 'waywardson__' ]
+	channels: [ 'bobbysinger__' ]
 });
 
 client.connect();
@@ -89,6 +91,7 @@ client.on('message', (channel, tags, message, self) => {
 		if (command === 'join' || command ==='add'){
 
 			AlreadyJoined = 0;
+			errorNum = 1;
 			if (command === 'add'){
 				if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
 					if (argument == null){
@@ -124,7 +127,7 @@ client.on('message', (channel, tags, message, self) => {
 				
 				JoinedMessage = " joined ";
 			}
-
+			errorNum = 2;
 			for (let i = 0; i < UserList.length; i++){
 				if (UserList[i].username === user){
 					client.say(channel, `${user} is already in the queue!`);
@@ -149,14 +152,10 @@ client.on('message', (channel, tags, message, self) => {
 					break;
 				}
 			}
-			//client.say(channel, "got here 1");
-			let testing = AlreadyJoined.toString();
-			//client.say(channel, testing);
-			//client.say(channel, "got here 1.25");
+			errorNum = 3;
 			if (AlreadyJoined == 0){
-				//client.say(channel, "got here 1.5");
+				errorNum = 4;
 				player.username = user;
-				//client.say(channel, "got here 1.75");
 				/*if (firstInQueueFlag === 0){
 					player.points = 3;
 					firstInQueueFlag = 1;
@@ -167,10 +166,11 @@ client.on('message', (channel, tags, message, self) => {
 				{*/
 				player.points = 0;
 				//}
-				//client.say(channel, "got here 2");
+				errorNum = 5;
 				if (command === 'join'){
-					//client.say(channel, "got here 3");
+					errorNum = 6;
 					if (tags.hasOwnProperty('badges')){
+						errorNum = 7;
 						if (tags.badges.hasOwnProperty('subscriber')){
 							if (tags.badges.subscriber.toString() === "1"){
 								player.points = player.points + 1;
@@ -191,12 +191,14 @@ client.on('message', (channel, tags, message, self) => {
 							player.points = player.points + 2;
 						}
 					} else {
+						errorNum = 8;
 						player.points = 0;
 					}
-					
+					errorNum = 9;
 				}
+				errorNum = 10;
 			}
-			
+			errorNum = 11;
 			//client.say(channel, "got here 4");
 			if (UserList.length < numPlayersLive){
 				UserList.push(player);
@@ -725,6 +727,7 @@ client.on('message', (channel, tags, message, self) => {
 	}catch(err){
 		client.say(channel, "Nope, I didn't like that. Perhaps the mods can help you?");
 		console.log(err.toString());
+		console.log(errNum.toString());
 		return;
 	}
 });
