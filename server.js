@@ -176,7 +176,7 @@ client.on('message', (channel, tags, message, self) => {
 					}
 
 					if (tags.hasOwnProperty('badges')){
-						errorNum = 7;
+						//errorNum = 7;
 						if (tags.badges.hasOwnProperty('subscriber')){
 							if (tags.badges.subscriber.toString() === "1"){
 								player.points = player.points + 1;
