@@ -169,6 +169,7 @@ client.on('message', (channel, tags, message, self) => {
 				errorNum = 5;
 				if (command === 'join'){
 					errorNum = 6;
+					console.log(tags['badge-info'].toString());
 					if (tags.hasOwnProperty('badges')){
 						errorNum = 7;
 						if (tags.badges.hasOwnProperty('subscriber')){
