@@ -29,7 +29,7 @@ let estPlayerTime = 0;
 let estPlayerMin = 0;
 let estPlayerHour = 0;
 
-let JoinedMessage = " joined ";
+let JoinedMessage = " joined "; 
 
 let argumentWords = [];
 
