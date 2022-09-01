@@ -310,7 +310,7 @@ client.on('message', (channel, tags, message, self) => {
 			client.say(channel, `@${tags['display-name']} - This dumbass thinks they are in the queue. LOL idiot.`);
 		} else if (command === 'point'){
 			user = tags['display-name'].toString();
-			for(let i = 0; i < UserList.length; i++){
+			for(let i = 0; i < UserList.length; i++){ 
 				if (UserList[i].username === user){
 					client.say(channel, `@${tags['display-name']} your point allocation is : ${UserList[i].points}`);
 					return;
