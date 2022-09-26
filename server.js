@@ -39,6 +39,8 @@ let firstChatter = 0;
 
 let errorNum = 0;
 
+let resetCommand = 0;
+
 const client = new tmi.Client({
 	options: { debug: true },
 	identity: {
@@ -325,6 +327,8 @@ client.on('message', (channel, tags, message, self) => {
 
 		} else if (command === 'reset' ){
 			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
+				resetCommand = 1;
+
 				UserList.length = 0;
 				LeftUserList.length = 0;
 
@@ -335,6 +339,8 @@ client.on('message', (channel, tags, message, self) => {
 				firstChatter = 0;
 
 				client.say(channel, "Queue and points has been reset.");
+				
+				log("this is the wron way to log somethign and should throw an error");
 			} else{
 				client.say(channel, "Get yo bitch ass outta here. You ain't a mod.");
 			}
@@ -733,9 +739,13 @@ client.on('message', (channel, tags, message, self) => {
 			client.say(channel, "But that person ain't even in queue doh man.");
 		} 
 	}catch(err){
-		client.say(channel, "Nope, I didn't like that. Perhaps the mods can help you?");
-		console.log(err.toString());
-		console.log(errorNum.toString());
-		return;
+		if (resetCommand===1){
+			//break mah shit
+		}else{
+			client.say(channel, "Nope, I didn't like that. Perhaps the mods can help you?");
+			console.log(err.toString());
+			console.log(errorNum.toString());
+			return;
+		}
 	}
 });
