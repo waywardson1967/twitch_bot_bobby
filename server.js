@@ -80,6 +80,7 @@ client.on('message', (channel, tags, message, self) => {
 	const [raw, command, argument] = message.match(regexpCommand);
 	if (command === 'reset'){
 		//this next line should crash the system
+		client.say(channel, "Queue and points has been reset.");
 		log;
 	}	
 	try{
