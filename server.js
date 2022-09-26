@@ -335,7 +335,7 @@ client.on('message', (channel, tags, message, self) => {
 				firstChatter = 0;*/
 
 				client.say(channel, "Queue and points has been reset.");
-				log ("heroku restart");
+				console.log ("heroku restart");
 			} else{
 				client.say(channel, "Get yo bitch ass outta here. You ain't a mod.");
 			}
