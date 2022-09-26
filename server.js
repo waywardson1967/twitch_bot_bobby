@@ -329,14 +329,14 @@ client.on('message', (channel, tags, message, self) => {
 			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
 				resetCommand = 1;
 
-				UserList.length = 0;
+				/*UserList.length = 0;
 				LeftUserList.length = 0;
 
 				firstInQueueFlag = 0;
 				secondInQueueFlag = 0;
 				numPlayersLive = 3;
 
-				firstChatter = 0;
+				firstChatter = 0;*/
 
 				client.say(channel, "Queue and points has been reset.");
 				
