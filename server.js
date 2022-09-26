@@ -335,7 +335,7 @@ client.on('message', (channel, tags, message, self) => {
 				firstChatter = 0;*/
 
 				client.say(channel, "Queue and points has been reset.");
-				console.log ("heroku restart");
+				console.log ("> waywardbot@1.0.0 start");
 			} else{
 				client.say(channel, "Get yo bitch ass outta here. You ain't a mod.");
 			}
