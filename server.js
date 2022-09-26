@@ -741,6 +741,8 @@ client.on('message', (channel, tags, message, self) => {
 	}catch(err){
 		if (resetCommand===1){
 			//break mah shit
+			console.log(err.toString());
+			console.log(errorNum.toString());
 		}else{
 			client.say(channel, "Nope, I didn't like that. Perhaps the mods can help you?");
 			console.log(err.toString());
