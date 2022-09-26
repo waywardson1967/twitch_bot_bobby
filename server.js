@@ -340,7 +340,7 @@ client.on('message', (channel, tags, message, self) => {
 
 				client.say(channel, "Queue and points has been reset.");
 				
-				log("this is the wron way to log somethign and should throw an error");
+				log("this is the wron way to log somethign and should throw an error")
 			} else{
 				client.say(channel, "Get yo bitch ass outta here. You ain't a mod.");
 			}
