@@ -5,7 +5,7 @@ require('dotenv').config();
 const tmi = require('tmi.js');
 const { takeCoverage } = require('v8');
 
-const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?(.*)?/);
+const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?(.*)?/); //
 
 const UserList = [];
 const LeftUserList = [];
