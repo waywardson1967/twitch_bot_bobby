@@ -39,8 +39,6 @@ let firstChatter = 0;
 
 let errorNum = 0;
 
-let resetCommand = 0;
-
 const client = new tmi.Client({
 	options: { debug: true },
 	identity: {
@@ -72,7 +70,19 @@ client.on('message', (channel, tags, message, self) => {
 	}
 	try{
 		const [raw, command, argument] = message.match(regexpCommand);	
-		
+	}
+	catch(err){
+		client.say(channel, "Nope, I didn't like that. Perhaps the mods can help you?");
+		console.log(err.toString());
+		console.log(errorNum.toString());
+		return;
+	}
+	const [raw, command, argument] = message.match(regexpCommand);
+	if (command === reset){
+		//this next line should crash the system
+		log;
+	}	
+	try{
 		if (command === 'first'){
 			if (firstChatter === 0){
 				firstChatter = 1;
@@ -327,7 +337,6 @@ client.on('message', (channel, tags, message, self) => {
 
 		} else if (command === 'reset' ){
 			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
-				resetCommand = 1;
 
 				/*UserList.length = 0;
 				LeftUserList.length = 0;
@@ -340,7 +349,8 @@ client.on('message', (channel, tags, message, self) => {
 
 				client.say(channel, "Queue and points has been reset.");
 				
-				log("this is the wron way to log somethign and should throw an error")
+				//next line should be an error to crash the system
+				log;
 			} else{
 				client.say(channel, "Get yo bitch ass outta here. You ain't a mod.");
 			}
@@ -739,15 +749,9 @@ client.on('message', (channel, tags, message, self) => {
 			client.say(channel, "But that person ain't even in queue doh man.");
 		} 
 	}catch(err){
-		if (resetCommand===1){
-			//break mah shit
-			console.log(err.toString());
-			console.log(errorNum.toString());
-		}else{
-			client.say(channel, "Nope, I didn't like that. Perhaps the mods can help you?");
-			console.log(err.toString());
-			console.log(errorNum.toString());
-			return;
-		}
+		client.say(channel, "Nope, I didn't like that. Perhaps the mods can help you?");
+		console.log(err.toString());
+		console.log(errorNum.toString());
+		return;
 	}
 });
