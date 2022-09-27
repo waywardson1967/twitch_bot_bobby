@@ -79,9 +79,13 @@ client.on('message', (channel, tags, message, self) => {
 	}
 	const [raw, command, argument] = message.match(regexpCommand);
 	if (command === 'reset'){
-		//this next line should crash the system
-		client.say(channel, "Queue and points has been reset.");
-		log;
+		if (tags.badges.hasOwnProperty('broadcaster')) {
+			//this next line should crash the system
+			client.say(channel, "The server has been reset.");
+			log;
+		} else{
+			client.say(channel, "Get yo bitch ass outta here. You ain't Kevin.");
+		}
 	}	
 	try{
 		if (command === 'first'){
@@ -290,25 +294,6 @@ client.on('message', (channel, tags, message, self) => {
 				client.say(channel, `@${UserList[i].username} your point allocation is : ${UserList[i].points}`);
 			}*/
 
-		} else if (command === 'reset' ){
-			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
-
-				/*UserList.length = 0;
-				LeftUserList.length = 0;
-
-				firstInQueueFlag = 0;
-				secondInQueueFlag = 0;
-				numPlayersLive = 3;
-
-				firstChatter = 0;*/
-
-				client.say(channel, "Queue and points has been reset.");
-				
-				//next line should be an error to crash the system
-				log;
-			} else{
-				client.say(channel, "Get yo bitch ass outta here. You ain't a mod.");
-			}
 		} else if (command === 'clear' ){
 			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
 				let len = UserList.length;
