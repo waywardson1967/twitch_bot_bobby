@@ -278,7 +278,7 @@ client.on('message', (channel, tags, message, self) => {
 					return;
 				}
 			}
-			client.say(channel, `@${tags['display-name']} - This dumbass thinks they are in the queue. LOL idiot.`);
+			client.say(channel, `@${tags['display-name']} - This idjit thinks they are in the queue. LOL idiot.`);
 		} else if (command === 'point'){
 			user = tags['display-name'].toString();
 			for(let i = 0; i < UserList.length; i++){ 
@@ -288,7 +288,7 @@ client.on('message', (channel, tags, message, self) => {
 				}
 			}
 			
-			client.say(channel, `umm @${tags['display-name']} you aren't in queue... awks...`);
+			client.say(channel, `umm @${tags['display-name']} you aren't in queue... idjit...`);
 
 			/*for(let i = 0; i < UserList.length; i++){
 				client.say(channel, `@${UserList[i].username} your point allocation is : ${UserList[i].points}`);
@@ -508,7 +508,7 @@ client.on('message', (channel, tags, message, self) => {
 			for (let i = 0; i < UserList.length; i++){
 				if (user === UserList[i].username){
 					if (i < numPlayersLive){
-						client.say(channel, `@${user} Umm you're currently playing weirdo`);
+						client.say(channel, `@${user} Umm you're currently playing idjit`);
 						return;
 					}else if (i < numPlayersLive) {
 						client.say(channel, `@${user} You're up next! Yay!`);
@@ -520,7 +520,7 @@ client.on('message', (channel, tags, message, self) => {
 					}
 				}	
 			}
-			client.say(channel, `@${user} You have about infinity games until you're up cause you ain't in queue weirdo.`);
+			client.say(channel, `@${user} You have about infinity games until you're up cause you ain't in queue idjit.`);
 		} else if (command === 'move') {
 			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
 				if (argument == null){
@@ -611,7 +611,7 @@ client.on('message', (channel, tags, message, self) => {
 					return;
 				}
 			}
-			client.say(channel, "But that person ain't even in queue doh man.");
+			client.say(channel, "But that person ain't even in queue idjit.");
 		} else if (command === 'addpoints'){
 			let NewPoints = 0;
 			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
@@ -663,7 +663,7 @@ client.on('message', (channel, tags, message, self) => {
 					
 				}
 			}
-			client.say(channel, "But that person ain't even in queue doh man.");
+			client.say(channel, "But that person ain't even in queue idjit.");
 		} 
 	}catch(err){
 		client.say(channel, "Nope, I didn't like that. Perhaps the mods can help you?");
