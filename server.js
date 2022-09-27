@@ -212,7 +212,7 @@ client.on('message', (channel, tags, message, self) => {
 						if (tags.badges.hasOwnProperty('moderator')){
 							player.points = player.points + 3;
 						}else if (tags.badges.hasOwnProperty('vip')){
-							player.points = player.points + 2;
+							player.points = player.points + 3;
 						}
 					}
 					errorNum = 9;
@@ -232,60 +232,14 @@ client.on('message', (channel, tags, message, self) => {
 				for (let i = numPlayersLive+1; i < UserList.length; i++){
 					if (player.points > UserList[i].points){
 						UserList.splice(i, 0, player);
-						estPlayerTime = (i+1-numPlayersLive) * 20;
-						if (estPlayerTime< 60){
-							client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerTime} minutes until you're up!`);
-						} else if (estPlayerTime === 60){
-							client.say(channel, `${user} ${JoinedMessage} the queue! You have about an hour until you're up!`);
-						} else if (estPlayerTime < 120){
-							estPlayerHour = ~~(estPlayerTime / 60);
-							estPlayerMin = estPlayerTime - (estPlayerHour * 60);
-							if (estPlayerMin === 0){
-								client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerHour} hour until you're up!`);
-							}else{
-								client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerHour} hour and ${estPlayerMin} minutes until you're up!`);
-							}
-						}
-						else if (estPlayerTime < (24*60)){
-							estPlayerHour = ~~(estPlayerTime / 60);
-							estPlayerMin = estPlayerTime - (estPlayerHour * 60);
-							if (estPlayerMin === 0){
-								client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerHour} hours until you're up!`);
-							}else{
-								client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerHour} hours and ${estPlayerMin} minutes until you're up!`);
-							}
-						}else{
-							client.say(channel, `${user} ${JoinedMessage} the queue! You are in the days wait time FUCKIN RIP, you should probably just leave`);
-						}
+						estPlayerTime = (i+1-numPlayersLive) ;
+						client.say(channel, `${user} ${JoinedMessage} the queue! You have ${estPlayerTime} games until you're up!`);
 						return;
 					}	
 				}
 				UserList.push(player);
-				estPlayerTime = ((UserList.length)-numPlayersLive) * 20;
-				if (estPlayerTime < 60){
-					client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerTime} minutes until you're up!`);
-				} else if (estPlayerTime === 60){
-					client.say(channel, `${user} ${JoinedMessage} the queue! You have about an hour until you're up!`);
-				} else if (estPlayerTime < 120){
-					estPlayerHour = ~~(estPlayerTime / 60);
-					estPlayerMin = estPlayerTime - (estPlayerHour * 60);
-					if (estPlayerMin === 0){
-						client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerHour} hour until you're up!`);
-					}else{
-						client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerHour} hour and ${estPlayerMin} minutes until you're up!`);
-					}
-				}
-				else if (estPlayerTime < (24*60)){
-					estPlayerHour = ~~(estPlayerTime / 60);
-					estPlayerMin = estPlayerTime - (estPlayerHour * 60);
-					if (estPlayerMin === 0){
-						client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerHour} hours until you're up!`);
-					}else{
-						client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerHour} hours and ${estPlayerMin} minutes until you're up!`);
-					}
-				}else{
-					client.say(channel, `${user} ${JoinedMessage} the queue! You are in the days wait time FUCKIN RIP, you should probably just leave`);
-				}
+				estPlayerTime = ((UserList.length)-numPlayersLive);
+				client.say(channel, `${user} ${JoinedMessage} the queue! You have ${estPlayerTime} games until you're up!`);
 			}
 			
 		} else if (command === 'queue' || command === 'q' || command === 'list'){
@@ -575,36 +529,13 @@ client.on('message', (channel, tags, message, self) => {
 						client.say(channel, `@${user} You're up next! Yay!`);
 						return;
 					} else{
-						estPlayerTime = (i+1-numPlayersLive) * 20;
-						if (estPlayerTime< 60){
-							client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerTime} minutes until you're up!`);
-						} else if (estPlayerTime === 60){
-							client.say(channel, `${user} ${JoinedMessage} the queue! You have about an hour until you're up!`);
-						} else if (estPlayerTime < 120){
-							estPlayerHour = ~~(estPlayerTime / 60);
-							estPlayerMin = estPlayerTime - (estPlayerHour * 60);
-							if (estPlayerMin === 0){
-								client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerHour} hour until you're up!`);
-							}else{
-								client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerHour} hour and ${estPlayerMin} minutes until you're up!`);
-							}
-						}
-						else if (estPlayerTime < (24*60)){
-							estPlayerHour = ~~(estPlayerTime / 60);
-							estPlayerMin = estPlayerTime - (estPlayerHour * 60);
-							if (estPlayerMin === 0){
-								client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerHour} hours until you're up!`);
-							}else{
-								client.say(channel, `${user} ${JoinedMessage} the queue! You have about ${estPlayerHour} hours and ${estPlayerMin} minutes until you're up!`);
-							}
-						}else{
-							client.say(channel, `${user} ${JoinedMessage} the queue! You are in the days wait time FUCKIN RIP, you should probably just leave`);
-						}
+						estPlayerTime = (i+1-numPlayersLive);
+						client.say(channel, `${user} You have ${estPlayerTime} games until you're up!`);
 						return;
 					}
 				}	
 			}
-			client.say(channel, `@${user} You have about infinity minutes until you're up cause you ain't in queue weirdo.`);
+			client.say(channel, `@${user} You have about infinity games until you're up cause you ain't in queue weirdo.`);
 		} else if (command === 'move') {
 			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
 				if (argument == null){
