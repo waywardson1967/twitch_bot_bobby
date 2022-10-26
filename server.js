@@ -41,9 +41,9 @@ let errorNum = 0;
 
 let servResetFlag = 0;
 
-let testing = setInterval(function myTimer() {
+let serverResetValid = setInterval(function myServerSet() {
   servResetFlag = 1;
-}, 10000);
+}, 1200000);
 
 const client = new tmi.Client({
 	options: { debug: true },
@@ -86,22 +86,18 @@ client.on('message', (channel, tags, message, self) => {
 	const [raw, command, argument] = message.match(regexpCommand);
 	if (command === 'reset'){
 		if (tags.badges.hasOwnProperty('broadcaster')) {
-			//this next line should crash the system
-			client.say(channel, "The server has been reset.");
-			log;
+			if (servResetFlag === 0){
+				client.say(channel, "Server has reset too recently, resetting it now will crash the system so try again in a bit.");
+			} else{
+				//this next line should crash the system
+				client.say(channel, "The server has been reset.");
+				log;
+			}			
 		} else{
 			client.say(channel, "Get yo bitch ass outta here. You ain't Kevin.");
 		}
 	}	
 	try{
-		if (command === 't'){
-			if (servResetFlag === 0){
-				client.say(channel, "Hoi");
-			} else{
-				client.say(channel, "dis worked");
-			}
-			
-		}
 		
 		if (command === 'first'){
 			if (firstChatter === 0){
