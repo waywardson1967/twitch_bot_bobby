@@ -49,12 +49,6 @@ const client = new tmi.Client({
 });
 
 client.connect();
-client.say(channel, "Happy Halloween!");
-function sayHi() {
-  client.say(channel, "tis the most spooky time of the year");
-}
-
-let test = setTimeout(sayHi, 5000);
 
 client.on('message', (channel, tags, message, self) => {
 	const player = {
