@@ -39,6 +39,12 @@ let firstChatter = 0;
 
 let errorNum = 0;
 
+let servResetFlag = 0;
+
+let testing = setInterval(function myTimer() {
+  servResetFlag = 1;
+}, 10000);
+
 const client = new tmi.Client({
 	options: { debug: true },
 	identity: {
@@ -88,6 +94,15 @@ client.on('message', (channel, tags, message, self) => {
 		}
 	}	
 	try{
+		if (command === 't'){
+			if (servResetFlag === 0){
+				client.say(channel, "Hoi");
+			} else{
+				client.say(channel, "dis worked");
+			}
+			
+		}
+		
 		if (command === 'first'){
 			if (firstChatter === 0){
 				firstChatter = 1;
@@ -96,7 +111,7 @@ client.on('message', (channel, tags, message, self) => {
 				client.say(channel, "GITGUD if you ain't first, you're last");
 			}
 		}
-
+		
 		if (command === 'offQ'){
 			qState = 0;
 		} else if (command === 'onQ'){
