@@ -1,6 +1,6 @@
 
 
-require('dotenv').config();//
+require('dotenv').config();
 
 const tmi = require('tmi.js');
 const { takeCoverage } = require('v8');
@@ -49,6 +49,12 @@ const client = new tmi.Client({
 });
 
 client.connect();
+client.say(channel, "Happy Halloween!");
+function sayHi() {
+  client.say(channel, "tis the most spooky time of the year");
+}
+
+setTimeout(sayHi, 5000);
 
 client.on('message', (channel, tags, message, self) => {
 	const player = {
