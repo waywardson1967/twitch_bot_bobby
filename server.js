@@ -126,7 +126,8 @@ function checkStreamInfo(data) {
     //console.log("got here");
 	console.log(data);
 	//let streamerLocationInList = 0;
-	if(data.hasOwnProperty('display_name')){ //potentially live
+	if(data.hasOwnProperty('data')){ //potentially live
+		console.log("that worked");
 		for (let i = 0; i < data.length; i++){
 			console.log(data[0]);
 			if(data[i].display_name === channelName){
