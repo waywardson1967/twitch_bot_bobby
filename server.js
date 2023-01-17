@@ -46,6 +46,10 @@ let serverResetValid = setInterval(function myServerSet() {
   servResetFlag = 1;
 }, 1200000);
 
+
+let liveStatus_recheckValid = 1;
+let liveStatus_rerunAuthentication = 1;
+
 //const fetch = require('node-fetch');
 const channelName = 'WaywardSon__';
 
@@ -60,6 +64,16 @@ const client = new tmi.Client({
 	},
 	channels: [ 'waywardson__' ]
 });
+
+function rebootServer(){
+	if (servResetFlag === 0){
+		client.say(channel, "Server has reset too recently, resetting it now will crash the system so try again in a bit.");
+	} else{
+		//this next line should crash the system
+		client.say(channel, "The server has been reset.");
+		log;
+	}
+}
 
 function getTwitchAuthorization() {
     let url = `https://id.twitch.tv/oauth2/token?client_id=${clientID}&client_secret=${clientSecret}&grant_type=client_credentials`;
@@ -78,8 +92,9 @@ function getTwitchAuthorization() {
     console.log(`${token_type} ${access_token}`);
 }*/
 
-async function getStreams() {
-    const endpoint = "https://api.twitch.tv/helix/search/channels?query=waywardson__&live_only=true";
+let authorization;
+const endpoint = "https://api.twitch.tv/helix/search/channels?query=waywardson__";//&live_only=true";
+async function getAuthoraization() {
 
     let authorizationObject = await getTwitchAuthorization();
     let { access_token, expires_in, token_type } = authorizationObject;
@@ -89,8 +104,10 @@ async function getStreams() {
     token_type.substring(0, 1).toUpperCase() +
     token_type.substring(1, token_type.length);
 
-    let authorization = `${token_type} ${access_token}`;
+    authorization = `${token_type} ${access_token}`;
+}
 
+async function fetchInformation(){
     let headers = {
     authorization,
     "Client-Id": clientID,
@@ -100,15 +117,73 @@ async function getStreams() {
     headers,
     })
     .then((res) => res.json())
-    .then((data) => renderStreams(data));
+    .then((data) => checkStreamInfo(data));
 }
 
-function renderStreams(data) {
-    console.log("got here");
+let streamerIsLive = 1;
+let prevStreamerIsLive = 1;
+function checkStreamInfo(data) {
+    //console.log("got here");
 	console.log(data);
+	//let streamerLocationInList = 0;
+	if(data.hasOwnProperty('display_name')){ //potentially live
+		for (let i = 0; i < data.length; i++){
+			if(data[0].display_name === channelName){
+				//streamerLocationInList <= i;
+				streamerIsLive = 1;
+				break;
+			}else{
+				streamerIsLive = 0;
+			}
+		}
+
+	}else{ //not live
+		streamerIsLive = 0;
+	}
+
+	if (prevStreamerIsLive != streamerIsLive){
+		prevStreamerIsLive = streamerIsLive;
+		if (streamerIsLive === 1){
+			rebootServer();
+		}
+	}
+}
+
+function checkLiveStatus () {
+	while(1){
+		if (liveStatus_recheckValid === 1){
+			if(liveStatus_rerunAuthentication === 1){
+				getAuthoraization();
+				fetchInformation();
+				
+				liveStatus_recheckValid = 0;
+				liveStatus_rerunAuthentication = 0;
+				setInterval(function myServerSet() {
+					liveStatus_recheckValid = 1;
+				}, 2000);
+		
+				setInterval(function myServerSet() {
+					liveStatus_rerunAuthentication = 1;
+				}, 20000);
+		
+			}else{
+				fetchInformation();
+
+				liveStatus_recheckValid = 0;
+				setInterval(function myServerSet() {
+					liveStatus_recheckValid = 1;
+				}, 2000);
+			}
+		}
+	}
 }
 
 client.connect();
+
+client.on("connected", function (address, port) {
+	checkLiveStatus();
+	client.say(channel,"Welcome to stream Hunters!");
+});
 
 client.on('message', (channel, tags, message, self) => {
 	const player = {
@@ -140,13 +215,7 @@ client.on('message', (channel, tags, message, self) => {
 	const [raw, command, argument] = message.match(regexpCommand);
 	if (command === 'reset'){
 		if (tags.badges.hasOwnProperty('broadcaster')) {
-			if (servResetFlag === 0){
-				client.say(channel, "Server has reset too recently, resetting it now will crash the system so try again in a bit.");
-			} else{
-				//this next line should crash the system
-				client.say(channel, "The server has been reset.");
-				log;
-			}			
+			rebootServer();			
 		} else{
 			client.say(channel, "Get yo bitch ass outta here. You ain't Kevin.");
 		}
@@ -170,7 +239,33 @@ client.on('message', (channel, tags, message, self) => {
 
 		if (qState === 0) return;
 
-		if (command === 'join' || command ==='add'){
+		if (command === 'masterAdd'){
+			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
+				if (argument == null){
+					client.say(channel, "Silly mod, you need to say WHO you want to add.");
+					return;
+				}
+				argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
+				
+				for(let i = 0; i < argumentWords.length; i++){
+					user = argument[0].toString();
+					player.username = user;
+					player.points = 0;
+
+					UserList.push(player);
+				}
+
+				user = UserList[0].username;
+				for (let i = 1; i < UserList.length; i++){
+					user = user.concat(", ", UserList[i].username);	
+				}
+				str = queueViewMsg.concat(user.toString());
+				client.say(channel, str);
+			}else{
+				return;
+			}
+		}
+		else if (command === 'join' || command ==='add'){
 
 			AlreadyJoined = 0;
 			errorNum = 1;
