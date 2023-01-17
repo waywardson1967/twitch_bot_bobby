@@ -11,6 +11,7 @@ const UserList = [];
 const LeftUserList = [];
 let AlreadyJoined = 0;
 
+let thanks4PlayingMsg = "Thanks for playing @";
 let queueViewMsg = "The queue : ";
 let livePlayer = "Live Players : ";
 let nextPlayer = "You're up next! @";
@@ -44,6 +45,9 @@ let servResetFlag = 0;
 let serverResetValid = setInterval(function myServerSet() {
   servResetFlag = 1;
 }, 1200000);
+
+const fetch = require('node-fetch');
+const channelName = 'WaywardSon__';
 
 const client = new tmi.Client({
 	options: { debug: true },
@@ -358,6 +362,10 @@ client.on('message', (channel, tags, message, self) => {
 					client.say(channel, "Nah, you good to keep playing.");
 					return;
 				}
+
+				user = UserList[0].username;
+				str = thanks4PlayingMsg.concat(user.toString());
+				client.say(channel, str);
 
 				player.username = UserList[0].username;
 				if (firstInQueueFlag === 0){
@@ -675,7 +683,17 @@ client.on('message', (channel, tags, message, self) => {
 				}
 			}
 			client.say(channel, "But that person ain't even in queue idjit.");
-		} 
+		} else if (command === 'upp'){
+			let currTime;
+
+			let a = await fetch(`https://www.twitch.tv/${channelName}`);
+			if( (await a.text()).includes('isLiveBroadcast') ){
+				console.log(`${channelName} is live`);
+			}
+			else{
+				console.log(`${channelName} is not live`);
+			}
+		}
 	}catch(err){
 		client.say(channel, "Nope, I didn't like that. Perhaps the mods can help you?");
 		console.log(err.toString());
