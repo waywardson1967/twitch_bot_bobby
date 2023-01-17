@@ -94,7 +94,7 @@ function getTwitchAuthorization() {
 
 let authorization;
 const endpoint = "https://api.twitch.tv/helix/search/channels?query=waywardson__";//&live_only=true";
-async function getAuthoraization() {
+async function getAuthorization() {
 
     let authorizationObject = await getTwitchAuthorization();
     let { access_token, expires_in, token_type } = authorizationObject;
@@ -149,7 +149,7 @@ function checkStreamInfo(data) {
 	}
 }
 
-function checkLiveStatus () {
+/*function checkLiveStatus () {
 	while(1){
 		if (liveStatus_recheckValid === 1){
 			if(liveStatus_rerunAuthentication === 1){
@@ -176,14 +176,25 @@ function checkLiveStatus () {
 			}
 		}
 	}
-}
+}*/
 
 client.connect();
 
 client.on("connected", function (address, port) {
-	checkLiveStatus();
-	client.say(channel,"Welcome to stream Hunters!");
+	//checkLiveStatus();
+	//client.say(channel,"Welcome to stream Hunters!");
+	getAuthorization();
+	fetchInformation();
 });
+
+let fetchInfo = setInterval(function () {
+	fetchInformation();
+
+}, 2000);
+
+let getAuth_client = setInterval(function () {
+	getAuthorization();
+}, 20000);
 
 client.on('message', (channel, tags, message, self) => {
 	const player = {
