@@ -49,6 +49,9 @@ let serverResetValid = setInterval(function myServerSet() {
 //const fetch = require('node-fetch');
 const channelName = 'WaywardSon__';
 
+let clientID = process.env.TWITCH_BOT_USERNAME;
+let clientSecret = process.env.TWITCH_OAUTH_TOKEN;
+
 const client = new tmi.Client({
 	options: { debug: true },
 	identity: {
@@ -57,6 +60,21 @@ const client = new tmi.Client({
 	},
 	channels: [ 'waywardson__' ]
 });
+
+function getTwitchAuthorization() {
+    let url = `https://id.twitch.tv/oauth2/token?client_id=${clientID}&client_secret=${clientSecret}&grant_type=client_credentials`;
+
+    fetch(url, {
+    method: "POST",
+    })
+    .then((res) => res.json())
+    .then((data) => handleAuthorization(data));
+}
+
+function handleAuthorization(data) {
+    let { access_token, expires_in, token_type } = data;
+    console.log(`${token_type} ${access_token}`);
+}
 
 client.connect();
 
@@ -685,7 +703,9 @@ client.on('message', (channel, tags, message, self) => {
 			client.say(channel, "But that person ain't even in queue idjit.");
 		} else if (command === 'upp'){
 			let currTime;
-			console.log(channel, message, tags,self);
+			
+			getTwitchAuthorization();
+
 			/*let a = await fetch(`https://www.twitch.tv/${channelName}`);
 			if( (await a.text()).includes('isLiveBroadcast') ){
 				console.log(`${channelName} is live`);
