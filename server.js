@@ -128,9 +128,10 @@ function checkStreamInfo(data) {
 	//let streamerLocationInList = 0;
 	if(data.hasOwnProperty('display_name')){ //potentially live
 		for (let i = 0; i < data.length; i++){
-			if(data[0].display_name === channelName){
+			if(data[i].display_name === channelName){
 				//streamerLocationInList <= i;
 				streamerIsLive = 1;
+				console.log(i);
 				break;
 			}else{
 				streamerIsLive = 0;
@@ -190,11 +191,11 @@ client.on("connected", function (address, port) {
 let fetchInfo = setInterval(function () {
 	fetchInformation();
 
-}, 2000);
+}, 20000);
 
 let getAuth_client = setInterval(function () {
 	getAuthorization();
-}, 20000);
+}, 200000);
 
 client.on('message', (channel, tags, message, self) => {
 	const player = {
