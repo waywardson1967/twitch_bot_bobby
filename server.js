@@ -733,7 +733,7 @@ client.on('message', (channel, tags, message, self) => {
 		} else if (command === 'upp'){
 			let currTime;
 			
-			getTwitchAuthorization();
+			getStreams();
 
 			/*let a = await fetch(`https://www.twitch.tv/${channelName}`);
 			if( (await a.text()).includes('isLiveBroadcast') ){
