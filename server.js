@@ -685,7 +685,7 @@ client.on('message', (channel, tags, message, self) => {
 			client.say(channel, "But that person ain't even in queue idjit.");
 		} else if (command === 'upp'){
 			let currTime;
-
+			console.log(channel, message, tags,self);
 			/*let a = await fetch(`https://www.twitch.tv/${channelName}`);
 			if( (await a.text()).includes('isLiveBroadcast') ){
 				console.log(`${channelName} is live`);
