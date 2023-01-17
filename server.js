@@ -79,7 +79,7 @@ function getTwitchAuthorization() {
 }*/
 
 async function getStreams() {
-    const endpoint = "https://api.twitch.tv/helix/analytics/extensions";
+    const endpoint = "https://api.twitch.tv/helix/streams";
 
     let authorizationObject = await getTwitchAuthorization();
     let { access_token, expires_in, token_type } = authorizationObject;
@@ -104,7 +104,8 @@ async function getStreams() {
 }
 
 function renderStreams(data) {
-    console.log(data);
+    console.log("got here");
+	console.log(data);
 }
 
 client.connect();
