@@ -49,8 +49,8 @@ let serverResetValid = setInterval(function myServerSet() {
 //const fetch = require('node-fetch');
 const channelName = 'WaywardSon__';
 
-let clientID = "rj1j53eactrz9mn3rr275j7ydvgtk0";
-let clientSecret = "8oks8bqil92n64vqe9qabwclg4d68a";
+let clientID = process.env.APP_ID;
+let clientSecret = process.env.APP_SECRET;
 
 const client = new tmi.Client({
 	options: { debug: true },
