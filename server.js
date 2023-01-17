@@ -79,7 +79,7 @@ function getTwitchAuthorization() {
 }*/
 
 async function getStreams() {
-    const endpoint = "https://api.twitch.tv/helix/search/channels?query=waywardson__";
+    const endpoint = "https://api.twitch.tv/helix/search/channels?user_id=407944677";
 
     let authorizationObject = await getTwitchAuthorization();
     let { access_token, expires_in, token_type } = authorizationObject;
