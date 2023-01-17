@@ -124,7 +124,8 @@ let streamerIsLive = 1;
 let prevStreamerIsLive = 1;
 function checkStreamInfo(data) {
     //console.log("got here");
-	console.log(data.data.length);
+	console.log(data.length);
+	console.log(data.data.display_name);
 	//let streamerLocationInList = 0;
 	if(data.hasOwnProperty('data')){ //potentially live
 		console.log("that worked");
