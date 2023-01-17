@@ -71,9 +71,38 @@ function getTwitchAuthorization() {
     .then((data) => handleAuthorization(data));
 }
 
-function handleAuthorization(data) {
+/*function handleAuthorization(data) {
     let { access_token, expires_in, token_type } = data;
     console.log(`${token_type} ${access_token}`);
+}*/
+
+async function getStreams() {
+    const endpoint = "https://api.twitch.tv/helix/analytics/extensions";
+
+    let authorizationObject = await getTwitchAuthorization();
+    let { access_token, expires_in, token_type } = authorizationObject;
+
+    //token_type first letter must be uppercase    
+    token_type =
+    token_type.substring(0, 1).toUpperCase() +
+    token_type.substring(1, token_type.length);
+
+    let authorization = `${token_type} ${access_token}`;
+
+    let headers = {
+    authorization,
+    "Client-Id": clientID,
+    };
+
+    fetch(endpoint, {
+    headers,
+    })
+    .then((res) => res.json())
+    .then((data) => renderStreams(data));
+}
+
+function renderStreams(data) {
+    console.log(data);
 }
 
 client.connect();
