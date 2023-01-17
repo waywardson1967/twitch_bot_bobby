@@ -98,7 +98,7 @@ async function getAuthorization() {
 
     let authorizationObject = await getTwitchAuthorization();
     let { access_token, expires_in, token_type } = authorizationObject;
-	console.log(expires_in);
+	//console.log(expires_in);
     //token_type first letter must be uppercase    
     token_type =
     token_type.substring(0, 1).toUpperCase() +
@@ -125,14 +125,20 @@ let streamerIsLive = 1;
 let prevStreamerIsLive = 1;
 function checkStreamInfo(data) {
 	if(data.hasOwnProperty('pagination')){ //potentially live
-		console.log("that worked");
+		//console.log("that worked");
 		for (var i = 0; i < data.data.length; i++){
-			console.log(data.data[i].display_name);
-			console.log(i);
+			//console.log(data.data[i].display_name);
+			//console.log(i);
 			if(data.data[i].display_name === channelName){
 				//streamerLocationInList <= i;
-				streamerIsLive = 1;
-				console.log(data.data[i].display_name);
+				if (data.data[i].is_live === true){
+					streamerIsLive = 1;
+					console.log("live");
+				}else{
+					streamerIsLive = 0;
+					console.log("not live");
+				}
+				//console.log(data.data[i].display_name);
 				break;
 			}else{
 				streamerIsLive = 0;
@@ -140,7 +146,7 @@ function checkStreamInfo(data) {
 		}
 
 	}else{ //not live
-		console.log("not live");
+		//console.log("not live");
 		streamerIsLive = 0;
 	}
 
