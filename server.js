@@ -126,7 +126,7 @@ let prevStreamerIsLive = 1;
 function checkStreamInfo(data) {
 	if(data.hasOwnProperty('pagination')){ //potentially live
 		console.log("that worked");
-		for (var i = 0; i < data.length; i++){
+		for (var i = 0; i < data.data.length; i++){
 			console.log(data.data[i].display_name);
 			console.log(i);
 			if(data.data[i].display_name === channelName){
