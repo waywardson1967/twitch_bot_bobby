@@ -105,7 +105,6 @@ async function getAuthorization() {
     token_type.substring(1, token_type.length);
 
     authorization = `${token_type} ${access_token}`;
-    fetchInformation();
 }
 
 async function fetchInformation(){
@@ -124,19 +123,13 @@ async function fetchInformation(){
 let streamerIsLive = 1;
 let prevStreamerIsLive = 1;
 function checkStreamInfo(data) {
-    //console.log("got here");
-	console.log(data);
-	console.log(data.data);
-	console.log(data.data[0].display_name);
-	//let streamerLocationInList = 0;
 	if(data.hasOwnProperty('pagination')){ //potentially live
 		console.log("that worked");
 		for (let i = 0; i < data.length; i++){
-			console.log(data[0]);
-			if(data[i].display_name === channelName){
+			if(data.data[i].display_name === channelName){
 				//streamerLocationInList <= i;
 				streamerIsLive = 1;
-				//console.log(i);
+				console.log(data.data[i].display_name);
 				break;
 			}else{
 				streamerIsLive = 0;
@@ -191,17 +184,17 @@ client.on("connected", function (address, port) {
 	//checkLiveStatus();
 	//client.say(channel,"Welcome to stream Hunters!");
 	getAuthorization();
-	//fetchInformation();
+	fetchInformation();
 });
 
-/*let fetchInfo = setInterval(function () {
+let fetchInfo = setInterval(function () {
 	fetchInformation();
 
 }, 20000);
 
 let getAuth_client = setInterval(function () {
 	getAuthorization();
-}, 200000);*/
+}, 200000);
 
 client.on('message', (channel, tags, message, self) => {
 	const player = {
