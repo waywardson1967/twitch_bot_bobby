@@ -124,7 +124,8 @@ let streamerIsLive = 1;
 let prevStreamerIsLive = 1;
 function checkStreamInfo(data) {
     //console.log("got here");
-	console.log(data.data[0]);
+	console.log(data);
+	console.log(data.data);
 	//let streamerLocationInList = 0;
 	if(data.hasOwnProperty('pagination')){ //potentially live
 		console.log("that worked");
@@ -191,14 +192,14 @@ client.on("connected", function (address, port) {
 	fetchInformation();
 });
 
-let fetchInfo = setInterval(function () {
+/*let fetchInfo = setInterval(function () {
 	fetchInformation();
 
 }, 20000);
 
 let getAuth_client = setInterval(function () {
 	getAuthorization();
-}, 200000);
+}, 200000);*/
 
 client.on('message', (channel, tags, message, self) => {
 	const player = {
