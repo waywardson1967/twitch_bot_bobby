@@ -128,10 +128,11 @@ function checkStreamInfo(data) {
 	//let streamerLocationInList = 0;
 	if(data.hasOwnProperty('display_name')){ //potentially live
 		for (let i = 0; i < data.length; i++){
+			console.log(data[i].display_name);
 			if(data[i].display_name === channelName){
 				//streamerLocationInList <= i;
 				streamerIsLive = 1;
-				console.log(i);
+				//console.log(i);
 				break;
 			}else{
 				streamerIsLive = 0;
