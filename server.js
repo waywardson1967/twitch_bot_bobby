@@ -64,11 +64,13 @@ const client = new tmi.Client({
 function getTwitchAuthorization() {
     let url = `https://id.twitch.tv/oauth2/token?client_id=${clientID}&client_secret=${clientSecret}&grant_type=client_credentials`;
 
-    fetch(url, {
-    method: "POST",
-    })
-    .then((res) => res.json())
-    .then((data) => handleAuthorization(data));
+    return fetch(url, {
+		method: "POST",
+		})
+		.then((res) => res.json())
+		.then((data) => {
+			return data;
+		});
 }
 
 /*function handleAuthorization(data) {
