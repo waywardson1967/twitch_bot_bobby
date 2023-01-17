@@ -46,7 +46,7 @@ let serverResetValid = setInterval(function myServerSet() {
   servResetFlag = 1;
 }, 1200000);
 
-const fetch = require('node-fetch');
+//const fetch = require('node-fetch');
 const channelName = 'WaywardSon__';
 
 const client = new tmi.Client({
@@ -686,13 +686,13 @@ client.on('message', (channel, tags, message, self) => {
 		} else if (command === 'upp'){
 			let currTime;
 
-			let a = await fetch(`https://www.twitch.tv/${channelName}`);
+			/*let a = await fetch(`https://www.twitch.tv/${channelName}`);
 			if( (await a.text()).includes('isLiveBroadcast') ){
 				console.log(`${channelName} is live`);
 			}
 			else{
 				console.log(`${channelName} is not live`);
-			}
+			}*/
 		}
 	}catch(err){
 		client.say(channel, "Nope, I didn't like that. Perhaps the mods can help you?");
