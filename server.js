@@ -127,6 +127,7 @@ function checkStreamInfo(data) {
     //console.log("got here");
 	console.log(data);
 	console.log(data.data);
+	console.log(data.data[0].display_name);
 	//let streamerLocationInList = 0;
 	if(data.hasOwnProperty('pagination')){ //potentially live
 		console.log("that worked");
