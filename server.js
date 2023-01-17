@@ -105,6 +105,7 @@ async function getAuthorization() {
     token_type.substring(1, token_type.length);
 
     authorization = `${token_type} ${access_token}`;
+	fetchInformation();
 }
 
 async function fetchInformation(){
@@ -184,7 +185,7 @@ client.on("connected", function (address, port) {
 	//checkLiveStatus();
 	//client.say(channel,"Welcome to stream Hunters!");
 	getAuthorization();
-	fetchInformation();
+	//fetchInformation();
 });
 
 let fetchInfo = setInterval(function () {
