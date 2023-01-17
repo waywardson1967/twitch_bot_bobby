@@ -124,10 +124,9 @@ let streamerIsLive = 1;
 let prevStreamerIsLive = 1;
 function checkStreamInfo(data) {
     //console.log("got here");
-	console.log(data.length);
-	console.log(data.data.display_name);
+	console.log(data.data[0]);
 	//let streamerLocationInList = 0;
-	if(data.hasOwnProperty('data')){ //potentially live
+	if(data.hasOwnProperty('pagination')){ //potentially live
 		console.log("that worked");
 		for (let i = 0; i < data.length; i++){
 			console.log(data[0]);
