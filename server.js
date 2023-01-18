@@ -152,9 +152,9 @@ function checkStreamInfo(data) {
 
 	if (prevStreamerIsLive != streamerIsLive){
 		prevStreamerIsLive = streamerIsLive;
-		if (streamerIsLive === 1){
+		//if (streamerIsLive === 1){
 			rebootServer();
-		}
+		//}
 	}
 }
 
