@@ -131,12 +131,12 @@ function checkStreamInfo(data) {
 			//console.log(i);
 			if(data.data[i].display_name === channelName){
 				//streamerLocationInList <= i;
-				if (data.data[i].is_live === true){
-					streamerIsLive = 1;
-					console.log("live");
-				}else{
+				if (data.data[i].is_live === false){
 					streamerIsLive = 0;
 					console.log("not live");
+				}else{
+					streamerIsLive = 1;
+					console.log("live");
 				}
 				//console.log(data.data[i].display_name);
 				break;
