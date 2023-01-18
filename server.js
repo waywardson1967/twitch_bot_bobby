@@ -142,7 +142,7 @@ function checkStreamInfo(data) {
 
 	if (prevStreamerIsLive != streamerIsLive){
 		prevStreamerIsLive = streamerIsLive;
-		//if (streamerIsLive === 1){
+		if (streamerIsLive === 1){
 			if (servResetFlag === 0){
 				console.log("Server has reset too recently, resetting it now will crash the system so try again in a bit.");
 			} else{
@@ -150,7 +150,7 @@ function checkStreamInfo(data) {
 				console.log("The server has been reset.");
 				log;
 			};
-		//}
+		}
 	}
 }
 
