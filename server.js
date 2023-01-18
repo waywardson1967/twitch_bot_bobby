@@ -194,11 +194,11 @@ client.on("connected", function (address, port) {
 let fetchInfo = setInterval(function () {
 	fetchInformation();
 
-}, 20000);
+}, 1000); //in milliseconds -- allowed to do this up to 800 times a minute -- we are doing 1 per second so 60 per minute
 
 let getAuth_client = setInterval(function () {
 	getAuthorization();
-}, 200000);
+}, 10800000); //this needs to be reset every 4 hours so we shall do it every 3 (3*60*60) = 10,800 seconds = 10,800,000 ms
 
 client.on('message', (channel, tags, message, self) => {
 	const player = {
