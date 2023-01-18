@@ -65,16 +65,6 @@ const client = new tmi.Client({
 	channels: [ 'waywardson__' ]
 });
 
-function rebootServer(){
-	if (servResetFlag === 0){
-		client.say(channel, "Server has reset too recently, resetting it now will crash the system so try again in a bit.");
-	} else{
-		//this next line should crash the system
-		client.say(channel, "The server has been reset.");
-		log;
-	}
-}
-
 function getTwitchAuthorization() {
     let url = `https://id.twitch.tv/oauth2/token?client_id=${clientID}&client_secret=${clientSecret}&grant_type=client_credentials`;
 
@@ -153,7 +143,13 @@ function checkStreamInfo(data) {
 	if (prevStreamerIsLive != streamerIsLive){
 		prevStreamerIsLive = streamerIsLive;
 		//if (streamerIsLive === 1){
-			rebootServer();
+			if (servResetFlag === 0){
+				console.log("Server has reset too recently, resetting it now will crash the system so try again in a bit.");
+			} else{
+				//this next line should crash the system
+				console.log("The server has been reset.");
+				log;
+			};
 		//}
 	}
 }
@@ -191,7 +187,7 @@ client.connect();
 
 client.on("connected", function (address, port) {
 	//checkLiveStatus();
-	//client.say(channel,"Welcome to stream Hunters!");
+	client.say(channel,"Welcome to stream Hunters!");
 	getAuthorization();
 	//fetchInformation();
 });
@@ -235,7 +231,13 @@ client.on('message', (channel, tags, message, self) => {
 	const [raw, command, argument] = message.match(regexpCommand);
 	if (command === 'reset'){
 		if (tags.badges.hasOwnProperty('broadcaster')) {
-			rebootServer();			
+			if (servResetFlag === 0){
+				client.say(channel,"Server has reset too recently, resetting it now will crash the system so try again in a bit.");
+			} else{
+				//this next line should crash the system
+				client.say(channel,"The server has been reset.");
+				log;
+			};			
 		} else{
 			client.say(channel, "Get yo bitch ass outta here. You ain't Kevin.");
 		}
@@ -848,18 +850,6 @@ client.on('message', (channel, tags, message, self) => {
 				}
 			}
 			client.say(channel, "But that person ain't even in queue idjit.");
-		} else if (command === 'upp'){
-			let currTime;
-			
-			getStreams();
-
-			/*let a = await fetch(`https://www.twitch.tv/${channelName}`);
-			if( (await a.text()).includes('isLiveBroadcast') ){
-				console.log(`${channelName} is live`);
-			}
-			else{
-				console.log(`${channelName} is not live`);
-			}*/
 		}
 	}catch(err){
 		client.say(channel, "Nope, I didn't like that. Perhaps the mods can help you?");
