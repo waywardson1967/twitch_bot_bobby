@@ -187,7 +187,6 @@ client.connect();
 
 client.on("connected", function (address, port) {
 	//checkLiveStatus();
-	client.say(channel,"Welcome to stream Hunters!");
 	getAuthorization();
 	//fetchInformation();
 });
