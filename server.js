@@ -113,6 +113,7 @@ async function fetchInformation(){
 
 let streamerIsLive = 1;
 let prevStreamerIsLive = 1;
+
 function checkStreamInfo(data) {
 	if(data.hasOwnProperty('pagination')){ //potentially live
 		//console.log("that worked");
@@ -141,8 +142,8 @@ function checkStreamInfo(data) {
 	}
 
 	if (prevStreamerIsLive != streamerIsLive){
-		prevStreamerIsLive = streamerIsLive;
 		if (streamerIsLive === 1){
+			prevStreamerIsLive = streamerIsLive;
 			if (servResetFlag === 0){
 				console.log("Server has reset too recently, resetting it now will crash the system so try again in a bit.");
 			} else{
@@ -150,6 +151,10 @@ function checkStreamInfo(data) {
 				console.log("The server has been reset.");
 				log;
 			};
+		}else{//check if he just quickly had to reset the stream or if he really is done streaming by delaying the streamer live reset
+			let checkifTrulyOffline = setInterval(function delayReset() {
+				prevStreamerIsLive = streamerIsLive;
+			  }, 1200000);
 		}
 	}
 }
@@ -244,10 +249,13 @@ client.on('message', (channel, tags, message, self) => {
 	try{
 		
 		if (command === 'first'){
-			if (firstChatter === 0){
+			if (streamerIsLive === 0){
+				client.say(channel, "He isn't even live, Idjit");
+			}
+			else if (firstChatter === 0){
 				firstChatter = 1;
 				client.say(channel, "Well, well, well, if it isn't the first Idjit in stream");
-			} else {
+			}else {
 				client.say(channel, "GITGUD if you ain't first, you're last");
 			}
 		}
