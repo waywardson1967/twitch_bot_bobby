@@ -273,7 +273,7 @@ client.on('message', (channel, tags, message, self) => {
 
 		if (qState === 0) return;
 
-		if (command === 'masterAdd'){
+		if (command === 'add' && argument.split(/[^a-zA-Z0-9_]+/) > 1){
 			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
 				if (argument == null){
 					client.say(channel, "Silly mod, you need to say WHO you want to add.");
@@ -311,10 +311,10 @@ client.on('message', (channel, tags, message, self) => {
 					}
 					argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
 					
-					if (argumentWords.length > 1){
+					/*if (argumentWords.length > 1){
 						client.say(channel, "Silly mod, that's not a valid name.");
 						return;
-					}
+					}*/
 
 					user = argument.toString();
 					player.username = user;
