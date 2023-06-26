@@ -282,7 +282,8 @@ client.on('message', (channel, tags, message, self) => {
 				argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
 				
 				for(let i = 0; i < argumentWords.length; i++){
-					user = argument[0].toString();
+					//if (i == 0) then
+					user = argumentWords[i].toString();
 					player.username = user;
 					player.points = 0;
 
