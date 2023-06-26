@@ -46,6 +46,8 @@ let serverResetValid = setInterval(function myServerSet() {
   servResetFlag = 1;
 }, 1200000);
 
+let checkingIfTrulyOffline = 0;
+
 
 let liveStatus_recheckValid = 1;
 let liveStatus_rerunAuthentication = 1;
@@ -151,9 +153,12 @@ function checkStreamInfo(data) {
 				console.log("The server has been reset.");
 				log;
 			};
-		}else{//check if he just quickly had to reset the stream or if he really is done streaming by delaying the streamer live reset
+		}else if (checkingIfTrulyOffline == 0)
+		{//check if he just quickly had to reset the stream or if he really is done streaming by delaying the streamer live reset
+			checkingIfTrulyOffline = 1;
 			let checkifTrulyOffline = setInterval(function delayReset() {
 				prevStreamerIsLive = streamerIsLive;
+				checkingIfTrulyOffline = 0;
 			  }, 1200000);
 		}
 	}
