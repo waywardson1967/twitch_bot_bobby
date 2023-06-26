@@ -159,7 +159,7 @@ function checkStreamInfo(data) {
 			let checkifTrulyOffline = setInterval(function delayReset() {
 				prevStreamerIsLive = streamerIsLive;
 				checkingIfTrulyOffline = 0;
-			  }, 1200000);
+			  }, 3600000); //60 mins*60sec/min*1000ms/sec = 
 		}
 	}
 }
