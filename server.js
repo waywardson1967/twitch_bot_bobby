@@ -199,6 +199,7 @@ client.on("connected", function (address, port) {
 	//checkLiveStatus();
 	getAuthorization();
 	//fetchInformation();
+	client.say(channel, "reset Successful");
 });
 
 let fetchInfo = setInterval(function () {
@@ -272,7 +273,7 @@ client.on('message', (channel, tags, message, self) => {
 		}
 
 		if (qState === 0) return;
-client.say(channel, "reset Successful");
+
 		if (command === 'add' && argument.split(/[^a-zA-Z0-9_]+/) > 1){
 			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
 				if (argument == null){
@@ -280,6 +281,10 @@ client.say(channel, "reset Successful");
 					return;
 				}
 				argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
+
+				client.say(channel, argumentWords[0].toString());
+				client.say(channel, argumentWords[1].toString());
+				client.say(channel, argumentWords[2].toString());
 				
 				for(let i = 0; i < argumentWords.length; i++){
 					//if (i == 0) then
@@ -295,8 +300,7 @@ client.say(channel, "reset Successful");
 				for (let i = 1; i < UserList.length; i++){
 					user = user.concat(", ", UserList[i].username);	
 				}
-				str = queueViewMsg.concat(user.toString());
-				client.say(channel, str);
+				
 			}else{
 				return;
 			}
