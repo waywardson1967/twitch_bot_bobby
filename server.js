@@ -285,7 +285,7 @@ client.on('message', (channel, tags, message, self) => {
 				argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
 				while (argNum < argumentWords.length){
 					client.say(channel, "Multi input hype");
-					client.say(channel, argumentWords[test]);
+					client.say(channel, argumentWords[argNum]);
 					client.say(channel, "Multi input hype");
 				}
 				
