@@ -287,6 +287,7 @@ client.on('message', (channel, tags, message, self) => {
 					client.say(channel, "Multi input hype");
 					client.say(channel, argumentWords[argNum]);
 					client.say(channel, "Multi input hype");
+					argNum++;
 				}
 				
 				if (argumentWords.length > 1){
