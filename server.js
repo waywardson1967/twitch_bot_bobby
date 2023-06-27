@@ -272,7 +272,7 @@ client.on('message', (channel, tags, message, self) => {
 		}
 
 		if (qState === 0) return;
-
+client.say(channel, "reset Successful");
 		if (command === 'add' && argument.split(/[^a-zA-Z0-9_]+/) > 1){
 			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
 				if (argument == null){
@@ -286,7 +286,7 @@ client.on('message', (channel, tags, message, self) => {
 					user = argumentWords[i].toString();
 					player.username = user;
 					player.points = 0;
-					client.say(channel, user);
+					client.say(channel, user.toString());
 
 					UserList.push(player);
 				}
