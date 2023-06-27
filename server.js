@@ -274,7 +274,7 @@ client.on('message', (channel, tags, message, self) => {
 		if (qState === 0) return;
 		
 		if (command === 'add'){
-			/*if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
+			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
 				let argNum = 0;
 				
 				AlreadyJoined = 0;
@@ -309,15 +309,15 @@ client.on('message', (channel, tags, message, self) => {
 						UserList.push(player);
 					}
 				}
-				user = UserList[0].username;
+				/*user = UserList[0].username;
 				for (let i = 1; i < UserList.length; i++){
 					user = user.concat(", ", UserList[i].username);	
 				}
 				str = queueViewMsg.concat(user.toString());
-				client.say(channel, str);
+				client.say(channel, str);*/
 			}else{
 				return;
-			}*/
+			}
 		}
 		else if (command === 'join'){
 			AlreadyJoined = 0;
