@@ -286,6 +286,7 @@ client.on('message', (channel, tags, message, self) => {
 					user = argumentWords[i].toString();
 					player.username = user;
 					player.points = 0;
+					client.say(channel, user);
 
 					UserList.push(player);
 				}
