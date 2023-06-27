@@ -289,7 +289,7 @@ client.on('message', (channel, tags, message, self) => {
 					client.say(channel, "Multi input hype");
 					argNum++;
 
-					user = argumentWords[argNum].toString();
+					user = argumentWords[argNum];
 					player.username = user;
 					player.points = 0;
 					
@@ -309,6 +309,12 @@ client.on('message', (channel, tags, message, self) => {
 						UserList.push(player);
 					}
 				}
+				user = UserList[0].username;
+				for (let i = 1; i < UserList.length; i++){
+					user = user.concat(", ", UserList[i].username);	
+				}
+				str = queueViewMsg.concat(user.toString());
+				client.say(channel, str);
 			}else{
 				return;
 			}
