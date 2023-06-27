@@ -274,7 +274,7 @@ client.on('message', (channel, tags, message, self) => {
 		if (qState === 0) return;
 		
 		if (command === 'add'){
-			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
+			/*if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
 				let argNum = 0;
 				
 				AlreadyJoined = 0;
@@ -317,7 +317,7 @@ client.on('message', (channel, tags, message, self) => {
 				client.say(channel, str);
 			}else{
 				return;
-			}
+			}*/
 		}
 		else if (command === 'join'){
 			AlreadyJoined = 0;
