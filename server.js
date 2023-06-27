@@ -275,22 +275,26 @@ client.on('message', (channel, tags, message, self) => {
 		
 		if (command === 'add'){
 			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
+				let argNum = 0;
+				
 				AlreadyJoined = 0;
 				if (argument == null){
 					client.say(channel, "Silly mod, you need to say WHO you want to add.");
 					return;
 				}
 				argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
+				while (argNum < argumentWords.length){
+					client.say(channel, "Multi input hype");
+					client.say(channel, argumentWords[test]);
+					client.say(channel, "Multi input hype");
+				}
 				
-				let test = 0
 				if (argumentWords.length > 1){
 					client.say(channel, "Multi input hype");
 					client.say(channel, argumentWords[0]);
 					client.say(channel, "Multi input hype");
 					client.say(channel, argumentWords[1]);
-					client.say(channel, "Multi input hype");
-					client.say(channel, argumentWords[test]);
-					client.say(channel, "Multi input hype");
+					
 					for(let mul = 0; i < argumentWords.length; mul++){
 						client.say(channel, argumentWords[2]);
 						//client.say(channel, mul.toString());
