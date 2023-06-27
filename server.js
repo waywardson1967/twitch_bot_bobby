@@ -273,14 +273,16 @@ client.on('message', (channel, tags, message, self) => {
 
 		if (qState === 0) return;
 
-		if (command === 'add' && argument.split(/[^a-zA-Z0-9_]+/) > 1){
+		argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
+		
+		if (command === 'add' && argumentWords.length > 1){
 			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
 				if (argument == null){
 					client.say(channel, "Silly mod, you need to say WHO you want to add.");
 					return;
 				}
 				client.say(channel,"new section.");
-				argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
+				
 
 				client.say(channel, argumentWords[0].toString());
 				client.say(channel, argumentWords[1].toString());
