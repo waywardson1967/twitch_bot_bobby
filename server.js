@@ -290,7 +290,7 @@ client.on('message', (channel, tags, message, self) => {
 					argNum++;
 
 					user = argumentWords[argNum];
-					player.username = user;
+					player.username = user.toString();
 					player.points = 0;
 					
 					AlreadyJoined = 0;
