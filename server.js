@@ -289,20 +289,6 @@ client.on('message', (channel, tags, message, self) => {
 					client.say(channel, "Multi input hype");
 					argNum++;
 				}
-				
-				if (argumentWords.length > 1){
-					client.say(channel, "Multi input hype");
-					client.say(channel, argumentWords[0]);
-					client.say(channel, "Multi input hype");
-					client.say(channel, argumentWords[1]);
-					
-					for(let mul = 0; i < argumentWords.length; mul++){
-						client.say(channel, argumentWords[2]);
-						//client.say(channel, mul.toString());
-					}
-					
-					//return;
-				}
 
 				user = argument.toString();
 				player.username = user;
