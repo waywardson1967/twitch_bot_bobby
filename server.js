@@ -272,81 +272,153 @@ client.on('message', (channel, tags, message, self) => {
 		}
 
 		if (qState === 0) return;
-
-		argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
 		
-		if (command === 'add' && argumentWords.length > 1){
+		if (command === 'add'){
 			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
+				AlreadyJoined = 0;
 				if (argument == null){
 					client.say(channel, "Silly mod, you need to say WHO you want to add.");
 					return;
 				}
-				client.say(channel,"new section.");
+				argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
 				
+				if (argumentWords.length > 1){
+					client.say(channel, "Multi input hype");
+					client.say(channel, argumentWords[0]);
+					for(int mul = 0; i < argumentWords.length; mul++){
+						client.say(channel, argumentWords[0].toString());
+						client.say(channel, mul.toString());
+					}
+					
+					//return;
+				}
 
-				client.say(channel, argumentWords[0].toString());
-				client.say(channel, argumentWords[1].toString());
-				client.say(channel, argumentWords[2].toString());
-				
-				for(let i = 0; i < argumentWords.length; i++){
-					//if (i == 0) then
-					user = argumentWords[i].toString();
-					player.username = user;
+				user = argument.toString();
+				player.username = user;
+				/*if (firstInQueueFlag === 0){
+					player.points = 3;
+					firstInQueueFlag = 1;
+				}else if (secondInQueueFlag === 0){
+					player.points = 2;
+					secondInQueueFlag = 1;
+				}else
+				{*/
 					player.points = 0;
-					client.say(channel, user.toString());
-
-					UserList.push(player);
-				}
-
-				user = UserList[0].username;
-				for (let i = 1; i < UserList.length; i++){
-					user = user.concat(", ", UserList[i].username);	
-				}
-				
+				//}
+				AlreadyJoined = 1;
+				JoinedMessage = " was added to ";
 			}else{
 				return;
 			}
-		}
-		else if (command === 'join' || command ==='add'){
-
-			AlreadyJoined = 0;
-			errorNum = 1;
-			if (command === 'add'){
-				if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
-					if (argument == null){
-						client.say(channel, "Silly mod, you need to say WHO you want to add.");
-						return;
-					}
-					argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
-					
-					/*if (argumentWords.length > 1){
-						client.say(channel, "Silly mod, that's not a valid name.");
-						return;
-					}*/
-
-					user = argument.toString();
-					player.username = user;
-					/*if (firstInQueueFlag === 0){
-						player.points = 3;
-						firstInQueueFlag = 1;
-					}else if (secondInQueueFlag === 0){
-						player.points = 2;
-						secondInQueueFlag = 1;
-					}else
-					{*/
-						player.points = 0;
-					//}
-					AlreadyJoined = 1;
-					JoinedMessage = " was added to ";
-				}else{
+			
+			for (let i = 0; i < UserList.length; i++){
+				if (UserList[i].username === user){
+					client.say(channel, `${user} is already in the queue!`);
 					return;
 				}
-			} else{
-				user = tags['display-name'].toString();
-				
-				JoinedMessage = " joined ";
 			}
-			errorNum = 2;
+
+			for (let i = 0; i < LeftUserList.length; i++){
+				if (LeftUserList[i].username === user){
+					AlreadyJoined = 1;
+					player.username = LeftUserList[i].username;
+					player.points = LeftUserList[i].points;
+					/*if (firstInQueueFlag === 0){
+						player.points = player.points + 3;
+						firstInQueueFlag = 1;
+					}else if (secondInQueueFlag === 0){
+						player.points = player.points + 2;
+						secondInQueueFlag = 1;
+					}*/
+					JoinedMessage = " rejoined ";
+					LeftUserList.splice(i,1);
+					break;
+				}
+			}
+			errorNum = 3;
+			if (AlreadyJoined == 0){
+				errorNum = 4;
+				player.username = user;
+				/*if (firstInQueueFlag === 0){
+					player.points = 3;
+					firstInQueueFlag = 1;
+				}else if (secondInQueueFlag === 0){
+					player.points = 2;
+					secondInQueueFlag = 1;
+				}else
+				{*/
+				player.points = 0;
+				//}
+				errorNum = 5;
+				if (command === 'join'){
+					errorNum = 6;
+					if (tags.badges === null){
+						errorNum = 55;
+					}else {
+						errorNum = 60;
+					}
+
+					if (tags.badges === null){
+						errorNum = 8;
+						player.points = 0;
+					}
+					else {
+						//errorNum = 7;
+						if (tags.badges.hasOwnProperty('subscriber')){
+							if (tags.badges.subscriber.toString() === "1"){
+								player.points = player.points + 1;
+							} else if (tags.badges.subscriber.toString() === "3"){
+								player.points = player.points + 2;
+							} else if (tags.badges.subscriber.toString() === "6"){
+								player.points = player.points + 3;
+							} else if (tags.badges.subscriber.toString() === "9"){
+								player.points = player.points + 4;
+							} else if (tags.badges.subscriber.toString() === "12"){
+								player.points = player.points + 5;
+							}  
+							
+						}
+						errorNum = 20;
+						if (tags.badges.hasOwnProperty('moderator')){
+							player.points = player.points + 3;
+						}else if (tags.badges.hasOwnProperty('vip')){
+							player.points = player.points + 3;
+						}
+					}
+					errorNum = 9;
+				}
+				errorNum = 10;
+			}
+			errorNum = 11;
+			//client.say(channel, "got here 4");
+			if (UserList.length < numPlayersLive){
+				UserList.push(player);
+				client.say(channel, `@${user} ${JoinedMessage} the queue and you get to play right away! Yay!`);
+			}else if (UserList.length < numPlayersLive+1) {
+				UserList.push(player);
+				client.say(channel, `${user} ${JoinedMessage} the queue and you're up next!`);
+			} else{
+				
+				for (let i = numPlayersLive+1; i < UserList.length; i++){
+					if (player.points > UserList[i].points){
+						UserList.splice(i, 0, player);
+						estPlayerTime = (i+1-numPlayersLive) ;
+						client.say(channel, `${user} ${JoinedMessage} the queue! You have ${estPlayerTime} games until you're up!`);
+						return;
+					}	
+				}
+				UserList.push(player);
+				estPlayerTime = ((UserList.length)-numPlayersLive);
+				client.say(channel, `${user} ${JoinedMessage} the queue! You have ${estPlayerTime} games until you're up!`);
+			}
+		}
+		else if (command === 'join'){
+			AlreadyJoined = 0;
+			errorNum = 1;
+			
+			user = tags['display-name'].toString();
+			JoinedMessage = " joined ";
+			
 			for (let i = 0; i < UserList.length; i++){
 				if (UserList[i].username === user){
 					client.say(channel, `${user} is already in the queue!`);
