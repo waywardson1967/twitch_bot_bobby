@@ -282,11 +282,14 @@ client.on('message', (channel, tags, message, self) => {
 				}
 				argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
 				
+				let test = 0
 				if (argumentWords.length > 1){
 					client.say(channel, "Multi input hype");
 					client.say(channel, argumentWords[0]);
 					client.say(channel, "Multi input hype");
 					client.say(channel, argumentWords[1]);
+					client.say(channel, "Multi input hype");
+					client.say(channel, argumentWords[test]);
 					client.say(channel, "Multi input hype");
 					for(let mul = 0; i < argumentWords.length; mul++){
 						client.say(channel, argumentWords[2]);
