@@ -289,7 +289,7 @@ client.on('message', (channel, tags, message, self) => {
 					client.say(channel, argumentWords[1]);
 					client.say(channel, "Multi input hype");
 					for(let mul = 0; i < argumentWords.length; mul++){
-						client.say(channel, argumentWords[2].toString());
+						client.say(channel, argumentWords[2]);
 						//client.say(channel, mul.toString());
 					}
 					
