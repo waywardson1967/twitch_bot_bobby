@@ -285,7 +285,7 @@ client.on('message', (channel, tags, message, self) => {
 				if (argumentWords.length > 1){
 					client.say(channel, "Multi input hype");
 					client.say(channel, argumentWords[0]);
-					for(int mul = 0; i < argumentWords.length; mul++){
+					for(let mul = 0; i < argumentWords.length; mul++){
 						client.say(channel, argumentWords[0].toString());
 						client.say(channel, mul.toString());
 					}
