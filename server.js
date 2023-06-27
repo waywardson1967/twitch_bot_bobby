@@ -199,7 +199,6 @@ client.on("connected", function (address, port) {
 	//checkLiveStatus();
 	getAuthorization();
 	//fetchInformation();
-	client.say(channel, "reset Successful");
 });
 
 let fetchInfo = setInterval(function () {
