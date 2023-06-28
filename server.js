@@ -305,9 +305,7 @@ client.on('message', (channel, tags, message, self) => {
 					}
 					
 					if (AlreadyInQ == 0){	
-						let see = UserList.push(newPlayer);
-						client.say(channel, "got here");
-						client.say(channel, see.toString());
+						UserList.push(newPlayer);
 					}
 					argNum++;
 				}
