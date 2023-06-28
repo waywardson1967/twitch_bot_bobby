@@ -291,7 +291,7 @@ client.on('message', (channel, tags, message, self) => {
 					
 
 					user = argumentWords2[argNum];
-					client.say(channel, user);
+					
 					player.username = user;
 					player.points = 0;
 					
@@ -305,6 +305,7 @@ client.on('message', (channel, tags, message, self) => {
 					
 					if (AlreadyJoined == 0){	
 						UserList.push(player);
+						client.say(channel, user);
 					}
 					argNum++;
 				}
