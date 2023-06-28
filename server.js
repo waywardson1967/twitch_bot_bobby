@@ -306,7 +306,7 @@ client.on('message', (channel, tags, message, self) => {
 					if (AlreadyJoined == 0){	
 						let see = UserList.push(player);
 						client.say(channel, "got here");
-						client.say(channel, see);
+						client.say(channel, see.toString());
 					}
 					argNum++;
 				}
