@@ -282,15 +282,16 @@ client.on('message', (channel, tags, message, self) => {
 					client.say(channel, "Silly mod, you need to say WHO you want to add.");
 					return;
 				}
-				argumentWords = argument.split(/[^a-zA-Z0-9_]+/);
-				while (argNum < argumentWords.length){
+				const argumentWords2 = [];
+				argumentWords2 = argument.split(/[^a-zA-Z0-9_]+/);
+				while (argNum < argumentWords2.length){
 					client.say(channel, "Multi input hype");
-					client.say(channel, argumentWords[argNum]);
+					client.say(channel, argumentWords2[argNum]);
 					client.say(channel, "Multi input hype");
 					argNum++;
 					
 
-					user = argumentWords.pull;
+					user = argumentWords2[argNum];
 					client.say(channel, user);
 					player.username = user;
 					player.points = 0;
