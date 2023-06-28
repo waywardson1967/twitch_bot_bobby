@@ -282,8 +282,7 @@ client.on('message', (channel, tags, message, self) => {
 					client.say(channel, "Silly mod, you need to say WHO you want to add.");
 					return;
 				}
-				let argumentWords2 = [];
-				argumentWords2 = argument.split(/[^a-zA-Z0-9_]+/);
+				const argumentWords2 = argument.split(/[^a-zA-Z0-9_]+/);
 				while (argNum < argumentWords2.length){
 					client.say(channel, "Multi input hype");
 					client.say(channel, argumentWords2[argNum]);
