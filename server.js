@@ -292,8 +292,13 @@ client.on('message', (channel, tags, message, self) => {
 
 					user = argumentWords2[argNum];
 					
-					player.username = user;
-					player.points = 0;
+					const newPlayer = {
+						username : "waywardson__",
+						points : "0"
+						};
+
+						newPlayer.username = user;
+						newPlayer.points = 0;
 					
 					AlreadyJoined = 0;
 					for (let i = 0; i < UserList.length; i++){
@@ -304,7 +309,7 @@ client.on('message', (channel, tags, message, self) => {
 					}
 					
 					if (AlreadyJoined == 0){	
-						let see = UserList.push(player);
+						let see = UserList.push(newPlayer);
 						client.say(channel, "got here");
 						client.say(channel, see.toString());
 					}
