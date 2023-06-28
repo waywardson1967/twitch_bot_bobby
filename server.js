@@ -287,7 +287,6 @@ client.on('message', (channel, tags, message, self) => {
 					client.say(channel, "Multi input hype");
 					client.say(channel, argumentWords2[argNum]);
 					client.say(channel, "Multi input hype");
-					argNum++;
 					
 
 					user = argumentWords2[argNum];
@@ -306,6 +305,7 @@ client.on('message', (channel, tags, message, self) => {
 					if (AlreadyJoined == 0){	
 						UserList.push(player);
 					}
+					argNum++;
 				}
 				/*user = UserList[0].username;
 				for (let i = 1; i < UserList.length; i++){
