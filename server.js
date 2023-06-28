@@ -289,8 +289,8 @@ client.on('message', (channel, tags, message, self) => {
 					client.say(channel, "Multi input hype");
 					argNum++;
 					
-					let userString="name";
-					userString = argumentWords;
+					let userString;
+					userString = argumentWords[argNum];
 					player.username = userString;
 					player.points = 0;
 					
