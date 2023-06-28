@@ -277,13 +277,14 @@ client.on('message', (channel, tags, message, self) => {
 			if (tags.badges.hasOwnProperty('moderator') || tags.badges.hasOwnProperty('broadcaster')) {
 				let argNum = 0;
 				
-				AlreadyJoined = 0;
+				
 				if (argument == null){
 					client.say(channel, "Silly mod, you need to say WHO you want to add.");
 					return;
 				}
 				const argumentWords2 = argument.split(/[^a-zA-Z0-9_]+/);
 				while (argNum < argumentWords2.length){
+					AlreadyJoined = 0;
 					client.say(channel, "Multi input hype");
 					client.say(channel, argumentWords2[argNum]);
 					client.say(channel, "Multi input hype");
