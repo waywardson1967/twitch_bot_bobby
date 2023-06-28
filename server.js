@@ -284,11 +284,7 @@ client.on('message', (channel, tags, message, self) => {
 				}
 				const argumentWords2 = argument.split(/[^a-zA-Z0-9_]+/);
 				while (argNum < argumentWords2.length){
-					AlreadyJoined = 0;
-					client.say(channel, "Multi input hype");
-					client.say(channel, argumentWords2[argNum]);
-					client.say(channel, "Multi input hype");
-					
+					let AlreadyInQ = 0;
 
 					user = argumentWords2[argNum];
 					
@@ -297,30 +293,30 @@ client.on('message', (channel, tags, message, self) => {
 						points : "0"
 						};
 
-						newPlayer.username = user;
-						newPlayer.points = 0;
+					newPlayer.username = user;
+					newPlayer.points = 0;
 					
-					AlreadyJoined = 0;
+					AlreadyInQ = 0;
 					for (let i = 0; i < UserList.length; i++){
 						if (UserList[i].username === user){
-							AlreadyJoined = 1;
+							AlreadyInQ = 1;
 							break;
 						}
 					}
 					
-					if (AlreadyJoined == 0){	
+					if (AlreadyInQ == 0){	
 						let see = UserList.push(newPlayer);
 						client.say(channel, "got here");
 						client.say(channel, see.toString());
 					}
 					argNum++;
 				}
-				/*user = UserList[0].username;
+				user = UserList[0].username;
 				for (let i = 1; i < UserList.length; i++){
 					user = user.concat(", ", UserList[i].username);	
 				}
 				str = queueViewMsg.concat(user.toString());
-				client.say(channel, str);*/
+				client.say(channel, str);
 			}else{
 				return;
 			}
