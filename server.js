@@ -289,14 +289,15 @@ client.on('message', (channel, tags, message, self) => {
 					client.say(channel, "Multi input hype");
 					argNum++;
 					
-					let userString;
-					userString = argumentWords[argNum];
-					player.username = userString;
+
+					user = argumentWords.pull;
+					client.say(channel, user);
+					player.username = user;
 					player.points = 0;
 					
 					AlreadyJoined = 0;
 					for (let i = 0; i < UserList.length; i++){
-						if (UserList[i].username === userString){
+						if (UserList[i].username === user){
 							AlreadyJoined = 1;
 							break;
 						}
