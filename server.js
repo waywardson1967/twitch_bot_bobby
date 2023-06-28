@@ -302,11 +302,7 @@ client.on('message', (channel, tags, message, self) => {
 						}
 					}
 					
-					if (AlreadyJoined == 0){
-						errorNum = 4;
-						player.username = user;
-						
-						player.points = 0;	
+					if (AlreadyJoined == 0){	
 						UserList.push(player);
 					}
 				}
