@@ -95,7 +95,7 @@ async function getAuthorization() {
     token_type.substring(1, token_type.length);
 
     authorization = `${token_type} ${access_token}`;
-	fetchInformation();
+	//fetchInformation();
 }
 
 async function fetchInformation(){
@@ -115,7 +115,7 @@ let streamerIsLive = 1;
 let prevStreamerIsLive = 1;
 
 function checkStreamInfo(data) {
-	if(data.hasOwnProperty('pagination')){ //potentially live
+	/*if(data.hasOwnProperty('pagination')){ //potentially live
 		//console.log("that worked");
 		for (var i = 0; i < data.data.length; i++){
 			//console.log(data.data[i].display_name);
@@ -159,37 +159,8 @@ function checkStreamInfo(data) {
 				checkingIfTrulyOffline = 0;
 			  }, 3600000); //60 mins*60sec/min*1000ms/sec = 
 		}
-	}
+	}*/
 }
-
-/*function checkLiveStatus () {
-	while(1){
-		if (liveStatus_recheckValid === 1){
-			if(liveStatus_rerunAuthentication === 1){
-				getAuthoraization();
-				fetchInformation();
-				
-				liveStatus_recheckValid = 0;
-				liveStatus_rerunAuthentication = 0;
-				setInterval(function myServerSet() {
-					liveStatus_recheckValid = 1;
-				}, 2000);
-		
-				setInterval(function myServerSet() {
-					liveStatus_rerunAuthentication = 1;
-				}, 20000);
-		
-			}else{
-				fetchInformation();
-
-				liveStatus_recheckValid = 0;
-				setInterval(function myServerSet() {
-					liveStatus_recheckValid = 1;
-				}, 2000);
-			}
-		}
-	}
-}*/
 
 client.connect();
 
@@ -199,10 +170,10 @@ client.on("connected", function (address, port) {
 	//fetchInformation();
 });
 
-let fetchInfo = setInterval(function () {
+/*let fetchInfo = setInterval(function () {
 	fetchInformation();
 
-}, 1000); //in milliseconds -- allowed to do this up to 800 times a minute -- we are doing 1 per second so 60 per minute
+}, 1000); //in milliseconds -- allowed to do this up to 800 times a minute -- we are doing 1 per second so 60 per minute*/
 
 let getAuth_client = setInterval(function () {
 	getAuthorization();
